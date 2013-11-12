@@ -1,0 +1,117 @@
+<html>
+<head>
+	<style>
+		.diskPanel {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			box-sizing: content-box;
+			height: 500px;
+			width: 500px;
+			margin: -250px 0 0 -250px;
+			background-color: rgba(33,33,33,0.4);
+		}
+		.buttonWrapper {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			pointer-events: none;
+		}
+		.diskButton {
+			position: absolute;
+			top: 90px;
+			left: 50%;
+			height: 104px;
+			width: 164px;
+			margin: 0 0 0 -82px;
+			pointer-events: auto;
+		}
+		#button1 {
+			-webkit-transform: rotate(0deg);
+		}
+		#button2 {
+			-webkit-transform: rotate(60deg);
+		}
+		#button3 {
+			-webkit-transform: rotate(120deg);
+		}
+		#button4 {
+			-webkit-transform: rotate(180deg);
+		}
+		#button5 {
+			-webkit-transform: rotate(240deg);
+		}
+		#button6 {
+			-webkit-transform: rotate(300deg);
+		}
+		#button7 {
+			display: none;
+			-webkit-transform: rotate(306deg);
+		}
+		.edge.left {
+			/*transform: rotate(45deg);*/
+			/*-ms-transform: rotate(45deg);*/
+			-webkit-transform: rotate(-24deg);
+		}
+		.edge.right {
+			/*transform: rotate(45deg);*/
+			/*-ms-transform: rotate(45deg);*/
+			-webkit-transform: rotate(24deg);
+		}
+	</style>
+</head>
+<body>
+<div class="diskPanel">
+	<div id="button1" class="buttonWrapper">
+		<img class="diskButton" style="width: 164px; height: 104px;" src="images/diskbutton.png" usemap="#diskbuttonMap1">
+		<map name="diskbuttonMap1" for="button1">
+			<area shape="poly" coords="2,18, 11,2, 152,2, 161,18, 112,101, 51,101, 2,18" href="#" alt="Button #1">
+		</map>
+	</div>
+	<div id="button2" class="buttonWrapper">
+		<img class="diskButton" style="width: 164px; height: 104px;" src="images/diskbutton.png" usemap="#diskbuttonMap2">
+		<map name="diskbuttonMap2" for="button2">
+			<area shape="poly" coords="2,18, 11,2, 152,2, 161,18, 112,101, 51,101, 2,18" href="#" alt="Button #2">
+		</map>
+	</div>
+	<div id="button3" class="buttonWrapper">
+		<img class="diskButton" style="width: 164px; height: 104px;" src="images/diskbutton.png" usemap="#diskbuttonMap3">
+		<map name="diskbuttonMap3" for="button3">
+			<area shape="poly" coords="2,18, 11,2, 152,2, 161,18, 112,101, 51,101, 2,18" href="#" alt="Button #3">
+		</map>
+	</div>
+	<div id="button4" class="buttonWrapper">
+		<img class="diskButton" style="width: 164px; height: 104px;" src="images/diskbutton.png" usemap="#diskbuttonMap4">
+		<map name="diskbuttonMap4" for="button4">
+			<area shape="poly" coords="2,18, 11,2, 152,2, 161,18, 112,101, 51,101, 2,18" href="#" alt="Button #4">
+		</map>
+	</div>
+	<div id="button5" class="buttonWrapper">
+		<img class="diskButton" style="width: 164px; height: 104px;" src="images/diskbutton.png" usemap="#diskbuttonMap5">
+		<map name="diskbuttonMap5" for="button5">
+			<area shape="poly" coords="2,18, 11,2, 152,2, 161,18, 112,101, 51,101, 2,18" href="#" alt="Button #5">
+		</map>
+	</div>
+	<div id="button6" class="buttonWrapper">
+		<img class="diskButton" style="width: 164px; height: 104px;" src="images/diskbutton.png" usemap="#diskbuttonMap6">
+		<map name="diskbuttonMap6" for="button6">
+			<area shape="poly" coords="2,18, 11,2, 152,2, 161,18, 112,101, 51,101, 2,18" href="#" alt="Button #6">
+		</map>
+	</div>
+	<div id="button7" class="buttonWrapper">
+		<img class="diskButton" style="width: 164px; height: 104px;" src="images/diskbutton.png" usemap="#diskbuttonMap7">
+		<map name="diskbuttonMap7" for="button7">
+			<area shape="poly" coords="2,18, 11,2, 152,2, 161,18, 112,101, 51,101, 2,18" href="#" alt="Button #7">
+		</map>
+	</div>
+	<div id="button8" class="buttonWrapper">
+		<img class="diskButton" style="width: 164px; height: 104px;" src="images/diskbutton.png" usemap="#diskbuttonMap8">
+		<map name="diskbuttonMap8" for="button8">
+			<area shape="poly" coords="2,18, 11,2, 152,2, 161,18, 112,101, 51,101, 2,18" href="#" alt="Button #8">
+		</map>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<html>
+<head>
+	<style>
+		.frame {
+			display: inline-block;
+			position: relative;
+			box-sizing: content-box;
+			width: 400px;
+			height: 132px;
+			overflow: hidden;
+			border: 1px dotted red;
+		}
+		.circleClipper {
+			position: absolute;
+			top: 30px;
+			left: 50%;
+			box-sizing: border-box;
+			width: 400px;
+			height: 400px;
+			margin-top: 0;
+			margin-left: -200px;
+			border-radius: 50%;
+		}
+		.largeCircle {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			box-sizing: border-box;
+			border: 1px solid black;
+			border-radius: 50%;
+			background-color: #c33;
+		}
+		.largeCircle:hover {
+			background-color: red;
+		}
+		.smallCircle {
+			position: absolute;
+			top: 23%;
+			right: 23%;
+			bottom: 23%;
+			left: 23%;
+			box-sizing: border-box;
+			border: 1px solid black;
+			border-radius: 50%;
+			background-color: white;
+		}
+		.edge {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			pointer-events: none;
+		}
+		.edge .mask {
+			position: absolute;
+			border: 1px solid white;
+			background-color: white;
+			pointer-events: auto;
+		}
+		.edge.left {
+			/*transform: rotate(45deg);*/
+			/*-ms-transform: rotate(45deg);*/
+			-webkit-transform: rotate(-24deg);
+		}
+		.edge.left .mask {
+			top: 0;
+			left: 0;
+			right: 50%;
+			bottom: 50%;
+			border-right: 1px solid black;
+		}
+		.edge.right {
+			/*transform: rotate(45deg);*/
+			/*-ms-transform: rotate(45deg);*/
+			-webkit-transform: rotate(24deg);
+		}
+		.edge.right .mask {
+			top: 0;
+			left: 50%;
+			right: 0;
+			bottom: 50%;
+			border-left: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+<div class="frame">
+	<div class="circleClipper">
+		<div class="largeCircle"></div>
+		
+		<div class="left edge">
+			<div class="mask"></div>
+		</div>
+		
+		<div class="right edge">
+			<div class="mask"></div>
+		</div>
+		
+		<div class="smallCircle"></div>
+	</div>
+</div>
+</body>
+</html>
