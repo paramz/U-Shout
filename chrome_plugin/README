@@ -1,0 +1,10 @@
+Folders:
+|———— _locales: localized text
+|———— css: css files
+|———— images: image files
+|———— js: javascript files
+|———— resources: files not for publication
+
+Files:
+|———— manifest.json: descriptive file for chrome to load the plugin correctly
+|———— README: this file you are reading

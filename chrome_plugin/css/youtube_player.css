@@ -1,0 +1,13 @@
+body.ushout {}
+body.ushout #guide {}
+body.ushout #player {}
+	body.ushout #player #playlist {}
+	body.ushout #player #player-api {
+		/* force player api relative for inner objects */
+		position: relative;
+		padding-bottom: 27px;
+	}
+	body.ushout #player #playlist-tray {}
+body.ushout #content {}
+
+body.ushout_fullwindow {}

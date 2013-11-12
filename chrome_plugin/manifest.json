@@ -1,0 +1,101 @@
+{
+	"manifest_version": 2, // this should not be changed. the only working version is 2.
+	
+	"name": "__MSG_extName__", // __MSG_extName__ will load 'extName' from messages.json from _locales
+
+// commented out because not supported yet	
+//	"short_name": "__MSG_extShortName__", // __MSG_extShortName__ will load 'extShortName' from messages.json from _locales
+	
+	"version": "2013.11.8.0", // version number
+	
+	"description": "__MSG_extDesc__", // __MSG_extDesc__ will load 'extDesc' from messages.json from _locales
+	
+	"icons": { // icons for play store and extension management page
+		"128": "images/extension_icon128.png",
+		"16" : "images/extension_icon16.png",
+		"48" : "images/extension_icon48.png"
+	},
+	
+	"browser_action": {
+
+		"default_icon": { // icons for the toolbar
+			"19": "images/toolbar_icon19.png",
+			"38": "images/toolbar_icon38.png"
+		},
+		
+		"default_title": "__MSG_extName__" // __MSG_extName__ will load 'extName' from messages.json from _locales
+		
+		//"default_popup": "popup.html"
+	},
+	
+	"background": {
+		"persistent": false, // this is suggested by new standard
+		"scripts": [
+			"js/background.js"
+		]
+	},
+	
+	"content_scripts": [
+		{
+			"matches": [ // inject the scripts when the url matches any of these
+				// match youtube.com
+				"http://www.youtube.com/*",
+				"http://youtube.com/*"
+			],
+			"exclude_matches": [ // don't inject the scripts if the url matched the previous setting and also any of these
+			],
+			"css": [ // css files to be injected
+				"css/youtube_player.css", // css for fixing the youtube player
+				"css/lib.css" // css for the library
+			],
+			"js": [ // javascript files to be injected
+				"js/jquery-1.10.2.min.js", // jquery
+				"js/jquery-ui-1.10.3.min.js", // jquery UI
+				"js/lib.js", // the library
+				"js/main.js" // the small code clip that activates the library
+			],
+			"run_at": "document_start",
+/********************************************************************************
+In the case of "document_start", the files are injected after any files from css,
+	but before any other DOM is constructed or any other script is run. 
+
+In the case of "document_end", the files are injected immediately after the DOM
+	is complete, but before subresources like images and frames have loaded. 
+
+In the case of "document_idle", the browser chooses a time to inject scripts
+	between "document_end" and immediately after the window.onload event fires.
+	The exact moment of injection depends on how complex the document is and how 
+	long it is taking to load, and is optimized for page load speed. 
+
+Note: With "document_idle", content scripts may not necessarily receive the
+	window.onload event, because they may run after it has already fired. In most
+	cases, listening for the onload event is unnecessary for content scripts
+	running at "document_idle" because they are guaranteed to run after the DOM
+	is complete. If your script definitely needs to run after window.onload, you
+	can check if onload has already fired by using the document.readyState
+	property.
+********************************************************************************/
+			"all_frames": true, // inject files for all frames
+			"include_globs": [ // not used for now
+			],
+			"exclude_globs": [ // not used for now
+			]
+		}
+	],
+	
+	"default_locale": "en",
+	
+	"optional_permissions": ["management"],
+	
+	"permissions": [],
+	
+	"web_accessible_resources": [ // only the files listed here can be loaded
+		// javascript files
+		"js/jquery-1.10.2.min.map",
+		// css files
+		"css/youtube_player.css",
+		// images
+		"images/play_pause.png",
+		"images/volume.png"
+	]
+}

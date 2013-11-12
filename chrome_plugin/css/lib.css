@@ -1,0 +1,126 @@
+#ushout_overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	border: 1px solid red;
+	background-color: transparent;
+	pointer-events: none;
+}
+
+#ushout_toucharea {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 27px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
+	left: 0;
+	border: 3px solid blue;
+	box-sizing: border-box;
+	background-color: transparent;
+/*	pointer-events: auto; */
+}
+
+#ushout_controlbar {
+	position: absolute;
+	top: auto;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 27px; /* controlBar height */
+	border: 0;
+	box-sizing: border-box;
+	background-color: #1b1b1b; /* this is the youtube control bar background color */
+/*	pointer-events: auto; */
+}
+
+#ushout_play_pause {
+	display: block;
+	float: left;
+	width: 56px;
+	height: 27px;
+	border: 0;
+	box-sizing: border-box;
+	background-color: transparent;
+	outline: none;
+	pointer-events: auto;
+}
+#ushout_play_pause:hover {
+	background-position-y: -100%;
+}
+
+#ushout_volumeframe {
+	display: block;
+	position: relative;
+	float: left;
+	width: 29px;
+	height: 27px;
+	border: 0;
+	box-sizing: border-box;
+	background-color: green;
+	pointer-events: none;
+	
+	-webkit-transition: width 200ms ease-out;
+	-moz-transition: width 200ms ease-out;
+	-ms-transition: width 200ms ease-out;
+	-o-transition: width 200ms ease-out;
+	transition: width 200ms ease-out;
+}
+#ushout_volumeframe:hover {
+	width: 129px;
+	-webkit-transition: width 200ms ease-in;
+	-moz-transition: width 200ms ease-in;
+	-ms-transition: width 200ms ease-in;
+	-o-transition: width 200ms ease-in;
+	transition: width 200ms ease-in;
+}
+
+#ushout_volumebutton {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: auto;
+	bottom: auto;
+	left: 0;
+	width: 29px;
+	height: 27px;
+	box-sizing: border-box;
+	background-color: transparent;
+	outline: none;
+	pointer-events: auto;
+}
+#ushout_volumebutton:hover {
+	background-position-y: -100%;
+}
+
+#ushout_volumeslider_wrapper {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 29px;
+	overflow: hidden;
+}
+
+#ushout_volumeslider {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: auto;
+	width: 50px;
+	background-color: yellow;
+}
+
+#ushout_playtime {
+	display: block;
+	float: left;
+	width: 56px;
+	height: 27px;
+	border: 0;
+	box-sizing: border-box;
+	background-color: red;
+	pointer-events: auto;
+}
