@@ -6,7 +6,7 @@
 // commented out because not supported yet	
 //	"short_name": "__MSG_extShortName__", // __MSG_extShortName__ will load 'extShortName' from messages.json from _locales
 	
-	"version": "2013.11.8.0", // version number
+	"version": "2013.11.20.1", // version number
 	
 	"description": "__MSG_extDesc__", // __MSG_extDesc__ will load 'extDesc' from messages.json from _locales
 	
@@ -40,7 +40,9 @@
 			"matches": [ // inject the scripts when the url matches any of these
 				// match youtube.com
 				"http://www.youtube.com/*",
-				"http://youtube.com/*"
+				"http://youtube.com/*",
+				"https://www.youtube.com/*",
+				"https://youtube.com/*"
 			],
 			"exclude_matches": [ // don't inject the scripts if the url matched the previous setting and also any of these
 			],
@@ -95,7 +97,6 @@ Note: With "document_idle", content scripts may not necessarily receive the
 		// css files
 		"css/youtube_player.css",
 		// images
-		"images/play_pause.png",
-		"images/volume.png"
+		"images/*.png"
 	]
 }

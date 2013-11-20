@@ -1,13 +1,20 @@
-body.ushout {}
-body.ushout #guide {}
-body.ushout #player {}
-	body.ushout #player #playlist {}
-	body.ushout #player #player-api {
-		/* force player api relative for inner objects */
-		position: relative;
-		padding-bottom: 27px;
-	}
-	body.ushout #player #playlist-tray {}
-body.ushout #content {}
+/**
+ * The CSS codes here are used to fix the objects on the Youtube page
+ * so our plugin can work.
+ **/
 
-body.ushout_fullwindow {}
+#page {
+	position: relative;
+	background-color: rgba(255, 0, 0, 0.2);
+}
+
+#guide {}
+#player {}
+#player #playlist {}
+#player #player-api {
+	/* force player api relative for inner objects */
+	position: relative;
+	padding-bottom: 27px;
+}
+#player #playlist-tray {}
+#content {}
