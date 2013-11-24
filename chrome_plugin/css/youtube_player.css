@@ -3,18 +3,33 @@
  * so our plugin can work.
  **/
 
-#page {
+
+/**
+ * PERMANENT FIXES
+ * These fixes should be working all times as the plugin is active.
+ **/
+#player-api {
+	/* force player api relative for inner objects */
+	position: relative;
+	padding-bottom: 81px;
+}
+
+/**
+ * TOGGLED FIXES
+ * These fixes only work when the plugin is active WITH features turned on.
+ * Toggled fixes should all have the leading 'body.ushout'.
+ **/
+
+body.ushout #page {
 	position: relative;
 	background-color: rgba(255, 0, 0, 0.2);
 }
 
-#guide {}
-#player {}
-#player #playlist {}
-#player #player-api {
-	/* force player api relative for inner objects */
-	position: relative;
-	padding-bottom: 27px;
+body.ushout #guide {}
+body.ushout #player {}
+body.ushout #player #playlist {}
+body.ushout #player #player-api {
+
 }
-#player #playlist-tray {}
-#content {}
+body.ushout #player #playlist-tray {}
+body.ushout #content {}
