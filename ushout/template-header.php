@@ -13,8 +13,8 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/main.css">
         <!--<script src="js/vendor/modernizr-2.6.2.min.js"></script>-->
     </head>
     <body debug="no" signedin="yes">
@@ -30,10 +30,12 @@
                     <nav id="nav" class="clearfix">
                         <div id="logo">U Shout</div>
 						<?if(!isset($_GET['hide_menu'])){?>
-                        <!--div id="search_container">
-                            <input id="search_input" type="text" value="Type here to search...">
-                            <button id="search_submit" type="submit" tooltip="click to search" demo="no">Search</button>
-                        </div-->
+                        <div id="search_container">
+                            <form>
+                                <input id="search_input" type="text" value="Type here to search..." name="search">
+                                <button id="search_submit" type="submit" tooltip="click to search" demo="no">Search</button>
+                            </form>
+                        </div>
 						<?}?>
                         <div id="auth">
                             <div class="not_signed_in">
@@ -41,7 +43,7 @@
                             </div>
                             <div class="signed_in">
                             	<div id="profile_wrapper" class="clearfix">
-	                            	<a id="username" tooltip="profile page" demo="no" href="#">Xingchen</a> <div style="float: right"> <img src="user_img.png" /> </div>
+	                            	<a id="username" tooltip="profile page" demo="no" href="#">Xingchen</a> <div style="float: right"> <img src="/user_img.png" /> </div>
 	                            	<!-- button id="more_pages" class="activated" tooltip="more pages" demo="yes"></button-->
 	                            	<ul id="more_page_list">
 	                            		<li class="more_page_item"><a href="#">My Channels</a></li>

@@ -1,0 +1,4 @@
+<?php include '../template-header.php';?>
+<h1>My Channels</h1>
+
+<?php include '../template-footer.php';?>
