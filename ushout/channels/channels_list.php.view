@@ -10,6 +10,7 @@
         </ul>
         <?php } ?>
     </div>
+</div>
 
     <div class="new_channel">
         <form method="post">
@@ -20,6 +21,5 @@
         </form>
     </div>
             
-</div>
-
+            
 <?php include '../template-footer.php';?>
