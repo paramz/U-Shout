@@ -4,11 +4,12 @@
 <div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
     
     <div class="channel_list">
-        <?php foreach ($channels as $channel) {?>
         <ul>
-            <?php include 'channel_list_item.view.php';?>                    
+        <?php foreach ($channels as $channel)
+            include 'channel_list_item.view.php';
+        ?>
         </ul>
-        <?php } ?>
+        
     </div>
 </div>
 
