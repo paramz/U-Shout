@@ -508,6 +508,40 @@ button.prompt {
 }
 
 
+/* content list */
+
+
+.content_list {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height:400px;
+    overflow-y: scroll;    
+}
+
+.content_list ul {
+    list-style-type: none;   
+}
+
+.content_list div.name {
+    font-size: 130%;
+    font-weight:bold;
+}
+
+.content_list div.description {
+    font-weight:bold;
+}
+
+.content_list div {
+    font-size: 85%;
+}
+
+li.list_item {
+    float: left; 
+    width: 230px;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
 
 /* ==========================================================================
    Helper classes
