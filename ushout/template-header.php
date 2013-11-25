@@ -32,7 +32,7 @@
 						<?if(!isset($_GET['hide_menu'])){?>
                         <div id="search_container">
                             <form>
-                                <input id="search_input" type="text" value="Type here to search..." name="search">
+                                <input id="search_input" type="text" value="<?php echo $search_text ?>" name="search">
                                 <button id="search_submit" type="submit" tooltip="click to search" demo="no">Search</button>
                             </form>
                         </div>

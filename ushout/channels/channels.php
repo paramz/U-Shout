@@ -3,7 +3,12 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
-  include('channels_list.php.view');
+      if (!isset($_GET["search"]))
+          $search_text = "filter channels ...";
+      else
+          $search_text = $_GET["search"];
+      
+      include('channels_list.php.view');
 }
 
 ?>
