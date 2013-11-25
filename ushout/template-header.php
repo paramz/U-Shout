@@ -30,10 +30,10 @@
                     <nav id="nav" class="clearfix">
                         <div id="logo">U Shout</div>
 						<?if(!isset($_GET['hide_menu'])){?>
-                        <div id="search_container">
+                        <!--div id="search_container">
                             <input id="search_input" type="text" value="Type here to search...">
-                            <button id="search_submit" type="submit" tooltip="click to search" demo="yes">Search</button>
-                        </div>
+                            <button id="search_submit" type="submit" tooltip="click to search" demo="no">Search</button>
+                        </div-->
 						<?}?>
                         <div id="auth">
                             <div class="not_signed_in">
@@ -41,8 +41,8 @@
                             </div>
                             <div class="signed_in">
                             	<div id="profile_wrapper" class="clearfix">
-	                            	<a id="username" tooltip="profile page" demo="yes" href="#">Username</a>
-	                            	<button id="more_pages" class="activated" tooltip="more pages" demo="yes"></button>
+	                            	<a id="username" tooltip="profile page" demo="no" href="#">Xingchen</a> <div style="float: right"> <img src="user_img.png" /> </div>
+	                            	<!-- button id="more_pages" class="activated" tooltip="more pages" demo="yes"></button-->
 	                            	<ul id="more_page_list">
 	                            		<li class="more_page_item"><a href="#">My Channels</a></li>
 	                            		<li class="more_page_item"><a href="#">My Videos</a></li>
@@ -56,3 +56,8 @@
                     </nav>
                 </div>
                 <div id="body_container" class="debug_frame">
+                
+                <div style='color:white;margin-top:10%;margin-left:2%;'>
+
+                
+                
