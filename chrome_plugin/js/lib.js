@@ -1,6 +1,4 @@
 function ushout($body) {
-	var youtube = {};
-	
 	// macro functions
 	function log(msg) {
 		console.log('ushout: ' + String(msg));
@@ -9,59 +7,85 @@ function ushout($body) {
 		console.warn('ushout: ' + String(msg));
 	}
 	
+	// url check
+	var href = window.location.pathname.toLowerCase();
+	// the player page should have pathname '/watch'
+	if (href !== '/watch') {
+		// hault if not the right page
+		log('not watch page');
+		return;
+	}
+	
+	var query = window.location.search;
+	////////////////////////////////////////////////////////////////////
+	
+	log(query);
+	
 	log('loading');
+	
+	$body.addClass('ushout');
+	
+	var youtube = {};
 	
 	youtube.$bodyContainer = $body.find("#body-container");
 	if (youtube.$bodyContainer.length !== 1) {
 		return;
 	}
+	log('#body-container check');
 	
 	youtube.$pageContainer = youtube.$bodyContainer.find("#page-container");
 	if (youtube.$pageContainer.length !== 1) {
 		return;
 	}
+	log('#page-container check');
 	
 	youtube.$page = youtube.$pageContainer.find("#page");
 	if (youtube.$page.length !== 1) {
 		return;
 	}
+	log('#page check');
 	
 	youtube.$player = youtube.$page.find("#player");
 	if (youtube.$player.length !== 1) {
 		warn('fail because can not find player wrapper on this page.');
 		return;
 	}
+	log('#player check');
 	
 	youtube.$playerapi = youtube.$player.find("#player-api");
 	if (youtube.$playerapi.length !== 1) {
 		warn('fail because can not find player on this page.');
 		return;
 	}
+	log('#player-api check');
 	
 	youtube.$playlist = youtube.$player.find("#playlist");
 	if (youtube.$playlist.length !== 1) {
 	//	warn('fail because can not find playlist wrapper on this page.');
 		return;
 	}
+	log('#playlist check');
 	
 	youtube.$playertray = youtube.$player.find("#playlist-tray");
 	if (youtube.$playertray.length !== 1) {
 	//	warn('fail because can not find playlist tray on this page.');
 		return;
 	}
+	log('#playlist-tray check');
 	
 	youtube.$guide = youtube.$page.find("#guide");
 	if (youtube.$guide.length !== 1) {
 	//	warn('fail because can not find guide wrapper on this page.');
 		return;
 	}
+	log('#guide check');
 	
 	youtube.$content = youtube.$page.find("#content");
 	if (youtube.$content.length !== 1) {
 	//	warn('fail because can not find content wrapper on this page.');
 		return;
 	}
-	
+	log('#content check');
 	
 	
 	
@@ -76,7 +100,12 @@ function ushout($body) {
 	
 	// this function adds the prefix 'ushout_' to the given string to avoid conflicts
 	function _u(str) {
-		return 'ushout_' + String(str);
+		var result = '';
+		for (var i = 0, n = arguments.length; i < n; ++i) {
+			if (result !== '') result += ' ';
+			result += 'ushout_' + String(arguments[i]);
+		}
+		return result;
 	}
 	// clone reference for creating new objects
 	var $DIV = $('<div>'),
@@ -96,11 +125,24 @@ function ushout($body) {
 				$(this).removeClass('mousedown');
 			});
 	
-	var $overlay = $DIV.clone().attr('id', _u('overlay')).appendTo(youtube.$playerapi);
+	var $overlay = $DIV.clone()
+		.attr('id', _u('overlay'))
+		.addClass(_u('simplebox'))
+		.appendTo(youtube.$playerapi);
 	
-	var $touchArea = $DIV.clone().attr('id', _u('toucharea')).appendTo($overlay);
+	var $touchArea = $DIV.clone()
+		.attr('id', _u('toucharea'))
+		.addClass(_u('simplebox'))
+		.appendTo($overlay);
 	
-	var $controlBar = $DIV.clone().attr('id', _u('controlbar')).appendTo($overlay);
+	var $controlBar = $DIV.clone()
+		.attr('id', _u('controlbar'))
+		.addClass(_u('simplebox'))
+		.appendTo($overlay);
+	var $debugBar = $DIV.clone()
+		.attr('id', _u('debugBar'))
+		.addClass(_u('simplebox'))
+		.appendTo($overlay);
 	
 	// this function is a macro to handle the creation of a button
 	function createButton(iconUrl, width, height) {
@@ -117,39 +159,59 @@ function ushout($body) {
 	
 	var controls = {};
 	
-	controls.$play_pause = $BUT.clone()
+	// play/pause button ==============================================//
+	controls.$play_pause_frame = $DIV.clone()
 		.attr({
-			'id': _u('play_pause'),
+			'id': _u('play_pause_frame')
+		})
+		.addClass(_u('simplebox', 'controlitem', 'leftaligned'));
+	
+	controls.$play_pause_button = $BUT.clone()
+		.attr({
+			'id': _u('play_pause_button'),
 			'ushout_tooltip': 'Click to play the video'
 		})
+		.addClass(_u('simplebox'))
 		.css({
 			backgroundImage: 'url(' + controlImages.play_pause + ')'
 		});
 	
-	controls.$volumeFrame = $DIV.clone()
+	// volume controls ================================================//
+	controls.$volume_frame = $DIV.clone()
 		.attr({
-			'id': _u('volumeframe')
-		});
+			'id': _u('volume_frame')
+		})
+		.addClass(_u('simplebox', 'controlitem', 'leftaligned'));
 	
-	controls.$volumeButton = $BUT.clone()
+	controls.$volume_wrapper = $DIV.clone()
 		.attr({
-			'id': _u('volumebutton'),
+			'id': _u('volume_wrapper')
+		})
+		.addClass(_u('simplebox'));
+	
+	controls.$volume_button = $BUT.clone()
+		.attr({
+			'id': _u('volume_button'),
 			'ushout_tooltip': 'Click to Mute'
 		})
+		.addClass(_u('simplebox'))
 		.css({
 			backgroundImage: 'url(' + controlImages.volume + ')'
 		});
 	
-	controls.$volumeSliderWrapper = $DIV.clone()
+	controls.$volume_slider_wrapper = $DIV.clone()
 		.attr({
-			'id': _u('volumeslider_wrapper')
-		});
+			'id': _u('volume_slider_wrapper')
+		})
+		.addClass(_u('simplebox'));
 	
-	controls.$volumeSlider = $DIV.clone()
+	controls.$volume_slider = $DIV.clone()
 		.attr({
-			'id': _u('volumeslider')
-		});
+			'id': _u('volume_slider')
+		})
+		.addClass(_u('simplebox'));
 	
+	// playtime =======================================================//
 	controls.$playtime = $DIV.clone()
 		.attr('id', _u('playtime'));
 	
@@ -176,27 +238,40 @@ function ushout($body) {
 			backgroundImage: 'url(' + controlImages.fullscreen + ')'
 		});
 	
+	controls.$rtcToggleFrame = $DIV.clone()
+		.attr('id', _u('rtctoggleframe'));
+	
 	$controlBar.append(
-		controls.$play_pause,
-		controls.$volumeFrame.append(
-			controls.$volumeButton,
-			controls.$volumeSliderWrapper.append(
-				controls.$volumeSlider
+		controls.$play_pause_frame.append(
+			controls.$play_pause_button
+		),
+		
+		controls.$volume_frame.append(
+			controls.$volume_wrapper.append(
+				controls.$volume_button,
+				controls.$volume_slider_wrapper.append(
+					controls.$volume_slider
+				)
 			)
 		),
 		controls.$playtime,
 		controls.$commentInputFrame,
 		
 		
-		controls.$fullwindow
+		controls.$fullwindow,
+		controls.$rtcToggleFrame
 	);
 	
 	// start higher level logics from here
-	controls.$playtime.text('00:00 / 00:00');
-	controls.$volumeSlider.slider({
+	//====================================
+//	$debugBar.text(href);
+	
+	
+	controls.$volume_slider.slider({
 		range: "min",
 		value: 50,
 		min: 0,
 		max: 100
 	});
+	controls.$playtime.text('00:00 / 00:00');
 }

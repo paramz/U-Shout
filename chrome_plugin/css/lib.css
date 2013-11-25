@@ -1,11 +1,21 @@
+.ushout_simplebox {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 #ushout_overlay {
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
+	
 	border: 1px solid red;
+	
 	background-color: transparent;
+	
 	pointer-events: none;
 }
 
@@ -13,12 +23,31 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	bottom: 27px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
+	bottom: 81px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
 	left: 0;
+	
 	border: 3px solid blue;
-	box-sizing: border-box;
+	
 	background-color: transparent;
+	
 /*	pointer-events: auto; */
+}
+
+#ushout_debugBar {
+	position: absolute;
+	z-index: 999;
+	top: auto;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	
+	height: 27px;
+	
+	background-color: white;
+	
+	font-size: 14px;
+	line-height: 27px;
+	color: black;
 }
 
 #ushout_controlbar {
@@ -26,39 +55,64 @@
 	z-index: 999; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
 	top: auto;
 	right: 0;
-	bottom: 0;
+	bottom: 54px;
 	left: 0;
+	
 	height: 27px; /* controlBar height */
-	border: 0;
-	box-sizing: border-box;
+	
 	background-color: #1b1b1b; /* this is the youtube control bar background color */
+	
 /*	pointer-events: auto; */
 }
 
-#ushout_play_pause {
+#ushout_controlbar .ushout_controlitem {
 	display: block;
-	float: left;
-	width: 56px;
+	
+	position: relative;
+	
 	height: 27px;
-	border: 0;
-	box-sizing: border-box;
+	
 	background-color: transparent;
-	outline: none;
+	
 	pointer-events: auto;
 }
-#ushout_play_pause:hover {
+
+#ushout_controlbar .ushout_controlitem.ushout_leftaligned {
+	float: left;
+}
+
+#ushout_controlbar .ushout_controlitem.ushout_rightaligned {
+	float: right;
+}
+
+/*========================================================*/
+
+#ushout_play_pause_frame {
+	
+}
+#ushout_play_pause_button {
+	height: 27px;
+	width: 56px;
+	
+	background-color: transparent;
+	
+	outline: none;
+}
+#ushout_play_pause_button:hover {
 	background-position-y: -100%;
 }
 
-#ushout_volumeframe {
-	display: block;
+/*========================================================*/
+
+#ushout_volume_frame {
+	
+}
+
+#ushout_volume_wrapper {
 	position: relative;
-	float: left;
-	width: 29px;
+	
 	height: 27px;
-	border: 0;
-	box-sizing: border-box;
-	pointer-events: auto;
+	width: 29px;
 	
 	-webkit-transition: width 200ms ease-out;
 	-moz-transition: width 200ms ease-out;
@@ -66,8 +120,9 @@
 	-o-transition: width 200ms ease-out;
 	transition: width 200ms ease-out;
 }
-#ushout_volumeframe:hover {
+#ushout_volume_wrapper:hover {
 	width: 100px;
+	
 	-webkit-transition: width 200ms ease-in;
 	-moz-transition: width 200ms ease-in;
 	-ms-transition: width 200ms ease-in;
@@ -75,68 +130,91 @@
 	transition: width 200ms ease-in;
 }
 
-#ushout_volumebutton {
+#ushout_volume_button {
 	display: block;
+	
 	position: absolute;
 	top: 0;
 	right: auto;
 	bottom: auto;
 	left: 0;
+	
 	width: 29px;
 	height: 27px;
-	box-sizing: border-box;
+	
 	background-color: transparent;
+	
 	outline: none;
 }
-#ushout_volumebutton:hover {
+#ushout_volume_button:hover {
 	background-position-y: -100%;
 }
 
-#ushout_volumeslider_wrapper {
+#ushout_volume_slider_wrapper {
 	display: block;
+	
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 29px;
+	
 	overflow: hidden;
 }
 
-#ushout_volumeslider {
+#ushout_volume_slider {
 	display: block;
+	
 	position: absolute;
 	top: 50%;
 	right: 10px;
 	bottom: auto;
 	left: auto;
+	
+	margin: -2px 0 0 0;
+	
 	height: 4px;
 	width: 50px;
-	margin: -2px 0 0 0;
+	
 	background-color: #757575;
 }
 
-#ushout_volumeslider .ui-slider-range {
+#ushout_volume_slider .ui-slider-range {
 	display: block;
+	
 	position: absolute;
+	z-index: 1;
 	top: 0;
 	right: auto;
 	bottom: 0;
 	left: 0;
+	
 	background-color: #d00000;
 }
 
-#ushout_volumeslider .ui-slider-handle {
+#ushout_volume_slider .ui-slider-handle {
 	display: block;
+	
 	position: absolute;
 	z-index: 2;
 	top: 0;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	
+	margin: -5px 0 0 -2px;
+	
 	height: 14px;
 	width: 5px;
-	margin: -5px 0 0 -2px;
+	
 	background-color: #dddddd;
+	
 	outline: none;
+	
 	cursor: default;
 }
+
+/*========================================================*/
 
 #ushout_playtime {
 	display: block;
@@ -168,6 +246,12 @@
 }
 #ushout_fullwindow:hover {
 	background-position-y: -100%;
+}
+
+#ushout_rtctoggleframe {
+	display: block;
+	float: right;
+	
 }
 
 /* tool tip */
