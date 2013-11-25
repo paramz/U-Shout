@@ -46,7 +46,7 @@
 	                            	<a id="username" tooltip="profile page" demo="no" href="#">Xingchen</a> <div style="float: right"> <img src="/user_img.png" /> </div>
 	                            	<!-- button id="more_pages" class="activated" tooltip="more pages" demo="yes"></button-->
 	                            	<ul id="more_page_list">
-	                            		<li class="more_page_item"><a href="#">My Channels</a></li>
+	                            		<li class="more_page_item"><a href="/channels/channels.php">My Channels</a></li>
 	                            		<li class="more_page_item"><a href="#">My Videos</a></li>
 	                            		<li class="more_page_item"><a href="#">My Friends</a></li>
 	                            		<li class="more_page_item"><a href="#">Account Settings</a></li>
@@ -59,7 +59,7 @@
                 </div>
                 <div id="body_container" class="debug_frame">
                 
-                <div style='color:white;margin-top:10%;margin-left:2%;'>
+                <div style='color:white;margin-top:10%;margin-left:2%;margin-right:2%;'>
 
                 
                 

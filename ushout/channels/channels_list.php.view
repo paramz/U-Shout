@@ -1,4 +1,25 @@
 <?php include '../template-header.php';?>
-<h1>My Channels</h1>
+<h2>My Channels</h2>
+
+<div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
+    
+    <div class="channel_list">
+        <?php foreach ($channels as $channel) {?>
+        <ul>
+            <?php include 'channel_list_item.view.php';?>                    
+        </ul>
+        <?php } ?>
+    </div>
+
+    <div class="new_channel">
+        <form method="post">
+            <div>New Channel</div>
+            Name <input type="text" name="name"/>
+            Description <input type="text" name="description"/>
+            <button type="submit">Create Channel</button>
+        </form>
+    </div>
+            
+</div>
 
 <?php include '../template-footer.php';?>
