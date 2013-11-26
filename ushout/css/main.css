@@ -185,6 +185,11 @@ body[signedin="yes"] .signed_in {
 	transition-delay: 300ms;
 }
 
+*[tooltip].tooltipbelow:before {
+    top: auto;
+    bottom: -23px;
+}
+
 #page_container {
     position: absolute;
     top: 50%;
@@ -528,20 +533,39 @@ button.prompt {
 }
 
 .content_list div.description {
-    font-weight:bold;
+    font-weight: bold;
+    font-size: 90%;
+}
+
+.content_list div.description span {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .content_list div {
     font-size: 85%;
+    /*padding-left: 5px;*/
+}
+
+.content_list div.list_item_content {
+
 }
 
 li.list_item {
+    border: 1px solid #333;
     float: left; 
     width: 230px;
-    padding-right: 30px;
+    height: 80px;    
+    padding: 10px;
+    margin: 15px;
     cursor: pointer;
 }
 
+.left_pad {
+    padding-left: 10px;
+}
 
 /* ==========================================================================
    Helper classes

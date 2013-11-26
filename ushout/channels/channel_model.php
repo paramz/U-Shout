@@ -24,7 +24,7 @@ class ChannelModel
     {
         $channels[] = new ChannelModel(array(
           'name' => 'Dave Matthews Band', 
-          'description' => 'Dave Matthews Band1',
+          'description' => 'Dave Matthews Band1 this is a really long description stupid stupid stupid',
           'subscriber_count' => 6131,
           'video_count' => 67,
           'id' => 1
