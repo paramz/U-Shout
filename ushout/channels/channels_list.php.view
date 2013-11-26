@@ -2,11 +2,8 @@
 <h2>My Channels</h2>
 
 <div class="new_channel">
-    <form method="post">
-        <div>New Channel</div>        
-        Name <input type="text" name="name"/>
-        Description <input type="text" name="description"/>
-        <button class="prompt" type="submit">Create Channel</button>
+    <form method="get" action="new_channel.php">
+        <button class="prompt" type="submit">New Channel</button>
     </form>
 </div>
 
