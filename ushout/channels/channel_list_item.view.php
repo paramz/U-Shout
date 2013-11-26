@@ -1,6 +1,6 @@
         <form action="manage_channel.php">
             <li class="list_item" onclick="javascript:this.parentNode.submit();">
-                <div class="name"><?php echo $channel->name; ?></div>
+                <div class="name tooltipbelow" tooltip="<?php echo $channel->name; ?>"><span><?php echo $channel->name; ?></span></div>                
                 <div class="description left_pad tooltipbelow" tooltip="<?php echo $channel->description; ?>"><span><?php echo $channel->description; ?></span></div>
                     
                 <div class="list_item_content left_pad">

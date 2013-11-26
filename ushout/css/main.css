@@ -187,7 +187,8 @@ body[signedin="yes"] .signed_in {
 
 *[tooltip].tooltipbelow:before {
     top: auto;
-    bottom: -23px;
+    bottom: -30px;
+    left: 70px;
 }
 
 #page_container {
@@ -513,18 +514,22 @@ button.prompt {
 }
 
 
-/* content list */
+/* ==========================================================================
+   Content List
+   ========================================================================== */
 
 
 .content_list {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    height:400px;
-    overflow-y: scroll;    
+    height: 450px;
+    overflow-y: scroll;
+    margin: 0px;
 }
 
 .content_list ul {
-    list-style-type: none;   
+    list-style-type: none;
+    padding: 0px;   
 }
 
 .content_list div.name {
@@ -537,7 +542,7 @@ button.prompt {
     font-size: 90%;
 }
 
-.content_list div.description span {
+.content_list div.description span, .content_list div.name span {
     display: block;
     overflow: hidden;
     white-space: nowrap;
@@ -546,7 +551,6 @@ button.prompt {
 
 .content_list div {
     font-size: 85%;
-    /*padding-left: 5px;*/
 }
 
 .content_list div.list_item_content {
@@ -556,12 +560,18 @@ button.prompt {
 li.list_item {
     border: 1px solid #333;
     float: left; 
-    width: 230px;
+    width: 270px;
     height: 80px;    
     padding: 10px;
-    margin: 15px;
+    margin: 12px;
     cursor: pointer;
 }
+
+li.list_item .channel_video_count,  li.list_item .channel_subscriber_count {
+    /*width: 50%;
+    float: left;*/
+}
+
 
 .left_pad {
     padding-left: 10px;

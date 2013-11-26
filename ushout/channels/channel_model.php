@@ -43,9 +43,25 @@ class ChannelModel
           'description' => 'Funny Cat Videos',
           'subscriber_count' => 381,
           'video_count' => 5243,
-          'id' => 2
+          'id' => 3
+        ));
+
+        $channels[] = new ChannelModel(array(
+          'name' => 'ESPN', 
+          'description' => 'Sports Center',
+          'subscriber_count' => 381,
+          'video_count' => 5243,
+          'id' => 4
         ));
       
+        $channels[] = new ChannelModel(array(
+          'name' => 'Super Long Channel Name to See How Overflow behaves', 
+          'description' => 'No one likes this channel',
+          'subscriber_count' => 2,
+          'video_count' => 9,
+          'id' => 5
+        ));
+              
         return $channels;    
     }
 }
