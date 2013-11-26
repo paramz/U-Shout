@@ -525,11 +525,12 @@ button.prompt {
     height: 450px;
     overflow-y: scroll;
     margin: 0px;
+    margin-top: 10px;
 }
 
 .content_list ul {
     list-style-type: none;
-    padding: 0px;   
+    padding: 0px;
 }
 
 .content_list div.name {
