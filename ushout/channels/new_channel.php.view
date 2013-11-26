@@ -1,0 +1,7 @@
+<?php include '../template-header.php';?>
+<h2>New Channel</h2>
+
+<div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
+</div>
+
+<?php include '../template-footer.php';?>
