@@ -325,13 +325,13 @@ function ushout($body) {
 	
 	controls.$rtc_toggle_frame = $ref_controlbar_frame_rightaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
-			'id': _u('rtc_toggle_frame')
+			'id': _u('rtc_toggle_frame'),
+			'ushout_tooltip': 'Toggle Realtime Comment',
+			'ushout_tooltip_rightaligned': 'true'
 		});
 	controls.$rtc_toggle_label = $LABEL.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
-			'id': _u('rtc_toggle_label'),
-			'ushout_tooltip': 'Realtime Comment',
-			'ushout_tooltip_rightaligned': 'true'
+			'id': _u('rtc_toggle_label')
 		})
 		.text('RTC');
 	
@@ -356,6 +356,28 @@ function ushout($body) {
 			'id': _u('rtc_toggle_switch_handle')
 		});
 	
+	controls.$rtc_channels_frame = $ref_controlbar_frame_rightaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('rtc_channels_frame')
+		});
+	
+	controls.$rtc_channels_wrapper = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('rtc_channels_wrapper')
+		});
+	
+	controls.$rtc_channels_label = $LABEL.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('rtc_channels_label')
+		})
+		.text('Channels');
+	
+	controls.$rtc_channels_expand_button = $ref_controlbar_button_withicon.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('rtc_channels_expand_button')
+		});
+	
+	
 	$ushoutBar.append(
 		controls.$rtc_controls_wrapper.append(
 			controls.$rtc_toggle_frame.append(
@@ -364,6 +386,12 @@ function ushout($body) {
 					controls.$rtc_toggle_switch_label_on,
 					controls.$rtc_toggle_switch_label_off,
 					controls.$rtc_toggle_switch_handle
+				)
+			),
+			controls.$rtc_channels_frame.append(
+				controls.$rtc_channels_wrapper.append(
+					controls.$rtc_channels_label,
+					controls.$rtc_channels_expand_button
 				)
 			)
 		)

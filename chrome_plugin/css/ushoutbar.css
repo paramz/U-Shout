@@ -56,6 +56,8 @@
 	content: "";
 }
 
+/*========================================================*/
+
 #ushout_rtc_toggle_frame {
 
 }
@@ -94,11 +96,38 @@
 	color: black;
 }
 
+/* the background color when the switch is ON */
+#ushout_rtc_toggle_switch:before {
+	position: absolute;
+	
+	top: 0;
+	right: auto;
+	bottom: 0;
+	left: 0;
+	
+	border-radius: 15px;
+	
+	width: 25%;
+	
+	background-color: #d00000;
+	
+	content: "";
+	
+	-webkit-transition: width 300ms;
+	-moz-transition: width 300ms;
+	-ms-transition: width 300ms;
+	-o-transition: width 300ms;
+	transition: width 300ms;
+}
+
 #ushout_rtc_toggle_switch_label_on {
 	position: absolute;
 	top: 0;
 	left: 5px;
 	bottom: 0;
+	
+	color: white;
+	
 	pointer-events: none;
 }
 
@@ -107,6 +136,9 @@
 	top: 0;
 	right: 5px;
 	bottom: 0;
+	
+	color: black;
+	
 	pointer-events: none;
 }
 
@@ -134,9 +166,48 @@
 	transition: left 300ms;
 }
 
+/*========================================================*/
+
+#ushout_rtc_channels_frame {
+	
+}
+
+#ushout_rtc_channels_wrapper {
+	position: relative;
+	margin: 2px 0;
+	border: 1px solid white;
+	border-radius: 5px;
+	
+	height: 23px;
+	width: 100px;
+}
+
+#ushout_rtc_channels_label {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: auto;
+	bottom: 0;
+	left: 5px;
+	
+	font-size: 12px;
+	line-height: 23px;
+	color: white;
+}
+
 /* rtc on ======================================*/
 body.ushout_rtc #ushout_rtc_controls_wrapper {
 	width: 100%;
+	-webkit-transition: width 300ms;
+	-moz-transition: width 300ms;
+	-ms-transition: width 300ms;
+	-o-transition: width 300ms;
+	transition: width 300ms;
+}
+
+body.ushout_rtc #ushout_rtc_toggle_switch:before {
+	width: 75%;
+	
 	-webkit-transition: width 300ms;
 	-moz-transition: width 300ms;
 	-ms-transition: width 300ms;
