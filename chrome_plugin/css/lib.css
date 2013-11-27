@@ -1,3 +1,10 @@
+.ushout_pointercursor {
+	cursor: pointer;
+}
+.ushout_pointercursor[disabled] {
+	cursor: default;
+}
+
 .ushout_simplebox {
 	margin: 0;
 	border: 0;
@@ -12,8 +19,6 @@
 	bottom: 0;
 	left: 0;
 	
-	border: 1px solid red;
-	
 	background-color: transparent;
 	
 	pointer-events: none;
@@ -23,235 +28,30 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	bottom: 81px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
+	bottom: 54px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
 	left: 0;
-	
-	border: 3px solid blue;
 	
 	background-color: transparent;
 	
 /*	pointer-events: auto; */
 }
 
-#ushout_debugBar {
-	position: absolute;
-	z-index: 999;
-	top: auto;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	
-	height: 27px;
-	
-	background-color: white;
-	
-	font-size: 14px;
-	line-height: 27px;
-	color: black;
-}
-
-#ushout_controlbar {
-	position: absolute;
-	z-index: 999; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
-	top: auto;
-	right: 0;
-	bottom: 54px;
-	left: 0;
-	
-	height: 27px; /* controlBar height */
-	
-	background-color: #1b1b1b; /* this is the youtube control bar background color */
-	
-/*	pointer-events: auto; */
-}
-
-#ushout_controlbar .ushout_controlitem {
+.ushout_controlitem {
 	display: block;
 	
 	position: relative;
-	
-	height: 27px;
 	
 	background-color: transparent;
 	
 	pointer-events: auto;
 }
 
-#ushout_controlbar .ushout_controlitem.ushout_leftaligned {
+.ushout_controlitem.ushout_leftaligned {
 	float: left;
 }
 
-#ushout_controlbar .ushout_controlitem.ushout_rightaligned {
+.ushout_controlitem.ushout_rightaligned {
 	float: right;
-}
-
-/*========================================================*/
-
-#ushout_play_pause_frame {
-	
-}
-#ushout_play_pause_button {
-	height: 27px;
-	width: 56px;
-	
-	background-color: transparent;
-	
-	outline: none;
-}
-#ushout_play_pause_button:hover {
-	background-position-y: -100%;
-}
-
-/*========================================================*/
-
-#ushout_volume_frame {
-	
-}
-
-#ushout_volume_wrapper {
-	position: relative;
-	
-	height: 27px;
-	width: 29px;
-	
-	-webkit-transition: width 200ms ease-out;
-	-moz-transition: width 200ms ease-out;
-	-ms-transition: width 200ms ease-out;
-	-o-transition: width 200ms ease-out;
-	transition: width 200ms ease-out;
-}
-#ushout_volume_wrapper:hover {
-	width: 100px;
-	
-	-webkit-transition: width 200ms ease-in;
-	-moz-transition: width 200ms ease-in;
-	-ms-transition: width 200ms ease-in;
-	-o-transition: width 200ms ease-in;
-	transition: width 200ms ease-in;
-}
-
-#ushout_volume_button {
-	display: block;
-	
-	position: absolute;
-	top: 0;
-	right: auto;
-	bottom: auto;
-	left: 0;
-	
-	width: 29px;
-	height: 27px;
-	
-	background-color: transparent;
-	
-	outline: none;
-}
-#ushout_volume_button:hover {
-	background-position-y: -100%;
-}
-
-#ushout_volume_slider_wrapper {
-	display: block;
-	
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 29px;
-	
-	overflow: hidden;
-}
-
-#ushout_volume_slider {
-	display: block;
-	
-	position: absolute;
-	top: 50%;
-	right: 10px;
-	bottom: auto;
-	left: auto;
-	
-	margin: -2px 0 0 0;
-	
-	height: 4px;
-	width: 50px;
-	
-	background-color: #757575;
-}
-
-#ushout_volume_slider .ui-slider-range {
-	display: block;
-	
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	right: auto;
-	bottom: 0;
-	left: 0;
-	
-	background-color: #d00000;
-}
-
-#ushout_volume_slider .ui-slider-handle {
-	display: block;
-	
-	position: absolute;
-	z-index: 2;
-	top: 0;
-	right: auto;
-	bottom: auto;
-	left: auto;
-	
-	margin: -5px 0 0 -2px;
-	
-	height: 14px;
-	width: 5px;
-	
-	background-color: #dddddd;
-	
-	outline: none;
-	
-	cursor: default;
-}
-
-/*========================================================*/
-
-#ushout_playtime {
-	display: block;
-	float: left;
-	width: 75px;
-	height: 27px;
-	border: 0;
-	box-sizing: border-box;
-	font-size: 10px;
-	line-height: 27px;
-	text-align: center;
-	pointer-events: none;
-}
-
-#ushout_commentinputframe {
-	display: none;
-}
-
-#ushout_fullwindow {
-	display: block;
-	float: right;
-	width: 31px;
-	height: 27px;
-	border: 0;
-	box-sizing: border-box;
-	background-color: transparent;
-	outline: none;
-	pointer-events: auto;
-}
-#ushout_fullwindow:hover {
-	background-position-y: -100%;
-}
-
-#ushout_rtctoggleframe {
-	display: block;
-	float: right;
-	
 }
 
 /* tool tip */
@@ -282,13 +82,13 @@
 	/* non-interactive */
 	pointer-events: none;
 	-webkit-transition: opacity 100ms linear;
-    -moz-transition: opacity 100ms linear;
-    -ms-transition: opacity 100ms linear;
-    -o-transition: opacity 100ms linear;
-    transition: opacity 100ms linear;
-    -webkit-transition-delay: 0s;
-    -moz-transition-delay: 0s;
-    -o-transition-delay: 0s;
+	-moz-transition: opacity 100ms linear;
+	-ms-transition: opacity 100ms linear;
+	-o-transition: opacity 100ms linear;
+	transition: opacity 100ms linear;
+	-webkit-transition-delay: 0s;
+	-moz-transition-delay: 0s;
+	-o-transition-delay: 0s;
 	transition-delay: 0s;
 }
 
@@ -301,12 +101,12 @@
 *[ushout_tooltip]:hover:before {
 	opacity: 1;
 	-webkit-transition: opacity 100ms linear;
-    -moz-transition: opacity 100ms linear;
-    -ms-transition: opacity 100ms linear;
-    -o-transition: opacity 100ms linear;
-    transition: opacity 100ms linear;
-    -webkit-transition-delay: 300ms;
-    -moz-transition-delay: 300ms;
-    -o-transition-delay: 300ms;
+	-moz-transition: opacity 100ms linear;
+	-ms-transition: opacity 100ms linear;
+	-o-transition: opacity 100ms linear;
+	transition: opacity 100ms linear;
+	-webkit-transition-delay: 300ms;
+	-moz-transition-delay: 300ms;
+	-o-transition-delay: 300ms;
 	transition-delay: 300ms;
 }

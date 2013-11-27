@@ -1,0 +1,154 @@
+#ushout_ushoutbar {
+	position: absolute;
+	z-index: 999; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
+	top: auto;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	
+	height: 27px; /* controlBar height */
+	
+	background-color: white;
+	
+/*	pointer-events: auto; */
+}
+
+#ushout_ushoutbar .ushout_controlitem {
+	height: 27px;
+}
+
+#ushout_rtc_controls_wrapper {
+	position: absolute;
+	top: 0;
+	right: 0;
+	
+	padding: 0 0 0 27px;
+	
+	height: 100%;
+	width: 150px;
+	
+	background-color: #1b1b1b; /* this is the youtube control bar background color */
+	
+	-webkit-transition: width 300ms;
+	-moz-transition: width 300ms;
+	-ms-transition: width 300ms;
+	-o-transition: width 300ms;
+	transition: width 300ms;
+}
+
+#ushout_rtc_controls_wrapper:before {
+	position: absolute;
+	top: 0;
+	right: auto;
+	bottom: 0;
+	left: 0;
+	
+	border-top: 27px solid #1b1b1b;
+	border-right: 0;
+	border-bottom: 0;
+	border-left: 27px solid white;
+	
+	box-sizing: border-box;
+	width: 27px;
+	
+	background-color: white;
+	
+	content: "";
+}
+
+#ushout_rtc_toggle_frame {
+
+}
+
+#ushout_rtc_toggle_label {
+	float: left;
+	
+	margin-left: 15px;
+	
+	height: 27px;
+	
+	font-size: 12px;
+	line-height: 27px;
+	color: white;
+}
+
+#ushout_rtc_toggle_switch {
+	float: left;
+	
+	position: relative;
+	
+	margin: 5px 10px 0 10px;
+	
+	border-radius: 15px;
+	
+	padding: 0 5px;
+	
+	height: 15px;
+	width: 60px;
+	
+	background-color: #757575;
+	
+	font-size: 10px;
+	line-height: 15px;
+	font-weight: bold;
+	color: black;
+}
+
+#ushout_rtc_toggle_switch_label_on {
+	position: absolute;
+	top: 0;
+	left: 5px;
+	bottom: 0;
+	pointer-events: none;
+}
+
+#ushout_rtc_toggle_switch_label_off {
+	position: absolute;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	pointer-events: none;
+}
+
+#ushout_rtc_toggle_switch_handle {
+	position: absolute;
+	top: 0;
+	right: auto;
+	bottom: auto;
+	left: 0;
+	
+	margin: -1px -1px;
+	border-radius: 17px;
+	padding: 1px 1px;
+	
+	box-sizing: content-box;
+	height: 100%;
+	width: 50%;
+	
+	background-color: #dddddd;
+	
+	-webkit-transition: left 300ms;
+	-moz-transition: left 300ms;
+	-ms-transition: left 300ms;
+	-o-transition: left 300ms;
+	transition: left 300ms;
+}
+
+/* rtc on ======================================*/
+body.ushout_rtc #ushout_rtc_controls_wrapper {
+	width: 100%;
+	-webkit-transition: width 300ms;
+	-moz-transition: width 300ms;
+	-ms-transition: width 300ms;
+	-o-transition: width 300ms;
+	transition: width 300ms;
+}
+
+body.ushout_rtc #ushout_rtc_toggle_switch_handle {
+	left: 50%;
+	-webkit-transition: left 300ms;
+	-moz-transition: left 300ms;
+	-ms-transition: left 300ms;
+	-o-transition: left 300ms;
+	transition: left 300ms;
+}

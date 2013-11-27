@@ -1,0 +1,201 @@
+#ushout_controlbar {
+	position: absolute;
+	z-index: 999; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
+	top: auto;
+	right: 0;
+	bottom: 27px;
+	left: 0;
+	
+	margin-bottom: -27px;
+	
+	height: 27px; /* controlBar height */
+	
+	background-color: #1b1b1b; /* this is the youtube control bar background color */
+	
+/*	pointer-events: auto; */
+
+	-webkit-transition: margin-bottom 300ms;
+	-moz-transition: margin-bottom 300ms;
+	-ms-transition: margin-bottom 300ms;
+	-o-transition: margin-bottom 300ms;
+	transition: margin-bottom 300ms;
+}
+
+#ushout_controlbar .ushout_controlitem {
+	height: 27px;
+}
+
+#ushout_controlbar .ushout_controlitem .ushout_iconbutton {
+	background-position-y: -100%;
+}
+#ushout_controlbar .ushout_controlitem .ushout_iconbutton.mouseover {
+	background-position-y: -200%;
+}
+#ushout_controlbar .ushout_controlitem .ushout_iconbutton[disabled] {
+	background-position-y: 0%;
+}
+
+/*========================================================*/
+
+#ushout_play_pause_frame {
+	
+}
+#ushout_play_pause_button {
+	height: 27px;
+	width: 56px;
+	
+	background-color: transparent;
+	background-position-y: -100%;
+	
+	outline: none;
+}
+
+/*========================================================*/
+
+#ushout_volume_frame {
+	
+}
+
+#ushout_volume_wrapper {
+	position: relative;
+	
+	height: 27px;
+	width: 29px;
+	
+	-webkit-transition: width 200ms ease-out;
+	-moz-transition: width 200ms ease-out;
+	-ms-transition: width 200ms ease-out;
+	-o-transition: width 200ms ease-out;
+	transition: width 200ms ease-out;
+}
+#ushout_volume_wrapper.mouseover {
+	width: 100px;
+	
+	-webkit-transition: width 200ms ease-in;
+	-moz-transition: width 200ms ease-in;
+	-ms-transition: width 200ms ease-in;
+	-o-transition: width 200ms ease-in;
+	transition: width 200ms ease-in;
+}
+
+#ushout_volume_button {
+	position: absolute;
+	top: 0;
+	right: auto;
+	bottom: auto;
+	left: 0;
+	
+	width: 29px;
+	height: 27px;
+	
+	background-color: transparent;
+	
+	outline: none;
+}
+
+#ushout_volume_slider_wrapper {
+	display: block;
+	
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 29px;
+	
+	overflow: hidden;
+}
+
+#ushout_volume_slider {
+	display: block;
+	
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	bottom: auto;
+	left: auto;
+	
+	margin: -2px 0 0 0;
+	
+	height: 4px;
+	width: 50px;
+	
+	background-color: #757575;
+}
+
+#ushout_volume_slider .ui-slider-range {
+	display: block;
+	
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: auto;
+	bottom: 0;
+	left: 0;
+	
+	background-color: #d00000;
+}
+
+#ushout_volume_slider .ui-slider-handle {
+	display: block;
+	
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	
+	margin: -5px 0 0 -2px;
+	
+	height: 14px;
+	width: 5px;
+	
+	background-color: #dddddd;
+	
+	outline: none;
+	
+	cursor: default;
+}
+
+/*========================================================*/
+
+#ushout_playtime_frame {
+	
+}
+
+#ushout_playtime_label {
+	width: 75px;
+	height: 27px;
+	
+	font-size: 10px;
+	line-height: 27px;
+	text-align: center;
+	pointer-events: none;
+}
+
+/*========================================================*/
+
+#ushout_fullwindow_frame {
+	
+}
+
+#ushout_fullwindow_button {
+	width: 31px;
+	height: 27px;
+	
+	background-color: transparent;
+	
+	outline: none;
+}
+
+
+/* rtc on ======================================*/
+
+body.ushout_rtc #ushout_controlbar {
+	margin-bottom: 0;
+	-webkit-transition: margin-bottom 300ms;
+	-moz-transition: margin-bottom 300ms;
+	-ms-transition: margin-bottom 300ms;
+	-o-transition: margin-bottom 300ms;
+	transition: margin-bottom 300ms;
+}
