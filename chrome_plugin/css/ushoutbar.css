@@ -24,6 +24,8 @@
 	
 	padding: 0 0 0 27px;
 	
+	overflow: hidden;
+	
 	height: 100%;
 	width: 150px;
 	
@@ -59,7 +61,12 @@
 /*========================================================*/
 
 #ushout_rtc_toggle_frame {
-
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	
+	width: 120px;
 }
 
 #ushout_rtc_toggle_label {
@@ -168,15 +175,29 @@
 
 /*========================================================*/
 
-#ushout_rtc_channels_frame {
+#ushout_rtc_expanded_controls_wrapper {
+	position: absolute;
+	top: 0;
+	right: 120px;
+	bottom: 0;
+	left: 27px;
 	
+	overflow: hidden;
+	
+	opacity: 0;
+}
+
+/*========================================================*/
+
+#ushout_rtc_channels_frame {
+
 }
 
 #ushout_rtc_channels_wrapper {
 	position: relative;
 	margin: 2px 0;
-	border: 1px solid white;
-	border-radius: 5px;
+	border: 1px solid #474747;
+	border-radius: 3px;
 	
 	height: 23px;
 	width: 100px;
@@ -192,11 +213,25 @@
 	
 	font-size: 12px;
 	line-height: 23px;
-	color: white;
+	color: #757575;
+}
+
+#ushout_rtc_channels_expand_button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: auto;
+	left: auto;
+	
+	height: 21px;
+	width: 22px;
+	
+	outline: none;
 }
 
 /* rtc on ======================================*/
 body.ushout_rtc #ushout_rtc_controls_wrapper {
+	overflow: visible;
 	width: 100%;
 	-webkit-transition: width 300ms;
 	-moz-transition: width 300ms;
@@ -222,4 +257,16 @@ body.ushout_rtc #ushout_rtc_toggle_switch_handle {
 	-ms-transition: left 300ms;
 	-o-transition: left 300ms;
 	transition: left 300ms;
+}
+
+body.ushout_rtc #ushout_rtc_expanded_controls_wrapper {
+	overflow: visible;
+	
+	opacity: 1;
+	
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	-ms-transition: opacity 300ms;
+	-o-transition: opacity 300ms;
+	transition: opacity 300ms;
 }

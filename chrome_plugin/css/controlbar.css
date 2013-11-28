@@ -25,16 +25,6 @@
 	height: 27px;
 }
 
-#ushout_controlbar .ushout_controlitem .ushout_iconbutton {
-	background-position-y: -100%;
-}
-#ushout_controlbar .ushout_controlitem .ushout_iconbutton.mouseover {
-	background-position-y: -200%;
-}
-#ushout_controlbar .ushout_controlitem .ushout_iconbutton[disabled] {
-	background-position-y: 0%;
-}
-
 /*========================================================*/
 
 #ushout_play_pause_frame {
@@ -45,9 +35,11 @@
 	width: 56px;
 	
 	background-color: transparent;
-	background-position-y: -100%;
 	
 	outline: none;
+}
+body.ushout_playing #ushout_play_pause_button {
+	background-position-x: -100%;
 }
 
 /*========================================================*/

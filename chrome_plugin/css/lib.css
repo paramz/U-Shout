@@ -12,16 +12,36 @@
 	box-sizing: border-box;
 }
 
-#ushout_overlay {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+.ushout_iconbutton {
+	background-position-y: -100%;
+}
+.ushout_iconbutton.mouseover {
+	background-position-y: -200%;
+}
+.ushout_iconbutton[disabled] {
+	background-position-y: 0%;
+}
+
+#ushout_overlay_base {
+	position: relative;
 	
-	background-color: transparent;
+	overflow: visible;
+	height: 1px;
+	
+	background-color: red;
 	
 	pointer-events: none;
+}
+
+#ushout_overlay {
+	position: absolute;
+	z-index: 999;
+	top: 100%;
+	left: 0;
+	
+	padding-bottom: 27px;
+	
+	box-sizing: content-box;
 }
 
 #ushout_toucharea {

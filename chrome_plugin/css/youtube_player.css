@@ -8,12 +8,29 @@
  * PERMANENT FIXES
  * These fixes should be working all times as the plugin is active.
  **/
+#player {
+	position: relative;
+	padding-bottom: 27px;
+}
 #player-api {
 	/* force player api relative for inner objects */
 	position: relative;
-	padding-bottom: 54px;
+	box-sizing: border-box;
+	padding-bottom: 0;
+	-webkit-transition: padding-bottom 300ms;
+	-moz-transition: padding-bottom 300ms;
+	-ms-transition: padding-bottom 300ms;
+	-o-transition: padding-bottom 300ms;
+	transition: padding-bottom 300ms;
 }
-
+body.ushout_rtc #player-api {
+	padding-bottom: 27px;
+	-webkit-transition: padding-bottom 300ms;
+	-moz-transition: padding-bottom 300ms;
+	-ms-transition: padding-bottom 300ms;
+	-o-transition: padding-bottom 300ms;
+	transition: padding-bottom 300ms;
+}
 /**
  * TOGGLED FIXES
  * These fixes only work when the plugin is active WITH features turned on.

@@ -1,12 +1,5 @@
-function ushout($body) {
+function ushout($body, log, warn, _u) {
 	var JQUERY_CLONE_WITHDATAANDEVENTS = true;
-	// macro functions
-	function log(msg) {
-		console.log('ushout: ' + String(msg));
-	}
-	function warn(msg) {
-		console.warn('ushout: ' + String(msg));
-	}
 	
 	// url check
 	var href = window.location.pathname.toLowerCase();
@@ -17,23 +10,36 @@ function ushout($body) {
 		return;
 	}
 	
-	var query = window.location.search;
+	var queryString = window.location.search;
 	// get rid of the leading ?
-	var queryParse = query.split('?');
-	query = (queryParse.length === 1) ? queryParse[0] : queryParse[1];
-	// split the query
-	queryParse = query.split('&');
-	// collect queries with a name
-	var queries = {};
-	for (var i = 0, n = queryParse.length; i < n; ++i) {
-		var _parse = String(queryParse[i]).split("=");
-		if (_parse.length === 1) continue;
-		var _name = _parse[0],
-			_value = _parse[1];
-		queries[_name] = _value;
+	var queryParse = queryString.split('?');
+	queryString = (queryParse.length === 1) ? queryParse[0] : queryParse[1];
+	
+	function parseQueryString(queryString) {
+		var parse1 = queryString.split('&');
+		// collect queries with a name
+		var queries = {};
+		for (var i = 0, n = parse1.length; i < n; ++i) {
+			var parse2 = String(parse1[i]).split('=');
+			if (parse2.length === 1) continue;
+			
+			var key = parse2.shift(),
+				value = parse2.join('=');
+			queries[key] = value;
+		}
+		return queries;
+	}
+	function buildQueryString(queryObject) {
+		var queryStrings = [];
+		for (var key in queryObject) {
+			queryStrings.push(key + '=' + queryObject[key]);
+		}
+		return queryStrings.join('&');
 	}
 	
-	log('query: ' + query);
+	var queries = parseQueryString(queryString);
+	
+	log('query: ' + queryString);
 	log('vid: ' + queries.v);
 	
 	var youtube = {};
@@ -69,6 +75,13 @@ function ushout($body) {
 		return;
 	}
 	log('#player-api check');
+	// locate movieplayer
+	youtube.$movieplayer = youtube.$playerapi.find("#movie_player");
+	if (youtube.$movieplayer.length !== 1) {
+		warn('fail because can not find movie player on this page.');
+		return;
+	}
+	log('#movie_player check');
 	// locate playlist
 	youtube.$playlist = youtube.$player.find("#playlist");
 	if (youtube.$playlist.length !== 1) {
@@ -97,8 +110,144 @@ function ushout($body) {
 		return;
 	}
 	log('#content check');
+
+
+	// data object for the video
+	var video = {
+		id: queries.v,
+		ctime: 0,
+		mtime: 0,
+		player: null
+	};
 	
-	
+	// data object for ushout
+	var ushout = {
+		// toggle flag for ushout functions
+		active : false,
+		player : {
+			state : -1,
+			actionJumpTable : {
+				'-1': { // unstarted
+					0 : function () {
+						if (video.player !== null)
+							video.player.playVideo();
+					}
+				},
+				'0' : { // ended
+					0 : function () {
+						if (video.player !== null)
+							video.player.playVideo();
+					}
+				},
+				'1' : { // playing
+					0 : function () {
+						if (video.player !== null)
+							video.player.pauseVideo();
+					}
+				},
+				'2' : { // paused
+					0 : function () {
+						if (video.player !== null)
+							video.player.playVideo();
+					}
+				},
+				'3' : { // buffering
+					
+				},
+				'5' : { // video cued
+					
+				}
+			},
+			stateChangeJumpTable : {
+				'-1': { // unstarted
+					'-1': function () {},
+					'0' : function () {
+						log('ended before playing.');
+						$body.removeClass(_u('playing'));
+					},
+					'1' : function () {
+						log('started playing.');
+						$body.addClass(_u('playing'));
+					},
+					'2' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'3' : function () {},
+					'5' : function () {}
+				},
+				'0' : { // ended
+					'-1': function () {},
+					'0' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'1' : function () {
+						log('started playing from ended.');
+						$body.addClass(_u('playing'));
+					},
+					'2' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'3' : function () {},
+					'5' : function () {}
+				},
+				'1' : { // playing
+					'-1': function () {},
+					'0' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'1' : function () {},
+					'2' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'3' : function () {},
+					'5' : function () {}
+				},
+				'2' : { // paused
+					'-1': function () {},
+					'0' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'1' : function () {
+						log('started playing from paused.');
+						$body.addClass(_u('playing'));
+					},
+					'2' : function () {},
+					'3' : function () {},
+					'5' : function () {}
+				},
+				'3' : { // buffering
+					'-1': function () {},
+					'0' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'1' : function () {
+						log('started playing from buffering.');
+						$body.addClass(_u('playing'));
+					},
+					'2' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'3' : function () {},
+					'5' : function () {}
+				},
+				'5' : { // video cued
+					'-1': function () {},
+					'0' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'1' : function () {
+						log('started playing from cued.');
+						$body.addClass(_u('playing'));
+					},
+					'2' : function () {
+						$body.removeClass(_u('playing'));
+					},
+					'3' : function () {},
+					'5' : function () {}
+				}
+			} // stateChangeJumpTable
+		} // player
+	} // ushout
 	
 	// apply ushout css
 	// 
@@ -108,15 +257,7 @@ function ushout($body) {
 	// 
 	// $body.addClass("ushout");
 	
-	// this function adds the prefix 'ushout_' to the given string to avoid conflicts
-	function _u(str) {
-		var result = '';
-		for (var i = 0, n = arguments.length; i < n; ++i) {
-			if (result !== '') result += ' ';
-			result += 'ushout_' + String(arguments[i]);
-		}
-		return result;
-	}
+	
 	// clone reference for creating new objects
 	var $DIV = $('<div>')
 			.addClass(_u('simplebox'))
@@ -152,28 +293,37 @@ function ushout($body) {
 		$LABEL = $('<label>')
 			.addClass(_u('simplebox'));
 	
-	var $overlay = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+	ushout.$overlay_base = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr('id', _u('overlay_base'))
+		.addClass(_u('simplebox'))
+		.addClass('player-width watch-content') // youtube classes
+		.insertBefore(youtube.$playerapi);
+		
+	ushout.$overlay = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr('id', _u('overlay'))
 		.addClass(_u('simplebox'))
-		.appendTo(youtube.$playerapi);
+		.addClass('player-width player-height') // youtube classes
+		.appendTo(ushout.$overlay_base);
 	
-	var $touchArea = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+	ushout.$touchArea = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr('id', _u('toucharea'))
 		.addClass(_u('simplebox'))
-		.appendTo($overlay);
+		.appendTo(ushout.$overlay);
 	
-	var $controlBar = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+	ushout.$progressBar = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr('id', _u('progressbar'))
+		.addClass(_u('simplebox'))
+		.appendTo(ushout.$overlay);
+	
+	ushout.$controlBar = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr('id', _u('controlbar'))
 		.addClass(_u('simplebox'))
-		.appendTo($overlay);
-	var $ushoutBar = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.appendTo(ushout.$overlay);
+	
+	ushout.$ushoutBar = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr('id', _u('ushoutbar'))
 		.addClass(_u('simplebox'))
-		.appendTo($overlay);
-	var $debugBar = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
-		.attr('id', _u('debugBar'))
-		.addClass(_u('simplebox'))
-		.appendTo($overlay);
+		.appendTo(ushout.$overlay);
 	
 	// this function is a macro to handle the creation of a button
 	function createButton(iconUrl, width, height) {
@@ -185,7 +335,8 @@ function ushout($body) {
 	var controlImages = {
 		play_pause: chrome.extension.getURL('/images/play_pause.png'),
 		volume: chrome.extension.getURL('/images/volume.png'),
-		fullwindow: chrome.extension.getURL('/images/fullwindow.png')
+		fullwindow: chrome.extension.getURL('/images/fullwindow.png'),
+		expand_collapse: chrome.extension.getURL('/images/expand_collapse_vertical_button.png')
 	};
 	
 	var controls = {};
@@ -295,7 +446,7 @@ function ushout($body) {
 		});
 	*/
 	
-	$controlBar.append(
+	ushout.$controlBar.append(
 		controls.$play_pause_frame.append(
 			controls.$play_pause_button
 		),
@@ -321,6 +472,11 @@ function ushout($body) {
 	controls.$rtc_controls_wrapper = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
 			'id': _u('rtc_controls_wrapper')
+		});
+	
+	controls.$rtc_expanded_controls_wrapper = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('rtc_expanded_controls_wrapper')
 		});
 	
 	controls.$rtc_toggle_frame = $ref_controlbar_frame_rightaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
@@ -375,10 +531,14 @@ function ushout($body) {
 	controls.$rtc_channels_expand_button = $ref_controlbar_button_withicon.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
 			'id': _u('rtc_channels_expand_button')
+		})
+		.addClass(_u('pointercursor'))
+		.css({
+			backgroundImage: 'url(' + controlImages.expand_collapse + ')'
 		});
 	
 	
-	$ushoutBar.append(
+	ushout.$ushoutBar.append(
 		controls.$rtc_controls_wrapper.append(
 			controls.$rtc_toggle_frame.append(
 				controls.$rtc_toggle_label,
@@ -388,10 +548,12 @@ function ushout($body) {
 					controls.$rtc_toggle_switch_handle
 				)
 			),
-			controls.$rtc_channels_frame.append(
-				controls.$rtc_channels_wrapper.append(
-					controls.$rtc_channels_label,
-					controls.$rtc_channels_expand_button
+			controls.$rtc_expanded_controls_wrapper.append(
+				controls.$rtc_channels_frame.append(
+					controls.$rtc_channels_wrapper.append(
+						controls.$rtc_channels_label,
+						controls.$rtc_channels_expand_button
+					)
 				)
 			)
 		)
@@ -405,18 +567,13 @@ function ushout($body) {
 		$body.find('.mousedown').removeClass('mousedown');
 	});
 	//-- global support for mouseup
-	
-	// data object for the video
-	var video = {
-		id: queries.v,
-		ctime: 0,
-		mtime: 0
-	};
-	
-	// data object for ushout functions
-	var ushout = {
-		active: false
-	}
+	controls.$play_pause_button.click(function () {
+		var currentState = String(ushout.player.state);
+		var toDo = ushout.player.actionJumpTable[currentState][0];
+		if (typeof toDo === 'function') {
+			toDo();
+		}
+	});
 	
 	function extendTimeString(numericValue) {
 		return (numericValue < 10) ? ('0' + String(numericValue)) : String(numericValue);
@@ -443,13 +600,9 @@ function ushout($body) {
 		return ((hours > 0) ? (hoursString + ':') : '') + minutesString + ':' + (secondsString);
 	}
 	
-	// enable buttons
-	controls.$play_pause_button.attr('disabled', false);
-	controls.$volume_button.attr('disabled', false);
-	controls.$fullwindow_button.attr('disabled', false);
-	
 	// enable slider
 	controls.$volume_slider.slider({
+		disabled: true,
 		range: "min",
 		value: 50,
 		min: 0,
@@ -465,13 +618,60 @@ function ushout($body) {
 	};
 	controls.$playtime_label.update();
 	
+	function changePlayerSettings(newSettings) {
+		var flashvars = youtube.$movieplayer.attr('flashvars');
+		var parse = parseQueryString(flashvars);
+		for (var key in newSettings) {
+			parse[key] = newSettings[key];
+		}
+		flashvars = buildQueryString(parse);
+		youtube.$movieplayer.attr('flashvars', flashvars);
+	}
+	
+	function reloadPlayer() {
+		youtube.$movieplayer.detach();
+		youtube.$movieplayer.prependTo(youtube.$playerapi);
+	}
+	
 	function activateRTC() {
 		$body.addClass(_u('rtc'));
+		// enable buttons
+		controls.$play_pause_button.attr('disabled', false);
+		controls.$volume_button.attr('disabled', false);
+		controls.$fullwindow_button.attr('disabled', false);
+		controls.$rtc_channels_expand_button.attr('disabled', false);
+		// enable volume slider
+		controls.$volume_slider.slider('option', 'disabled', false);
+		
+		//=================
+		
+		changePlayerSettings({
+			controls: 0
+		});
+		reloadPlayer();
+		
+		// set flag
 		ushout.active = true;
 		return true;
 	}
 	function deactivateRTC() {
 		$body.removeClass(_u('rtc'));
+		// disable buttons
+		controls.$play_pause_button.attr('disabled', true);
+		controls.$volume_button.attr('disabled', true);
+		controls.$fullwindow_button.attr('disabled', true);
+		controls.$rtc_channels_expand_button.attr('disabled', true);
+		// disable volume slider
+		controls.$volume_slider.slider('option', 'disabled', true);
+		
+		//=================
+		
+		changePlayerSettings({
+			controls: 1
+		});
+		reloadPlayer();
+		
+		// set flag
 		ushout.active = false;
 		return true;
 	}
@@ -484,4 +684,35 @@ function ushout($body) {
 			activateRTC();
 		}
 	});
+	
+	window.playerOnStateChange = function (newState) {
+		newState = String(newState);
+		log('state: ' + newState);
+		var currentState = String(ushout.player.state);
+		var toDo = ushout.player.stateChangeJumpTable[currentState][newState];
+		if (typeof toDo === 'function') {
+			log('state: ' + currentState + ' > ' + newState);
+			ushout.player.state = newState;
+			toDo();
+		} else {
+			warn('invalid state: ' + newState);
+		}
+	};
+	
+	window.onYouTubePlayerReady = function () {
+		video.player = youtube.$movieplayer[0];
+		if (video.player)
+			video.player.addEventListener("onStateChange", "ushout_playerOnStateChange");
+	//	video.player.loadVideoById('NBSfikrbLV4'); // load a new video
+		
+	//	video.player.playVideo();
+	//	pauseVideo()
+	//	stopVideo()
+	//	seekTo(seconds:Number, allowSeekAhead:Boolean)
+	//	
+	};
+	
+//	ushout.$touchArea.append($('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/rzjEb2XEOYc?cc_load_policy=0&enablejsapi=1&rel=0&showinfo=0&autohide=0&iv_load_policy=3" frameborder="0" allowfullscreen>'));
+	
+	
 }
