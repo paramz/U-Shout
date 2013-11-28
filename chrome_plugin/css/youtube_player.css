@@ -37,16 +37,15 @@ body.ushout_rtc #player-api {
  * Toggled fixes should all have the leading 'body.ushout'.
  **/
 
-body.ushout #page {
-	position: relative;
-	background-color: rgba(255, 0, 0, 0.2);
-}
-
-body.ushout #guide {}
-body.ushout #player {}
-body.ushout #player #playlist {}
-body.ushout #player #player-api {
+body.ushout_rtc #page {
 
 }
-body.ushout #player #playlist-tray {}
-body.ushout #content {}
+
+body.ushout_rtc #guide {}
+body.ushout_rtc #player {}
+body.ushout_rtc #player #playlist {}
+body.ushout_rtc #player #player-api {
+
+}
+body.ushout_rtc #player #playlist-tray {}
+body.ushout_rtc #content {}

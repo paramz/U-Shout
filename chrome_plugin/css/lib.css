@@ -86,7 +86,7 @@
 	z-index: 10;
 	top: -23px;
 	right: auto;
-	left: 0px;
+	left: 50%;
 	border-radius: 3px;
 	padding: 5px 8px;
 	box-sizing: border-box;
@@ -95,6 +95,7 @@
 	background-color: #333;
 	/* set content to attribute value */
 	content: attr(ushout_tooltip);
+	text-align: center;
 	font-size: 10px;
 	line-height: 10px;
 	color: white;

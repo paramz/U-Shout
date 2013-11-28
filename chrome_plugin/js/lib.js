@@ -124,39 +124,24 @@ function ushout($body, log, warn, _u) {
 	var ushout = {
 		// toggle flag for ushout functions
 		active : false,
-		player : {
+		controller : {
 			state : -1,
-			actionJumpTable : {
-				'-1': { // unstarted
-					0 : function () {
-						if (video.player !== null)
-							video.player.playVideo();
-					}
-				},
-				'0' : { // ended
-					0 : function () {
-						if (video.player !== null)
-							video.player.playVideo();
-					}
-				},
-				'1' : { // playing
-					0 : function () {
-						if (video.player !== null)
-							video.player.pauseVideo();
-					}
-				},
-				'2' : { // paused
-					0 : function () {
-						if (video.player !== null)
-							video.player.playVideo();
-					}
-				},
-				'3' : { // buffering
-					
-				},
-				'5' : { // video cued
-					
-				}
+			volume: 0,
+			restoreVolume: 0,
+			unMute : function () {
+				video.player.unMute();
+				controls.$volume_slider.slider({
+					value: ushout.controller.restoreVolume
+				});
+				$body.removeClass(_u('muted'));
+			},
+			mute: function () {
+				ushout.controller.restoreVolume = video.player.getVolume();
+				video.player.mute();
+				controls.$volume_slider.slider({
+					value: 0
+				});
+				$body.addClass(_u('muted'));
 			},
 			stateChangeJumpTable : {
 				'-1': { // unstarted
@@ -164,10 +149,20 @@ function ushout($body, log, warn, _u) {
 					'0' : function () {
 						log('ended before playing.');
 						$body.removeClass(_u('playing'));
+						/*
+						controls.$play_pause_button.attr({
+							'ushout_tooltip': 'Play'
+						});
+						*/
 					},
 					'1' : function () {
 						log('started playing.');
 						$body.addClass(_u('playing'));
+						/*
+						controls.$play_pause_button.attr({
+							'ushout_tooltip': 'Pause'
+						});
+						*/
 					},
 					'2' : function () {
 						$body.removeClass(_u('playing'));
@@ -330,15 +325,6 @@ function ushout($body, log, warn, _u) {
 		
 	}
 	
-	
-	
-	var controlImages = {
-		play_pause: chrome.extension.getURL('/images/play_pause.png'),
-		volume: chrome.extension.getURL('/images/volume.png'),
-		fullwindow: chrome.extension.getURL('/images/fullwindow.png'),
-		expand_collapse: chrome.extension.getURL('/images/expand_collapse_vertical_button.png')
-	};
-	
 	var controls = {};
 	
 	var $ref_controlbar_frame = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
@@ -365,12 +351,9 @@ function ushout($body, log, warn, _u) {
 	controls.$play_pause_button = $ref_controlbar_button_withicon.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
 			'id': _u('play_pause_button'),
-			'ushout_tooltip': 'Click to play the video'
+			'ushout_tooltip': 'Play'
 		})
-		.addClass(_u('pointercursor'))
-		.css({
-			backgroundImage: 'url(' + controlImages.play_pause + ')'
-		});
+		.addClass(_u('pointercursor'));
 	
 	// volume controls ================================================//
 	controls.$volume_frame = $ref_controlbar_frame_leftaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
@@ -386,12 +369,9 @@ function ushout($body, log, warn, _u) {
 	controls.$volume_button = $ref_controlbar_button_withicon.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
 			'id': _u('volume_button'),
-			'ushout_tooltip': 'Click to Mute'
+			'ushout_tooltip': 'Mute'
 		})
-		.addClass(_u('pointercursor'))
-		.css({
-			backgroundImage: 'url(' + controlImages.volume + ')'
-		});
+		.addClass(_u('pointercursor'));
 	
 	controls.$volume_slider_wrapper = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
@@ -427,10 +407,7 @@ function ushout($body, log, warn, _u) {
 			'ushout_tooltip': 'Full Window',
 			'ushout_tooltip_rightaligned': 'true'
 		})
-		.addClass(_u('pointercursor'))
-		.css({
-			backgroundImage: 'url(' + controlImages.fullwindow + ')'
-		});
+		.addClass(_u('pointercursor'));
 	
 	/*========================================================*/
 	
@@ -440,9 +417,6 @@ function ushout($body, log, warn, _u) {
 			'id': _u('fullscreen'),
 			'ushout_tooltip': 'Full Screen',
 			'ushout_tooltip_rightaligned': 'true'
-		})
-		.css({
-			backgroundImage: 'url(' + controlImages.fullscreen + ')'
 		});
 	*/
 	
@@ -532,10 +506,7 @@ function ushout($body, log, warn, _u) {
 		.attr({
 			'id': _u('rtc_channels_expand_button')
 		})
-		.addClass(_u('pointercursor'))
-		.css({
-			backgroundImage: 'url(' + controlImages.expand_collapse + ')'
-		});
+		.addClass(_u('pointercursor'));
 	
 	
 	ushout.$ushoutBar.append(
@@ -568,10 +539,39 @@ function ushout($body, log, warn, _u) {
 	});
 	//-- global support for mouseup
 	controls.$play_pause_button.click(function () {
-		var currentState = String(ushout.player.state);
-		var toDo = ushout.player.actionJumpTable[currentState][0];
-		if (typeof toDo === 'function') {
-			toDo();
+		if (video.player === null)
+			return;
+		
+		switch (ushout.controller.state) {
+			case -1: // unstarted
+				video.player.playVideo();
+				break;
+			case 0 : // ended
+				video.player.playVideo();
+				break;
+			case 1 : // playing
+				video.player.pauseVideo();
+				break;
+			case 2 : // paused
+				video.player.playVideo();
+				break;
+			case 3 : // buffering
+				break;
+			case 5 : // video cued
+				video.player.playVideo();
+				break;
+			default:
+		}
+	});
+	
+	controls.$volume_button.click(function () {
+		if (video.player === null)
+			return;
+		
+		if (video.player.isMuted()) {
+			ushout.controller.unMute();
+		} else {
+			ushout.controller.mute();
 		}
 	});
 	
@@ -676,6 +676,14 @@ function ushout($body, log, warn, _u) {
 		return true;
 	}
 	
+	function updateTime() {
+		if (video.player === null)
+			return;
+		video.mtime = video.player.getDuration();
+		video.ctime = video.player.getCurrentTime();
+		controls.$playtime_label.update();
+	}
+	
 	// rtc toggle button
 	controls.$rtc_toggle_switch.click(function () {
 		if (ushout.active) {
@@ -686,16 +694,16 @@ function ushout($body, log, warn, _u) {
 	});
 	
 	window.playerOnStateChange = function (newState) {
-		newState = String(newState);
-		log('state: ' + newState);
-		var currentState = String(ushout.player.state);
-		var toDo = ushout.player.stateChangeJumpTable[currentState][newState];
+		var newStateString = String(newState);
+		log('state: ' + newStateString);
+		var currentStateString = String(ushout.controller.state);
+		var toDo = ushout.controller.stateChangeJumpTable[currentStateString][newStateString];
 		if (typeof toDo === 'function') {
-			log('state: ' + currentState + ' > ' + newState);
-			ushout.player.state = newState;
+			log('state: ' + currentStateString + ' > ' + newStateString);
+			ushout.controller.state = newState;
 			toDo();
 		} else {
-			warn('invalid state: ' + newState);
+			warn('invalid state: ' + newStateString);
 		}
 	};
 	
@@ -703,6 +711,8 @@ function ushout($body, log, warn, _u) {
 		video.player = youtube.$movieplayer[0];
 		if (video.player)
 			video.player.addEventListener("onStateChange", "ushout_playerOnStateChange");
+		
+		updateTime();
 	//	video.player.loadVideoById('NBSfikrbLV4'); // load a new video
 		
 	//	video.player.playVideo();
