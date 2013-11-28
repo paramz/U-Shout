@@ -37,15 +37,53 @@ body.ushout_rtc #player-api {
  * Toggled fixes should all have the leading 'body.ushout'.
  **/
 
-body.ushout_rtc #page {
+body.ushout_rtc.ushout_fullwindow #page {
 
 }
 
-body.ushout_rtc #guide {}
-body.ushout_rtc #player {}
-body.ushout_rtc #player #playlist {}
-body.ushout_rtc #player #player-api {
-
+body.ushout_rtc.ushout_fullwindow #guide {
+	display: none;
 }
-body.ushout_rtc #player #playlist-tray {}
-body.ushout_rtc #content {}
+
+
+body.ushout_rtc.ushout_fullwindow #player {
+	position: fixed;
+	z-index: 900;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	
+	padding: 0 !important;
+}
+
+body.ushout_rtc.ushout_fullwindow .player-width {
+	width: 100%;
+}
+body.ushout_rtc.ushout_fullwindow .player-height {
+	height: auto;
+}
+
+body.ushout_rtc.ushout_fullwindow #ushout_overlay {
+	position: fixed;
+	z-index: 999;
+	top: 1px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+body.ushout_rtc.ushout_fullwindow #player #playlist {
+	display: none;
+}
+body.ushout_rtc.ushout_fullwindow #player #player-api {
+	height: 100%;
+	width: 100%;
+}
+body.ushout_rtc.ushout_fullwindow #player #playlist-tray {
+	display: none;
+}
+
+body.ushout_rtc.ushout_fullwindow #content {
+	display: none;
+}

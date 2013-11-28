@@ -11,8 +11,6 @@
 	height: 27px; /* controlBar height */
 	
 	background-color: #1b1b1b; /* this is the youtube control bar background color */
-	
-/*	pointer-events: auto; */
 
 	-webkit-transition: margin-bottom 300ms;
 	-moz-transition: margin-bottom 300ms;
@@ -23,6 +21,7 @@
 
 #ushout_controlbar .ushout_controlitem {
 	height: 27px;
+	pointer-events: none;
 }
 
 /*========================================================*/
@@ -74,7 +73,7 @@ body.ushout_playing #ushout_play_pause_button:before {
 	-o-transition: width 200ms ease-out;
 	transition: width 200ms ease-out;
 }
-#ushout_volume_wrapper.mouseover {
+#ushout_volume_wrapper:hover {
 	width: 100px;
 	
 	-webkit-transition: width 200ms ease-in;
@@ -96,8 +95,15 @@ body.ushout_playing #ushout_play_pause_button:before {
 	
 	background-color: transparent;
 	background-image: url('chrome-extension://__MSG_@@extension_id__/images/volume.png');
+	background-position-x: -100%;
 	
 	outline: none;
+}
+body.ushout_loud #ushout_volume_button {
+	background-position-x: 0%;
+}
+body.ushout_quiet #ushout_volume_button {
+	background-position-x: -200%;
 }
 body.ushout_muted #ushout_volume_button {
 	background-position-x: -300%;
@@ -177,7 +183,7 @@ body.ushout_muted #ushout_volume_button:before {
 	
 	outline: none;
 	
-	cursor: default;
+	pointer-events: none;
 }
 
 /*========================================================*/
@@ -211,7 +217,22 @@ body.ushout_muted #ushout_volume_button:before {
 	
 	outline: none;
 }
-
+body.ushout_rtc.ushout_fullwindow #ushout_fullwindow_button {
+	background-position-x: -100%;
+}
+/* tooltip */
+#ushout_fullwindow_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_fullWindow__;
+	
+	width: __MSG_tooltipLength_fullWindow__;
+	content: "__MSG_tooltip_fullWindow__";
+}
+body.ushout_rtc.ushout_fullwindow #ushout_fullwindow_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_restoreFromFullWindow__;
+	
+	width: __MSG_tooltipLength_restoreFromFullWindow__;
+	content: "__MSG_tooltip_restoreFromFullWindow__";
+}
 
 /* rtc on ======================================*/
 
@@ -222,4 +243,8 @@ body.ushout_rtc #ushout_controlbar {
 	-ms-transition: margin-bottom 300ms;
 	-o-transition: margin-bottom 300ms;
 	transition: margin-bottom 300ms;
+}
+
+body.ushout_rtc #ushout_controlbar .ushout_controlitem {
+	pointer-events: auto;
 }

@@ -62,5 +62,31 @@
 	"tooltipMarginLeftOffset_unmute": {
 		"message": "-26px",
 		"description": "Margin-Left of the Tooltip"
+	},
+	
+	"tooltip_fullWindow": {
+		"message": "Full Window",
+		"description": "Tooltip for FullWindow button when NOT in fullwindow mode"
+	},
+	"tooltipLength_fullWindow": {
+		"message": "72px",
+		"description": "Length of the Tooltip"
+	},
+	"tooltipMarginLeftOffset_fullWindow": {
+		"message": "-36px",
+		"description": "Margin-Left of the Tooltip"
+	},
+	
+	"tooltip_restoreFromFullWindow": {
+		"message": "Restore",
+		"description": "Tooltip for FullWindow button when in fullwindow mode"
+	},
+	"tooltipLength_restoreFromFullWindow": {
+		"message": "52px",
+		"description": "Length of the Tooltip"
+	},
+	"tooltipMarginLeftOffset_restoreFromFullWindow": {
+		"message": "-26px",
+		"description": "Margin-Left of the Tooltip"
 	}
 }

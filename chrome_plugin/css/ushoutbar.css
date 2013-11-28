@@ -54,6 +54,21 @@
 	background-color: white;
 	
 	content: "";
+	
+	-webkit-transition: border-left 300ms;
+	-moz-transition: border-left 300ms;
+	-ms-transition: border-left 300ms;
+	-o-transition: border-left 300ms;
+	transition: border-left 300ms;
+}
+
+body.ushout_rtc #ushout_rtc_controls_wrapper:before {
+	border-left: 0;
+	-webkit-transition: border-left 300ms;
+	-moz-transition: border-left 300ms;
+	-ms-transition: border-left 300ms;
+	-o-transition: border-left 300ms;
+	transition: border-left 300ms;
 }
 
 /*========================================================*/
@@ -261,6 +276,8 @@ body.ushout_rtc #ushout_rtc_toggle_switch_handle {
 
 body.ushout_rtc #ushout_rtc_expanded_controls_wrapper {
 	overflow: visible;
+	
+	left: 0;
 	
 	opacity: 1;
 	

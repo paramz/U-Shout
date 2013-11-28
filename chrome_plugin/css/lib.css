@@ -15,7 +15,7 @@
 .ushout_iconbutton {
 	background-position-y: -100%;
 }
-.ushout_iconbutton.mouseover {
+.ushout_iconbutton:hover {
 	background-position-y: -200%;
 }
 .ushout_iconbutton[disabled] {

@@ -126,9 +126,18 @@ function ushout($body, log, warn, _u) {
 		active : false,
 		controller : {
 			state : -1,
+			fullWindow: false,
+			expandToFullWindow: function () {
+				$body.addClass(_u('fullwindow'));
+				ushout.controller.fullWindow = true; 
+			},
+			restoreFromFullWindow: function () {
+				$body.removeClass(_u('fullwindow'));
+				ushout.controller.fullWindow = false;
+			},
 			volume: 0,
 			restoreVolume: 0,
-			unMute : function () {
+			unMute: function () {
 				video.player.unMute();
 				controls.$volume_slider.slider({
 					value: ushout.controller.restoreVolume
@@ -143,7 +152,7 @@ function ushout($body, log, warn, _u) {
 				});
 				$body.addClass(_u('muted'));
 			},
-			stateChangeJumpTable : {
+			stateChangeJumpTable: {
 				'-1': { // unstarted
 					'-1': function () {},
 					'0' : function () {
@@ -256,6 +265,7 @@ function ushout($body, log, warn, _u) {
 	// clone reference for creating new objects
 	var $DIV = $('<div>')
 			.addClass(_u('simplebox'))
+			/*
 			.hover(
 				function () {
 					$(this).addClass('mouseover');
@@ -269,8 +279,10 @@ function ushout($body, log, warn, _u) {
 			})
 			.mouseup(function () {
 				$(this).removeClass('mousedown');
-			}),
+			})
+			*/,
 		$BUT = $('<button>')
+			/*
 			.hover(
 				function () {
 					$(this).addClass('mouseover');
@@ -284,7 +296,8 @@ function ushout($body, log, warn, _u) {
 			})
 			.mouseup(function () {
 				$(this).removeClass('mousedown');
-			}),
+			})
+			*/,
 		$LABEL = $('<label>')
 			.addClass(_u('simplebox'));
 	
@@ -538,6 +551,8 @@ function ushout($body, log, warn, _u) {
 		$body.find('.mousedown').removeClass('mousedown');
 	});
 	//-- global support for mouseup
+	
+	// play/pause
 	controls.$play_pause_button.click(function () {
 		if (video.player === null)
 			return;
@@ -563,7 +578,7 @@ function ushout($body, log, warn, _u) {
 			default:
 		}
 	});
-	
+	// mute/unmute
 	controls.$volume_button.click(function () {
 		if (video.player === null)
 			return;
@@ -572,6 +587,14 @@ function ushout($body, log, warn, _u) {
 			ushout.controller.unMute();
 		} else {
 			ushout.controller.mute();
+		}
+	});
+	// fullwindow
+	controls.$fullwindow_button.click(function () {
+		if (ushout.controller.fullWindow) {
+			ushout.controller.restoreFromFullWindow();
+		} else {
+			ushout.controller.expandToFullWindow();
 		}
 	});
 	
@@ -602,11 +625,33 @@ function ushout($body, log, warn, _u) {
 	
 	// enable slider
 	controls.$volume_slider.slider({
+		animate: false, // disable sliding animation
 		disabled: true,
-		range: "min",
-		value: 50,
+		max: 100,
 		min: 0,
-		max: 100
+		orientation: 'horizontal',
+		value: 50,
+		range: "min",
+		start: function (e, ui) {
+			// when sliding, it can not be muted
+			ushout.controller.unMute();
+		},
+		slide: function (e, ui) {
+			// update player as it slides
+			video.player.setVolume(ui.value);
+			updateVolumeIcon();
+		},
+		change: function (e, ui) {
+			if (e.originalEvent) {
+				// changed by user
+				video.player.setVolume(ui.value);
+				// save change to html5 localstorage
+				localStorage.setItem(_u('volume'), ui.value);
+			} else {
+				// changed by program
+			}
+			updateVolumeIcon();
+		}
 	});
 	
 	// update playtime
@@ -635,14 +680,6 @@ function ushout($body, log, warn, _u) {
 	
 	function activateRTC() {
 		$body.addClass(_u('rtc'));
-		// enable buttons
-		controls.$play_pause_button.attr('disabled', false);
-		controls.$volume_button.attr('disabled', false);
-		controls.$fullwindow_button.attr('disabled', false);
-		controls.$rtc_channels_expand_button.attr('disabled', false);
-		// enable volume slider
-		controls.$volume_slider.slider('option', 'disabled', false);
-		
 		//=================
 		
 		changePlayerSettings({
@@ -656,14 +693,8 @@ function ushout($body, log, warn, _u) {
 	}
 	function deactivateRTC() {
 		$body.removeClass(_u('rtc'));
-		// disable buttons
-		controls.$play_pause_button.attr('disabled', true);
-		controls.$volume_button.attr('disabled', true);
-		controls.$fullwindow_button.attr('disabled', true);
-		controls.$rtc_channels_expand_button.attr('disabled', true);
-		// disable volume slider
-		controls.$volume_slider.slider('option', 'disabled', true);
-		
+		// cancel fullwindow mode
+		ushout.controller.restoreFromFullWindow();
 		//=================
 		
 		changePlayerSettings({
@@ -674,6 +705,20 @@ function ushout($body, log, warn, _u) {
 		// set flag
 		ushout.active = false;
 		return true;
+	}
+	
+	function updateVolumeIcon() {
+		var currentVolumeValue = video.player.getVolume();
+		if (currentVolumeValue < 20) {
+			$body.addClass(_u('quiet'));
+			$body.removeClass(_u('loud'));
+		} else if (currentVolumeValue > 60) {
+			$body.addClass(_u('loud'));
+			$body.removeClass(_u('quiet'));
+		} else {
+			$body.removeClass(_u('loud'));
+			$body.removeClass(_u('quiet'));
+		}
 	}
 	
 	function updateTime() {
@@ -711,6 +756,25 @@ function ushout($body, log, warn, _u) {
 		video.player = youtube.$movieplayer[0];
 		if (video.player)
 			video.player.addEventListener("onStateChange", "ushout_playerOnStateChange");
+		
+		// enable buttons
+		controls.$play_pause_button.attr('disabled', false);
+		controls.$volume_button.attr('disabled', false);
+		controls.$fullwindow_button.attr('disabled', false);
+		controls.$rtc_channels_expand_button.attr('disabled', false);
+		
+		// use html5 localstorage to save user volume settings
+		var volumeValue = localStorage.getItem(_u('volume'));
+		if (volumeValue === null) {
+			volumeValue = video.player.getVolume();
+		} else {
+			video.player.setVolume(volumeValue);
+		}
+		// volume slider
+		controls.$volume_slider.slider({
+			disabled: false,
+			value: volumeValue
+		});
 		
 		updateTime();
 	//	video.player.loadVideoById('NBSfikrbLV4'); // load a new video
