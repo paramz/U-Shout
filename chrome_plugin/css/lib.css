@@ -87,12 +87,12 @@
 	top: -23px;
 	right: auto;
 	left: 50%;
-	border-radius: 3px;
+	border-radius: 2px;
 	padding: 5px 8px;
 	box-sizing: border-box;
 	height: 20px;
 	width: auto;
-	background-color: #333;
+	background-color: rgba(51,51,51,0.9);
 	/* set content to attribute value */
 	content: attr(ushout_tooltip);
 	text-align: center;
