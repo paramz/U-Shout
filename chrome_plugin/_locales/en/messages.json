@@ -88,5 +88,44 @@
 	"tooltipMarginLeftOffset_restoreFromFullWindow": {
 		"message": "-26px",
 		"description": "Margin-Left of the Tooltip"
+	},
+	
+	"tooltip_audioComment": {
+		"message": "Audio Comment",
+		"description": "Tooltip for Audio Comment button"
+	},
+	"tooltipLength_audioComment": {
+		"message": "90px",
+		"description": "Length of the Tooltip"
+	},
+	"tooltipMarginLeftOffset_audioComment": {
+		"message": "-45px",
+		"description": "Margin-Left of the Tooltip"
+	},
+	
+	"tooltip_videoComment": {
+		"message": "Video Comment",
+		"description": "Tooltip for Video Comment button"
+	},
+	"tooltipLength_videoComment": {
+		"message": "90px",
+		"description": "Length of the Tooltip"
+	},
+	"tooltipMarginLeftOffset_videoComment": {
+		"message": "-45px",
+		"description": "Margin-Left of the Tooltip"
+	},
+	
+	"tooltip_send": {
+		"message": "Send",
+		"description": "Tooltip for Send Comment button"
+	},
+	"tooltipLength_send": {
+		"message": "42px",
+		"description": "Length of the Tooltip"
+	},
+	"tooltipMarginLeftOffset_send": {
+		"message": "-21px",
+		"description": "Margin-Left of the Tooltip"
 	}
 }

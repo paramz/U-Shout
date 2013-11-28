@@ -63,12 +63,14 @@
 }
 
 body.ushout_rtc #ushout_rtc_controls_wrapper:before {
+	/*
 	border-left: 0;
 	-webkit-transition: border-left 300ms;
 	-moz-transition: border-left 300ms;
 	-ms-transition: border-left 300ms;
 	-o-transition: border-left 300ms;
 	transition: border-left 300ms;
+	*/
 }
 
 /*========================================================*/
@@ -193,11 +195,147 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 	top: 0;
 	right: 120px;
 	bottom: 0;
-	left: 27px;
+	left: 35px;
 	
 	overflow: hidden;
 	
 	opacity: 0;
+}
+
+/*========================================================*/
+
+#ushout_post_audio_comment_frame {
+	
+}
+#ushout_post_audio_comment_button {
+	height: 27px;
+	width: 29px;
+	
+	background-color: transparent;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/audio_comment.png');
+	background-repeat: no-repeat;
+	background-position-y: -27px;
+	background-position-x: 0;
+	
+	outline: none;
+}
+#ushout_post_audio_comment_button:hover {
+	background-position-y: -54px;
+}
+#ushout_post_audio_comment_button[disabled] {
+	background-position-y: 0;
+}
+/* tooltip */
+#ushout_post_audio_comment_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_audioComment__;
+	
+	width: __MSG_tooltipLength_audioComment__;
+	content: "__MSG_tooltip_audioComment__";
+}
+
+/*========================================================*/
+
+#ushout_post_video_comment_frame {
+	
+}
+#ushout_post_video_comment_button {
+	height: 27px;
+	width: 29px;
+	
+	background-color: transparent;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/video_comment.png');
+	background-repeat: no-repeat;
+	background-position-y: -27px;
+	background-position-x: 0;
+	
+	outline: none;
+}
+#ushout_post_video_comment_button:hover {
+	background-position-y: -54px;
+}
+#ushout_post_video_comment_button[disabled] {
+	background-position-y: 0;
+}
+/* tooltip */
+#ushout_post_video_comment_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_videoComment__;
+	
+	width: __MSG_tooltipLength_videoComment__;
+	content: "__MSG_tooltip_videoComment__";
+}
+
+/*========================================================*/
+
+#ushout_post_text_comment_frame {
+	position: absolute;
+	top: 2px;
+	right: 170px;
+	bottom: 2px;
+	left: 65px;
+	
+	border-radius: 2px;
+	
+	background-color: white;
+}
+
+#ushout_post_text_comment_input {
+	position: absolute;
+	top: 1px;
+	right: 70px;
+	bottom: 1px;
+	left: 3px;
+	
+	background-color: transparent;
+	
+	text-align: left;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: normal;
+	
+	outline: none;
+	
+	pointer-events: auto;
+}
+
+#ushout_post_text_comment_button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: auto;
+	left: auto;
+	
+	padding-left: 25px;
+	
+	height: 23px;
+	width: 70px;
+	
+	background-color: transparent;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/send.png');
+	background-repeat: no-repeat;
+	background-position-y: -23px;
+	background-position-x: 0;
+	
+	text-align: left;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: bold;
+	
+	outline: none;
+	
+	pointer-events: auto;
+}
+#ushout_post_text_comment_button:hover {
+	background-position-y: -46px;
+}
+#ushout_post_text_comment_button[disabled] {
+	background-position-y: 0;
+}
+/* tooltip */
+#ushout_post_text_comment_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_send__;
+	
+	width: __MSG_tooltipLength_send__;
+	content: "__MSG_tooltip_send__";
 }
 
 /*========================================================*/
@@ -213,7 +351,7 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 	border-radius: 3px;
 	
 	height: 23px;
-	width: 100px;
+	width: 130px;
 }
 
 #ushout_rtc_channels_label {
@@ -241,6 +379,30 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 	
 	background-color: transparent;
 	background-image: url('chrome-extension://__MSG_@@extension_id__/images/expand_collapse_vertical_button.png');
+	background-repeat: no-repeat;
+	background-position-y: -21px;
+	background-position-x: 0;
+	
+	outline: none;
+}
+#ushout_rtc_channels_expand_button:hover {
+	background-position-y: -42px;
+}
+#ushout_rtc_channels_expand_button[disabled] {
+	background-position-y: 0;
+}
+
+/*========================================================*/
+
+#ushout_help_frame {
+	
+}
+#ushout_help_button {
+	height: 27px;
+	width: 29px;
+	
+	background-color: transparent;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/help.png');
 	
 	outline: none;
 }
@@ -276,8 +438,6 @@ body.ushout_rtc #ushout_rtc_toggle_switch_handle {
 
 body.ushout_rtc #ushout_rtc_expanded_controls_wrapper {
 	overflow: visible;
-	
-	left: 0;
 	
 	opacity: 1;
 	

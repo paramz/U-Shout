@@ -126,6 +126,8 @@ function ushout($body, log, warn, _u) {
 		active : false,
 		controller : {
 			state : -1,
+			adMode: false,
+			adPlaying: false,
 			fullWindow: false,
 			expandToFullWindow: function () {
 				$body.addClass(_u('fullwindow'));
@@ -158,20 +160,12 @@ function ushout($body, log, warn, _u) {
 					'0' : function () {
 						log('ended before playing.');
 						$body.removeClass(_u('playing'));
-						/*
-						controls.$play_pause_button.attr({
-							'ushout_tooltip': 'Play'
-						});
-						*/
 					},
 					'1' : function () {
 						log('started playing.');
 						$body.addClass(_u('playing'));
-						/*
-						controls.$play_pause_button.attr({
-							'ushout_tooltip': 'Pause'
-						});
-						*/
+						ushout.controller.adMode = false;
+						ushout.controller.adPlaying = false;
 					},
 					'2' : function () {
 						$body.removeClass(_u('playing'));
@@ -340,6 +334,7 @@ function ushout($body, log, warn, _u) {
 	
 	var controls = {};
 	
+	// youtube control bar ============================================//
 	var $ref_controlbar_frame = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.addClass(_u('controlitem'));
 	var $ref_controlbar_frame_leftaligned = $ref_controlbar_frame.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
@@ -422,8 +417,6 @@ function ushout($body, log, warn, _u) {
 		})
 		.addClass(_u('pointercursor'));
 	
-	/*========================================================*/
-	
 	/*
 	controls.$fullscreen = $BUT.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
@@ -456,6 +449,7 @@ function ushout($body, log, warn, _u) {
 		)
 	);
 	
+	// ushout control bar =============================================//
 	controls.$rtc_controls_wrapper = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
 			'id': _u('rtc_controls_wrapper')
@@ -466,6 +460,7 @@ function ushout($body, log, warn, _u) {
 			'id': _u('rtc_expanded_controls_wrapper')
 		});
 	
+	// rtc toggle =====================================================//
 	controls.$rtc_toggle_frame = $ref_controlbar_frame_rightaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
 			'id': _u('rtc_toggle_frame'),
@@ -499,6 +494,20 @@ function ushout($body, log, warn, _u) {
 			'id': _u('rtc_toggle_switch_handle')
 		});
 	
+	// help button ====================================================//
+	controls.$help_frame = $ref_controlbar_frame_rightaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('help_frame')
+		});
+	
+	controls.$help_button = $ref_controlbar_button_withicon.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('help_button'),
+			'ushout_tooltip': 'Help'
+		})
+		.addClass(_u('pointercursor'));
+	
+	// channels select list ===========================================//
 	controls.$rtc_channels_frame = $ref_controlbar_frame_rightaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
 		.attr({
 			'id': _u('rtc_channels_frame')
@@ -521,6 +530,53 @@ function ushout($body, log, warn, _u) {
 		})
 		.addClass(_u('pointercursor'));
 	
+	// audio comment button ===========================================//
+	controls.$post_audio_comment_frame = $ref_controlbar_frame_leftaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('post_audio_comment_frame')
+		});
+	
+	controls.$post_audio_comment_button = $ref_controlbar_button_withicon.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('post_audio_comment_button'),
+			'ushout_tooltip': 'Audio Comment'
+		})
+		.addClass(_u('pointercursor'));
+	
+	// video comment button ===========================================//
+	controls.$post_video_comment_frame = $ref_controlbar_frame_leftaligned.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('post_video_comment_frame')
+		});
+	
+	controls.$post_video_comment_button = $ref_controlbar_button_withicon.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('post_video_comment_button'),
+			'ushout_tooltip': 'Video Comment'
+		})
+		.addClass(_u('pointercursor'));
+	
+	
+	// text comment button ============================================//
+	controls.$post_text_comment_frame = $DIV.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('post_text_comment_frame')
+		});
+	
+	controls.$post_text_comment_input = $('<input>')
+		.attr({
+			'id': _u('post_text_comment_input'),
+			'type': 'text'
+		})
+		.addClass(_u('simplebox'));
+	
+	controls.$post_text_comment_button = $ref_controlbar_button_withicon.clone(JQUERY_CLONE_WITHDATAANDEVENTS)
+		.attr({
+			'id': _u('post_text_comment_button'),
+			'ushout_tooltip': 'Post Comment'
+		})
+		.text('Send')
+		.addClass(_u('pointercursor'));
 	
 	ushout.$ushoutBar.append(
 		controls.$rtc_controls_wrapper.append(
@@ -533,6 +589,21 @@ function ushout($body, log, warn, _u) {
 				)
 			),
 			controls.$rtc_expanded_controls_wrapper.append(
+				controls.$post_audio_comment_frame.append(
+					controls.$post_audio_comment_button
+				),
+				controls.$post_video_comment_frame.append(
+					controls.$post_video_comment_button
+				),
+				
+				controls.$post_text_comment_frame.append(
+					controls.$post_text_comment_input,
+					controls.$post_text_comment_button
+				),
+				
+				controls.$help_frame.append(
+					controls.$help_button
+				),
 				controls.$rtc_channels_frame.append(
 					controls.$rtc_channels_wrapper.append(
 						controls.$rtc_channels_label,
@@ -559,7 +630,19 @@ function ushout($body, log, warn, _u) {
 		
 		switch (ushout.controller.state) {
 			case -1: // unstarted
-				video.player.playVideo();
+				if (ushout.controller.adMode) {
+					if (ushout.controller.adPlaying) {
+						video.player.pauseVideo();
+						$body.removeClass(_u('playing'));
+						ushout.controller.adPlaying = false;
+					} else {
+						video.player.playVideo();
+						$body.addClass(_u('playing'));
+						ushout.controller.adPlaying = true;
+					}
+				} else {
+					video.player.playVideo();
+				}
 				break;
 			case 0 : // ended
 				video.player.playVideo();
@@ -729,6 +812,12 @@ function ushout($body, log, warn, _u) {
 		controls.$playtime_label.update();
 	}
 	
+	function adMode() {
+		$body.addClass(_u('playing'));
+		ushout.controller.adMode = true;
+		ushout.controller.adPlaying = true;
+	}
+	
 	// rtc toggle button
 	controls.$rtc_toggle_switch.click(function () {
 		if (ushout.active) {
@@ -777,6 +866,9 @@ function ushout($body, log, warn, _u) {
 		});
 		
 		updateTime();
+		
+		// turn on ad mode
+		adMode();
 	//	video.player.loadVideoById('NBSfikrbLV4'); // load a new video
 		
 	//	video.player.playVideo();

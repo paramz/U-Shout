@@ -8,8 +8,12 @@
  * PERMANENT FIXES
  * These fixes should be working all times as the plugin is active.
  **/
+#guide {
+	z-index: 2;
+}
 #player {
 	position: relative;
+	z-index: 1;
 	padding-bottom: 27px;
 }
 #player-api {

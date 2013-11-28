@@ -13,6 +13,7 @@
 }
 
 .ushout_iconbutton {
+	background-repeat: no-repeat;
 	background-position-y: -100%;
 }
 .ushout_iconbutton:hover {
