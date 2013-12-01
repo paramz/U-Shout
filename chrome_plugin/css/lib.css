@@ -92,6 +92,7 @@
 }
 #ushout_toucharea {
 	position: absolute;
+	z-index: 1001;
 	top: 0;
 	right: 0;
 	bottom: 54px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
