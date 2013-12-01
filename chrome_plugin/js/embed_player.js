@@ -53,27 +53,45 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	};
 	
 	ushout.$diskButton0 = ushout.templates.diskButton()
-		.addClass(_u('pos0'));
+		.addClass(_u('pos0'))
+		.mouseup(function () {
+			log('video comment from dish panel');
+		});
 	ushout.$diskButton0.$title.text('V');
 	
 	ushout.$diskButton1 = ushout.templates.diskButton()
-		.addClass(_u('pos1'));
+		.addClass(_u('pos1'))
+		.mouseup(function () {
+			log('comment vote up from dish panel');
+		});
 	ushout.$diskButton1.$title.text('+');
 	
 	ushout.$diskButton2 = ushout.templates.diskButton()
-		.addClass(_u('pos2'));
+		.addClass(_u('pos2'))
+		.mouseup(function () {
+			log('text comment from dish panel');
+		});
 	ushout.$diskButton2.$title.text('T');
 	
 	ushout.$diskButton3 = ushout.templates.diskButton()
-		.addClass(_u('pos3'));
+		.addClass(_u('pos3'))
+		.mouseup(function () {
+			log('audio comment from dish panel');
+		});
 	ushout.$diskButton3.$title.text('A');
 	
 	ushout.$diskButton4 = ushout.templates.diskButton()
-		.addClass(_u('pos4'));
+		.addClass(_u('pos4'))
+		.mouseup(function () {
+			log('comment vote down from dish panel');
+		});
 	ushout.$diskButton4.$title.text('-');
 	
 	ushout.$diskButton5 = ushout.templates.diskButton()
-		.addClass(_u('pos5'));
+		.addClass(_u('pos5'))
+		.mouseup(function () {
+			log('comment info from dish panel');
+		});
 	ushout.$diskButton5.$title.text('i');
 	
 	// progress bar ===================================================//
@@ -404,11 +422,23 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	};
 	ushout.$dishPanel.popUp = function () {
 		ushout.$dishPanel.addClass('active');
+		// pause video playback if it is playing
+		if (ushout.data.playState === playState.playing) {
+			// share shouldResume variable with ushout.$seekSlider
+			ushout.data.shouldResume = true;
+			video.player.pauseVideo();
+		} else {
+			ushout.data.shouldResume = false;
+		}
 	};
 	$(document).mouseup(function () {
 		window.clearTimeout(ushout.data.dishPanelTimer);
-		if (ushout.$dishPanel.hasClass('active'))
+		if (ushout.$dishPanel.hasClass('active')) {
 			ushout.$dishPanel.removeClass('active');
+			if (ushout.data.shouldResume) {
+				video.player.playVideo();
+			}
+		}
 	});
 	
 	ushout.$touchArea.mousedown(function (event) {
@@ -499,7 +529,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		log('playState: ' + ushout.data.playState);
 		
 		switch (ushout.data.playState) {
-			case -1: // unstarted
+			case playState.unstarted:
 				switch (ushout.data.adState) {
 					case adState.unstarted:
 						break;
@@ -519,18 +549,18 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 					default:
 				}
 				break;
-			case 0 : // ended
+			case playState.ended :
 				video.player.playVideo();
 				break;
-			case 1 : // playing
+			case playState.playing :
 				video.player.pauseVideo();
 				break;
-			case 2 : // paused
+			case playState.paused :
 				video.player.playVideo();
 				break;
-			case 3 : // buffering
+			case playState.buffering :
 				break;
-			case 5 : // video cued
+			case playState.video_cued :
 				video.player.playVideo();
 				break;
 			default:
