@@ -131,7 +131,7 @@ function ushout($body, log, warn, _u) {
 			$BUTTON : $('<button>').click(function () {
 				log('button "' + $(this).attr('id') + '" clicked');
 			}),
-			$INPUT  : $('<button>'),
+			$INPUT  : $('<input>'),
 			$LABEL  : $('<label>').addClass(_u('simplebox'))
 		}
 	} // ushout

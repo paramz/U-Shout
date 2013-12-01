@@ -12,7 +12,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr('id', _u('toucharea'));
 	
 	ushout.$dishPanel = ushout.templates.$DIV.clone(true)
-		.attr('id', _u('dishPanel'));
+		.attr('id', _u('dishpanel'));
 	
 	ushout.$progressBar = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('progressbar'));
@@ -23,25 +23,59 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$ushoutBar = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('ushoutbar'));
 	
+	// comment display area ===========================================//
+	ushout.$comments = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('comments'));
+	
 	// dish panel =====================================================//
-	ushout.templates.diskButton = function () {
-		var $result = ushout.templates.$DIV.clone(true)
-			.addClass(_u('diskbutton'))
+	ushout.$dishPanel_operationMask = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('dishpanel_operationmask'));
+	ushout.$dishPanel_textComment_frame = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('dishpanel_textcomment_frame'));
+	ushout.$dishPanel_textComment_input = ushout.templates.$INPUT.clone(true)
+		.attr({
+			'id': _u('dishpanel_textcomment_input'),
+			'type': 'text'
+		})
+		.addClass(_u('simplebox'));
+	ushout.$dishPanel_textComment_submit = ushout.templates.$BUTTON.clone(true)
+		.attr({
+			'id': _u('dishpanel_textcomment_submit')
+		})
+		.text('Post It');
+	ushout.$dishPanel_textComment_cancel = ushout.templates.$BUTTON.clone(true)
+		.attr({
+			'id': _u('dishpanel_textcomment_cancel')
+		})
+		.text('Cancel')
+		.click(function () {
+			ushout.$dishPanel_textComment_frame.removeClass('active');
+			ushout.$dishPanel_operationMask.removeClass('active');
+			if (ushout.data.shouldResume) {
+				video.player.playVideo();
+				// reset flag
+				ushout.data.shouldResume = false;
+			}
+		});
+	
+	ushout.templates.dishButton = function () {
+		var $result = ushout.templates.$BUTTON.clone(true)
+			.addClass(_u('dishbutton'))
 			.appendTo(ushout.$dishPanel);
 		$result.$clipper = ushout.templates.$DIV.clone(true)
-			.addClass(_u('diskbutton_clipper'))
+			.addClass(_u('dishbutton_clipper'))
 			.appendTo($result);
 		$result.$hoverDamper = ushout.templates.$DIV.clone(true)
-			.addClass(_u('diskbutton_hoverdamper'))
+			.addClass(_u('dishbutton_hoverdamper'))
 			.appendTo($result.$clipper);
 		$result.$hatBlock = ushout.templates.$DIV.clone(true)
-			.addClass(_u('diskbutton_hatblock'))
+			.addClass(_u('dishbutton_hatblock'))
 			.appendTo($result.$clipper);
 		$result.$centralBlock = ushout.templates.$DIV.clone(true)
-			.addClass(_u('diskbutton_centralblock'))
+			.addClass(_u('dishbutton_centralblock'))
 			.appendTo($result.$clipper);
 		$result.$title = ushout.templates.$LABEL.clone(true)
-			.addClass(_u('diskbutton_title'))
+			.addClass(_u('dishbutton_title'))
 			.appendTo($result.$clipper);
 		
 		$result.$clipper.mouseover(function () {
@@ -52,47 +86,50 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		return $result;
 	};
 	
-	ushout.$diskButton0 = ushout.templates.diskButton()
+	ushout.$dishButton0 = ushout.templates.dishButton()
 		.addClass(_u('pos0'))
 		.mouseup(function () {
 			log('video comment from dish panel');
 		});
-	ushout.$diskButton0.$title.text('V');
+	ushout.$dishButton0.$title.text('V');
 	
-	ushout.$diskButton1 = ushout.templates.diskButton()
+	ushout.$dishButton1 = ushout.templates.dishButton()
 		.addClass(_u('pos1'))
 		.mouseup(function () {
 			log('comment vote up from dish panel');
 		});
-	ushout.$diskButton1.$title.text('+');
+	ushout.$dishButton1.$title.text('+');
 	
-	ushout.$diskButton2 = ushout.templates.diskButton()
+	ushout.$dishButton2 = ushout.templates.dishButton()
 		.addClass(_u('pos2'))
 		.mouseup(function () {
 			log('text comment from dish panel');
+			ushout.$dishPanel_operationMask.addClass('active');
+			ushout.$dishPanel_textComment_frame.addClass('active');
+			ushout.$dishPanel_textComment_input.focus();
 		});
-	ushout.$diskButton2.$title.text('T');
+	ushout.$dishButton2.$title.text('T');
 	
-	ushout.$diskButton3 = ushout.templates.diskButton()
+	ushout.$dishButton3 = ushout.templates.dishButton()
 		.addClass(_u('pos3'))
 		.mouseup(function () {
 			log('audio comment from dish panel');
 		});
-	ushout.$diskButton3.$title.text('A');
+	ushout.$dishButton3.$title.text('A');
 	
-	ushout.$diskButton4 = ushout.templates.diskButton()
+	ushout.$dishButton4 = ushout.templates.dishButton()
 		.addClass(_u('pos4'))
 		.mouseup(function () {
 			log('comment vote down from dish panel');
 		});
-	ushout.$diskButton4.$title.text('-');
+	ushout.$dishButton4.$title.text('-');
 	
-	ushout.$diskButton5 = ushout.templates.diskButton()
+	ushout.$dishButton5 = ushout.templates.dishButton()
 		.addClass(_u('pos5'))
 		.mouseup(function () {
 			log('comment info from dish panel');
 		});
-	ushout.$diskButton5.$title.text('i');
+	ushout.$dishButton5.$title.text('i');
 	
 	// progress bar ===================================================//
 	ushout.$buffProgress = ushout.templates.$DIV.clone(true)
@@ -310,6 +347,13 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$overlay_base.append(
 		ushout.$overlay.append(
 			ushout.$touchArea.append(
+				ushout.$comments,
+				ushout.$dishPanel_operationMask,
+				ushout.$dishPanel_textComment_frame.append(
+					ushout.$dishPanel_textComment_input,
+					ushout.$dishPanel_textComment_submit,
+					ushout.$dishPanel_textComment_cancel
+				),
 				ushout.$dishPanel
 			),
 			ushout.$progressBar.append(
@@ -415,10 +459,12 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.data.dishPanelDelay = 300;
 	ushout.data.dishPanelTimer = -1;
 	ushout.$dishPanel.moveTo = function (x, y) {
-		ushout.$dishPanel.css({
+		var position = {
 			top: y + 'px',
 			left: x + 'px'
-		});
+		};
+		ushout.$dishPanel.css(position);
+		ushout.$dishPanel_textComment_frame.css(position);
 	};
 	ushout.$dishPanel.popUp = function () {
 		ushout.$dishPanel.addClass('active');
@@ -435,22 +481,29 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		window.clearTimeout(ushout.data.dishPanelTimer);
 		if (ushout.$dishPanel.hasClass('active')) {
 			ushout.$dishPanel.removeClass('active');
-			if (ushout.data.shouldResume) {
-				video.player.playVideo();
-				// reset flag
-				ushout.data.shouldResume = false;
+			if (ushout.$dishPanel_operationMask.hasClass('active')) {
+				
+			} else {
+				if (ushout.data.shouldResume) {
+					video.player.playVideo();
+					// reset flag
+					ushout.data.shouldResume = false;
+				}
 			}
 		}
 	});
-	
-	ushout.$touchArea.mousedown(function (event) {
-		var mouseX = event.pageX - ushout.$touchArea.offset().left,
-			mouseY = event.pageY - ushout.$touchArea.offset().top;
-		
-		ushout.$dishPanel.moveTo(mouseX, mouseY);
-		window.clearTimeout(ushout.data.dishPanelTimer);
-		ushout.data.dishPanelTimer = window.setTimeout(ushout.$dishPanel.popUp, ushout.data.dishPanelDelay);
-		return false;
+	ushout.$comments.mousedown(function (event) {
+		if (event.which === 1) { // LMB
+			var mouseX = event.pageX - ushout.$touchArea.offset().left,
+				mouseY = event.pageY - ushout.$touchArea.offset().top;
+			
+			
+			
+			ushout.$dishPanel.moveTo(mouseX, mouseY);
+			window.clearTimeout(ushout.data.dishPanelTimer);
+			ushout.data.dishPanelTimer = window.setTimeout(ushout.$dishPanel.popUp, ushout.data.dishPanelDelay);
+			return false;
+		}
 	});
 	
 	// seekbar
