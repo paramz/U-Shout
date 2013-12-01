@@ -43,15 +43,30 @@
 *[ushout_tooltip][demo="yes"]:before,
 *[ushout_tooltip]:hover:before {
 	opacity: 1;
-	-webkit-transition: opacity 100ms linear;
-	-moz-transition: opacity 100ms linear;
-	-ms-transition: opacity 100ms linear;
-	-o-transition: opacity 100ms linear;
-	transition: opacity 100ms linear;
+	-webkit-transition: opacity 100ms;
+	-moz-transition: opacity 100ms;
+	-ms-transition: opacity 100ms;
+	-o-transition: opacity 100ms;
+	transition: opacity 100ms;
 	-webkit-transition-delay: 300ms;
 	-moz-transition-delay: 300ms;
 	-o-transition-delay: 300ms;
 	transition-delay: 300ms;
+}
+
+/* helpers ===================================================================*/
+.ushout_pointercursor {
+	cursor: pointer;
+}
+.ushout_pointercursor[disabled] {
+	cursor: default;
+}
+
+.ushout_simplebox {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 /* overlay ===================================================================*/
@@ -84,7 +99,265 @@
 	
 	background-color: transparent;
 	
-/*	pointer-events: auto; */
+	pointer-events: none;
+}
+body.ushout_rtc.ushout_ads #ushout_toucharea {
+	pointer-events: none;
+}
+body.ushout_rtc #ushout_toucharea {
+	pointer-events: auto;
+}
+
+/* dish panel ================================================================*/
+#ushout_dishPanel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 0;
+	width: 0;
+	
+	opacity: 0;
+	
+	pointer-events: none;
+	
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	-ms-transition: opacity 300ms;
+	-o-transition: opacity 300ms;
+	transition: opacity 300ms;
+}
+#ushout_dishPanel.active {
+	opacity: 1;
+	
+	pointer-events: auto;
+	
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	-ms-transition: opacity 300ms;
+	-o-transition: opacity 300ms;
+	transition: opacity 300ms;
+}
+.ushout_diskbutton {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	box-sizing: content-box;
+	width: 220px;
+	height: 220px;
+	margin: -110px;
+	pointer-events: none;
+}
+.ushout_diskbutton_clipper {
+	position: absolute;
+	bottom: 100px;
+	left: 50%;
+	box-sizing: border-box;
+	width: 30%;
+	height: 130px;
+	margin-top: 0;
+	margin-left: -15%;
+	pointer-events: none;
+	-webkit-transition: height 150ms ease-in;
+	-moz-transition: height 150ms ease-in;
+	-ms-transition: height 150ms ease-in;
+	-o-transition: height 150ms ease-in;
+	transition: height 150ms ease-in;
+}
+.ushout_diskbutton_clipper .ushout_diskbutton_hoverdamper {
+	position: absolute;
+	top: 60px;
+	right: 23%;
+	left: 23%;
+	box-sizing: border-box;
+	height: 35px;
+	pointer-events: auto;
+	-webkit-transition: top 140ms, height 120ms;
+	-moz-transition: top 140ms, height 120ms;
+	-ms-transition: top 140ms, height 120ms;
+	-o-transition: top 140ms, height 120ms;
+	transition: top 140ms, height 120ms;
+}
+.ushout_diskbutton_clipper.ushout_mouseover {
+	height: 140px;
+	-webkit-transition: height 150ms ease-in;
+	-moz-transition: height 150ms ease-in;
+	-ms-transition: height 150ms ease-in;
+	-o-transition: height 150ms ease-in;
+	transition: height 150ms ease-in;
+}
+.ushout_diskbutton_clipper.ushout_mouseover .ushout_diskbutton_hoverdamper {
+	top: 0px;
+	height: 105px;
+	-webkit-transition: top 140ms, height 120ms;
+	-moz-transition: top 140ms, height 120ms;
+	-ms-transition: top 140ms, height 120ms;
+	-o-transition: top 140ms, height 120ms;
+	transition: top 140ms, height 120ms;
+}
+.ushout_diskbutton_hatblock {
+	position: absolute;
+	top: 44px;
+	right: 10%;
+	left: 10%;
+	box-sizing: border-box;
+	height: 20px;
+	background-color: #111;
+	pointer-events: auto;
+}
+.ushout_diskbutton_hatblock:before,
+.ushout_diskbutton_hatblock:after {
+	position: absolute;
+	top: 0;
+	box-sizing: border-box;
+	border: 0;
+	height: 75%;
+	width: 50%;
+	background-color: #111;
+	pointer-events: auto;
+	content: "";
+}
+.ushout_diskbutton_hatblock:before {
+	left: 0;
+	transform: rotate(42deg);
+	transform-origin: 0% 0%;
+	-ms-transform: rotate(42deg);
+	-ms-transform-origin: 0% 0%;
+	-webkit-transform: rotate(42deg);
+	-webkit-transform-origin: 0% 0%;
+}
+.ushout_diskbutton_hatblock:after {
+	right: 0;
+	transform: rotate(-42deg);
+	transform-origin: 100% 0%;
+	-ms-transform: rotate(-42deg);
+	-ms-transform-origin: 100% 0%;
+	-webkit-transform: rotate(-42deg);
+	-webkit-transform-origin: 100% 0%;
+}
+
+.ushout_diskbutton_centralblock {
+	position: absolute;
+	top: 52px;
+	right: 23%;
+	left: 23%;
+	box-sizing: border-box;
+	height: 35px;
+	background-color: #111;
+	color: white;
+	text-align: center;
+	line-height: 60px;
+	pointer-events: auto;
+}
+.ushout_diskbutton_centralblock:before,
+.ushout_diskbutton_centralblock:after {
+	position: absolute;
+	bottom: 0;
+	box-sizing: border-box;
+	border: 0;
+	height: 100%;
+	width: 70%;
+	background-color: #111;
+	pointer-events: auto;
+	content: "";
+}
+.ushout_diskbutton_centralblock:before {
+	left: 0;
+	transform: rotate(-30deg);
+	transform-origin: 0% 100%;
+	-ms-transform: rotate(-30deg);
+	-ms-transform-origin: 0% 100%;
+	-webkit-transform: rotate(-30deg);
+	-webkit-transform-origin: 0% 100%;
+}
+.ushout_diskbutton_centralblock:after {
+	right: 0;
+	transform: rotate(30deg);
+	transform-origin: 100% 100%;
+	-ms-transform: rotate(30deg);
+	-ms-transform-origin: 100% 100%;
+	-webkit-transform: rotate(30deg);
+	-webkit-transform-origin: 100% 100%;
+}
+
+.ushout_diskbutton_clipper label.ushout_diskbutton_title {
+	display: block;
+	position: absolute;
+	z-index: 10;
+	top: 50px;
+	left: 50%;
+	width: 30px;
+	height: 30px;
+	margin: 0 0 0 -15px;
+	box-sizing: border-box;
+	border: 2px solid #666;
+	border: 0;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 26px;
+	line-height: 30px;
+	font-weight: bold;
+	color: #666;
+	font-family: Verdana, Geneva, sans-serif;
+	font-family: monospace;
+	pointer-events: none;
+	-webkit-transition: color 150ms ease-in, border-color 150ms ease-in;
+	-moz-transition: color 150ms ease-in, border-color 150ms ease-in;
+	-ms-transition: color 150ms ease-in, border-color 150ms ease-in;
+	-o-transition: color 150ms ease-in, border-color 150ms ease-in;
+	transition: color 150ms ease-in, border-color 150ms ease-in;
+}
+
+.ushout_diskbutton_clipper.ushout_mouseover label.ushout_diskbutton_title {
+	color: #CCC;
+	border-color: white;
+	-webkit-transition: color 150ms ease-in, border-color 150ms ease-in;
+	-moz-transition: color 150ms ease-in, border-color 150ms ease-in;
+	-ms-transition: color 150ms ease-in, border-color 150ms ease-in;
+	-o-transition: color 150ms ease-in, border-color 150ms ease-in;
+	transition: color 150ms ease-in, border-color 150ms ease-in;
+}
+
+.ushout_diskbutton.ushout_pos0 {
+	-webkit-transform: rotate(0deg);
+}
+.ushout_diskbutton.ushout_pos0 .ushout_diskbutton_clipper label.ushout_diskbutton_title {
+	-webkit-transform: rotate(-0deg);
+}
+
+.ushout_diskbutton.ushout_pos1 {
+	-webkit-transform: rotate(60deg);
+}
+.ushout_diskbutton.ushout_pos1 .ushout_diskbutton_clipper label.ushout_diskbutton_title {
+	-webkit-transform: rotate(-60deg);
+}
+
+.ushout_diskbutton.ushout_pos2 {
+	-webkit-transform: rotate(120deg);
+}
+.ushout_diskbutton.ushout_pos2 .ushout_diskbutton_clipper label.ushout_diskbutton_title {
+	-webkit-transform: rotate(-120deg);
+}
+
+.ushout_diskbutton.ushout_pos3 {
+	-webkit-transform: rotate(180deg);
+}
+.ushout_diskbutton.ushout_pos3 .ushout_diskbutton_clipper label.ushout_diskbutton_title {
+	-webkit-transform: rotate(-180deg);
+}
+
+.ushout_diskbutton.ushout_pos4 {
+	-webkit-transform: rotate(240deg);
+}
+.ushout_diskbutton.ushout_pos4 .ushout_diskbutton_clipper label.ushout_diskbutton_title {
+	-webkit-transform: rotate(-240deg);
+}
+
+.ushout_diskbutton.ushout_pos5 {
+	-webkit-transform: rotate(300deg);
+}
+.ushout_diskbutton.ushout_pos5 .ushout_diskbutton_clipper label.ushout_diskbutton_title {
+	-webkit-transform: rotate(-300deg);
 }
 
 /* progress bar ==============================================================*/
@@ -135,7 +408,7 @@ body.ushout_rtc #ushout_overlay:hover #ushout_progressbar {
 }
 body.ushout_rtc #ushout_progressbar:before {
 	position: absolute;
-	z-index: 1;
+	z-index: 2;
 	top: 0;
 	right: auto;
 	bottom: 0;
@@ -151,7 +424,7 @@ body.ushout_rtc #ushout_progressbar:before {
 }
 body.ushout_rtc #ushout_progressbar:after {
 	position: absolute;
-	z-index: 1;
+	z-index: 2;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -170,6 +443,7 @@ body.ushout_rtc #ushout_progressbar:after {
 #ushout_buffProgress {
 	opacity: 0;
 	position: absolute;
+	z-index: 1;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -209,6 +483,7 @@ body.ushout_rtc #ushout_buffProgress {
 #ushout_seekSlider {
 	opacity: 0;
 	position: absolute;
+	z-index: 3;
 	top: 0;
 	right: 9px;
 	bottom: 0;
@@ -293,19 +568,6 @@ body.ushout_rtc #ushout_overlay:hover #ushout_seekSlider .ui-slider-handle {
 }
 
 /* control bar ===============================================================*/
-.ushout_pointercursor {
-	cursor: pointer;
-}
-.ushout_pointercursor[disabled] {
-	cursor: default;
-}
-
-.ushout_simplebox {
-	margin: 0;
-	border: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
 .ushout_controlitem {
 	display: block;
 	

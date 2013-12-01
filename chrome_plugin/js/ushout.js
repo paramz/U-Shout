@@ -121,7 +121,7 @@ function ushout($body, log, warn, _u) {
 		data: {
 			playState: -1,
 			adState: -1,
-			playTimeUpdater: 0
+			updater: -1
 		},
 		controller : {
 			stateChangeJumpTable: {}

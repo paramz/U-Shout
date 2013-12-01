@@ -11,6 +11,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$touchArea = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('toucharea'));
 	
+	ushout.$dishPanel = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('dishPanel'));
+	
 	ushout.$progressBar = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('progressbar'));
 	
@@ -20,6 +23,60 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$ushoutBar = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('ushoutbar'));
 	
+	// dish panel =====================================================//
+	ushout.templates.diskButton = function () {
+		var $result = ushout.templates.$DIV.clone(true)
+			.addClass(_u('diskbutton'))
+			.appendTo(ushout.$dishPanel);
+		$result.$clipper = ushout.templates.$DIV.clone(true)
+			.addClass(_u('diskbutton_clipper'))
+			.appendTo($result);
+		$result.$hoverDamper = ushout.templates.$DIV.clone(true)
+			.addClass(_u('diskbutton_hoverdamper'))
+			.appendTo($result.$clipper);
+		$result.$hatBlock = ushout.templates.$DIV.clone(true)
+			.addClass(_u('diskbutton_hatblock'))
+			.appendTo($result.$clipper);
+		$result.$centralBlock = ushout.templates.$DIV.clone(true)
+			.addClass(_u('diskbutton_centralblock'))
+			.appendTo($result.$clipper);
+		$result.$title = ushout.templates.$LABEL.clone(true)
+			.addClass(_u('diskbutton_title'))
+			.appendTo($result.$clipper);
+		
+		$result.$clipper.mouseover(function () {
+			$result.$clipper.addClass(_u('mouseover'));
+		}).mouseout(function () {
+			$result.$clipper.removeClass(_u('mouseover'));
+		});
+		return $result;
+	};
+	
+	ushout.$diskButton0 = ushout.templates.diskButton()
+		.addClass(_u('pos0'));
+	ushout.$diskButton0.$title.text('V');
+	
+	ushout.$diskButton1 = ushout.templates.diskButton()
+		.addClass(_u('pos1'));
+	ushout.$diskButton1.$title.text('+');
+	
+	ushout.$diskButton2 = ushout.templates.diskButton()
+		.addClass(_u('pos2'));
+	ushout.$diskButton2.$title.text('T');
+	
+	ushout.$diskButton3 = ushout.templates.diskButton()
+		.addClass(_u('pos3'));
+	ushout.$diskButton3.$title.text('A');
+	
+	ushout.$diskButton4 = ushout.templates.diskButton()
+		.addClass(_u('pos4'));
+	ushout.$diskButton4.$title.text('-');
+	
+	ushout.$diskButton5 = ushout.templates.diskButton()
+		.addClass(_u('pos5'));
+	ushout.$diskButton5.$title.text('i');
+	
+	// progress bar ===================================================//
 	ushout.$buffProgress = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('buffProgress'));
 	ushout.$seekSlider = ushout.templates.$DIV.clone(true)
@@ -234,7 +291,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$overlay_base.append(
 		ushout.$overlay.append(
-			ushout.$touchArea,
+			ushout.$touchArea.append(
+				ushout.$dishPanel
+			),
 			ushout.$progressBar.append(
 				ushout.$buffProgress,
 				ushout.$seekSlider
@@ -333,6 +392,34 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		$body.find('.mousedown').removeClass('mousedown');
 	});
 	//-- global support for mouseup */
+	
+	// dish panel
+	ushout.data.dishPanelDelay = 300;
+	ushout.data.dishPanelTimer = -1;
+	ushout.$dishPanel.moveTo = function (x, y) {
+		ushout.$dishPanel.css({
+			top: y + 'px',
+			left: x + 'px'
+		});
+	};
+	ushout.$dishPanel.popUp = function () {
+		ushout.$dishPanel.addClass('active');
+	};
+	$(document).mouseup(function () {
+		window.clearTimeout(ushout.data.dishPanelTimer);
+		if (ushout.$dishPanel.hasClass('active'))
+			ushout.$dishPanel.removeClass('active');
+	});
+	
+	ushout.$touchArea.mousedown(function (event) {
+		var mouseX = event.pageX - ushout.$touchArea.offset().left,
+			mouseY = event.pageY - ushout.$touchArea.offset().top;
+		
+		ushout.$dishPanel.moveTo(mouseX, mouseY);
+		window.clearTimeout(ushout.data.dishPanelTimer);
+		ushout.data.dishPanelTimer = window.setTimeout(ushout.$dishPanel.popUp, ushout.data.dishPanelDelay);
+		return false;
+	});
 	
 	// seekbar
 	ushout.$seekSlider.slider({
