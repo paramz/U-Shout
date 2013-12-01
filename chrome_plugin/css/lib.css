@@ -129,8 +129,6 @@ body.ushout_rtc #ushout_toucharea {
 #ushout_dishPanel.active {
 	opacity: 1;
 	
-	pointer-events: auto;
-	
 	-webkit-transition: opacity 300ms;
 	-moz-transition: opacity 300ms;
 	-ms-transition: opacity 300ms;
@@ -158,11 +156,11 @@ body.ushout_rtc #ushout_toucharea {
 	margin-top: 0;
 	margin-left: -15%;
 	pointer-events: none;
-	-webkit-transition: height 150ms ease-in;
-	-moz-transition: height 150ms ease-in;
-	-ms-transition: height 150ms ease-in;
-	-o-transition: height 150ms ease-in;
-	transition: height 150ms ease-in;
+	-webkit-transition: height 150ms;
+	-moz-transition: height 150ms;
+	-ms-transition: height 150ms;
+	-o-transition: height 150ms;
+	transition: height 150ms;
 }
 .ushout_diskbutton_clipper .ushout_diskbutton_hoverdamper {
 	position: absolute;
@@ -171,20 +169,23 @@ body.ushout_rtc #ushout_toucharea {
 	left: 23%;
 	box-sizing: border-box;
 	height: 35px;
-	pointer-events: auto;
+	pointer-events: none;
 	-webkit-transition: top 140ms, height 120ms;
 	-moz-transition: top 140ms, height 120ms;
 	-ms-transition: top 140ms, height 120ms;
 	-o-transition: top 140ms, height 120ms;
 	transition: top 140ms, height 120ms;
 }
+#ushout_dishPanel.active .ushout_diskbutton_clipper .ushout_diskbutton_hoverdamper {
+	pointer-events: auto;
+}
 .ushout_diskbutton_clipper.ushout_mouseover {
 	height: 140px;
-	-webkit-transition: height 150ms ease-in;
-	-moz-transition: height 150ms ease-in;
-	-ms-transition: height 150ms ease-in;
-	-o-transition: height 150ms ease-in;
-	transition: height 150ms ease-in;
+	-webkit-transition: height 150ms;
+	-moz-transition: height 150ms;
+	-ms-transition: height 150ms;
+	-o-transition: height 150ms;
+	transition: height 150ms;
 }
 .ushout_diskbutton_clipper.ushout_mouseover .ushout_diskbutton_hoverdamper {
 	top: 0px;
@@ -203,6 +204,9 @@ body.ushout_rtc #ushout_toucharea {
 	box-sizing: border-box;
 	height: 20px;
 	background-color: #111;
+	pointer-events: none;
+}
+#ushout_dishPanel.active .ushout_diskbutton_hatblock {
 	pointer-events: auto;
 }
 .ushout_diskbutton_hatblock:before,
@@ -214,8 +218,12 @@ body.ushout_rtc #ushout_toucharea {
 	height: 75%;
 	width: 50%;
 	background-color: #111;
-	pointer-events: auto;
+	pointer-events: none;
 	content: "";
+}
+#ushout_dishPanel.active .ushout_diskbutton_hatblock:before,
+#ushout_dishPanel.active .ushout_diskbutton_hatblock:after {
+	pointer-events: auto;
 }
 .ushout_diskbutton_hatblock:before {
 	left: 0;
@@ -247,6 +255,9 @@ body.ushout_rtc #ushout_toucharea {
 	color: white;
 	text-align: center;
 	line-height: 60px;
+	pointer-events: none;
+}
+#ushout_dishPanel.active .ushout_diskbutton_centralblock {
 	pointer-events: auto;
 }
 .ushout_diskbutton_centralblock:before,
@@ -258,8 +269,12 @@ body.ushout_rtc #ushout_toucharea {
 	height: 100%;
 	width: 70%;
 	background-color: #111;
-	pointer-events: auto;
+	pointer-events: none;
 	content: "";
+}
+#ushout_dishPanel.active .ushout_diskbutton_centralblock:before,
+#ushout_dishPanel.active .ushout_diskbutton_centralblock:after {
+	pointer-events: auto;
 }
 .ushout_diskbutton_centralblock:before {
 	left: 0;
