@@ -13,10 +13,6 @@
 /*	pointer-events: auto; */
 }
 
-#ushout_ushoutbar .ushout_controlitem {
-	height: 27px;
-}
-
 #ushout_rtc_controls_wrapper {
 	position: absolute;
 	top: 0;

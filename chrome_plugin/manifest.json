@@ -6,7 +6,7 @@
 // commented out because not supported yet	
 //	"short_name": "__MSG_extShortName__", // __MSG_extShortName__ will load 'extShortName' from messages.json from _locales
 	
-	"version": "2013.11.28.1", // version number
+	"version": "2013.11.29.0", // version number
 	
 	"description": "__MSG_extDesc__", // __MSG_extDesc__ will load 'extDesc' from messages.json from _locales
 	
@@ -56,7 +56,9 @@
 				"js/swfobject.js", // swfObject 2.2 for creating embeded players
 				"js/jquery-1.10.2.min.js", // jquery
 				"js/jquery-ui-1.10.3.min.js", // jquery UI
-				"js/lib.js", // the library
+				"js/ushout.js", // the library
+				"js/embed_player.js", // the module for embeded player
+				"js/html5_player.js", // the module for html5 player
 				"js/main.js" // the small code clip that activates the library
 			],
 			"run_at": "document_start",

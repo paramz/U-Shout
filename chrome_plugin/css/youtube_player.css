@@ -91,3 +91,14 @@ body.ushout_rtc.ushout_fullwindow #player #playlist-tray {
 body.ushout_rtc.ushout_fullwindow #content {
 	display: none;
 }
+
+
+/**
+ * Hide Clickberry plugin
+ **/
+
+#clickberry_tag_button,
+#tagger-container_ {
+	display: none !important;
+	pointer-events: none;
+}
