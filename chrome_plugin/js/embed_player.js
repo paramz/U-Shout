@@ -437,6 +437,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			ushout.$dishPanel.removeClass('active');
 			if (ushout.data.shouldResume) {
 				video.player.playVideo();
+				// reset flag
+				ushout.data.shouldResume = false;
 			}
 		}
 	});

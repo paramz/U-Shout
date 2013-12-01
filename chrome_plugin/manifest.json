@@ -6,7 +6,7 @@
 // commented out because not supported yet	
 //	"short_name": "__MSG_extShortName__", // __MSG_extShortName__ will load 'extShortName' from messages.json from _locales
 	
-	"version": "2013.12.1.3", // version number
+	"version": "2013.12.1.4", // version number
 	
 	"description": "__MSG_extDesc__", // __MSG_extDesc__ will load 'extDesc' from messages.json from _locales
 	

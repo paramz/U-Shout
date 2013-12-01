@@ -390,24 +390,28 @@ body.ushout_rtc #ushout_toucharea {
 	
 	background-color: #444444; /* this is the youtube control bar background color */
 
+	opacity: 0;
+
 	pointer-events: none;
 
-	-webkit-transition: margin-bottom 300ms height 300ms;
-	-moz-transition: margin-bottom 300ms height 300ms;
-	-ms-transition: margin-bottom 300ms height 300ms;
-	-o-transition: margin-bottom 300ms height 300ms;
-	transition: margin-bottom 300ms height 300ms;
+	-webkit-transition: margin-bottom 300ms, height 300ms, opacity 300ms;
+	-moz-transition: margin-bottom 300ms, height 300ms, opacity 300ms;
+	-ms-transition: margin-bottom 300ms, height 300ms, opacity 300ms;
+	-o-transition: margin-bottom 300ms, height 300ms, opacity 300ms;
+	transition: margin-bottom 300ms, height 300ms, opacity 300ms;
 }
 body.ushout_rtc #ushout_progressbar {
 	margin-bottom: 0;
 	
+	opacity: 1;
+	
 	pointer-events: auto;
 	
-	-webkit-transition: margin-bottom 300ms;
-	-moz-transition: margin-bottom 300ms;
-	-ms-transition: margin-bottom 300ms;
-	-o-transition: margin-bottom 300ms;
-	transition: margin-bottom 300ms;
+	-webkit-transition: margin-bottom 300ms, opacity 300ms;
+	-moz-transition: margin-bottom 300ms, opacity 300ms;
+	-ms-transition: margin-bottom 300ms, opacity 300ms;
+	-o-transition: margin-bottom 300ms, opacity 300ms;
+	transition: margin-bottom 300ms, opacity 300ms;
 }
 body.ushout_rtc.ushout_ads #ushout_progressbar {
 	height: 3px !important; /* progressBar height */
