@@ -92,7 +92,7 @@
 }
 #ushout_toucharea {
 	position: absolute;
-	z-index: 1001;
+	z-index: auto;
 	top: 0;
 	right: 0;
 	bottom: 54px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
@@ -186,6 +186,9 @@ body.ushout_rtc #ushout_comments {
 	-o-transition: opacity 300ms;
 	transition: opacity 300ms;
 }
+#ushout_dishpanel_textcomment_frame.lower {
+	margin-top: -90px;
+}
 #ushout_dishpanel_textcomment_frame.active {
 	opacity: 1;
 	
@@ -211,6 +214,12 @@ body.ushout_rtc #ushout_comments {
 	width: 10px;
 	
 	content: "";
+}
+#ushout_dishpanel_textcomment_frame.lower:before {
+	top: auto;
+	bottom: -20px;
+	border-width: 0 10px 10px 0;
+	border-color: transparent transparent black transparent;
 }
 #ushout_dishpanel_textcomment_frame:after {
 	position: absolute;
@@ -546,7 +555,7 @@ body.ushout_rtc #ushout_comments {
 /* progress bar ==============================================================*/
 #ushout_progressbar {
 	position: absolute;
-	z-index: 1000; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
+	z-index: auto;
 	top: auto;
 	right: 0;
 	bottom: 54px;
@@ -775,7 +784,7 @@ body.ushout_rtc #ushout_overlay:hover #ushout_seekSlider .ui-slider-handle {
 
 #ushout_controlbar {
 	position: absolute;
-	z-index: 999; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
+	z-index: auto;
 	top: auto;
 	right: 0;
 	bottom: 27px;

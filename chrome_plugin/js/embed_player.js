@@ -477,9 +477,14 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.data.dishPanelDelay = 300;
 	ushout.data.dishPanelTimer = -1;
 	ushout.$dishPanel.moveTo = function (x, y) {
+		if (y > 0.7) {
+			ushout.$dishPanel_textComment_frame.addClass('lower');
+		} else {
+			ushout.$dishPanel_textComment_frame.removeClass('lower');
+		}
 		var position = {
-			top: y + 'px',
-			left: x + 'px'
+			top: y * 100 + '%',
+			left: x * 100 + '%'
 		};
 		ushout.$dishPanel.css(position);
 		ushout.$dishPanel_textComment_frame.css(position);
@@ -512,8 +517,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	});
 	ushout.$comments.mousedown(function (event) {
 		if (event.which === 1) { // LMB
-			var mouseX = event.pageX - ushout.$touchArea.offset().left,
-				mouseY = event.pageY - ushout.$touchArea.offset().top;
+			var mouseX = (event.pageX - ushout.$touchArea.offset().left) / ushout.$touchArea.width(),
+				mouseY = (event.pageY - ushout.$touchArea.offset().top) / ushout.$touchArea.height();
 			
 			ushout.$dishButton2
 				.attr({

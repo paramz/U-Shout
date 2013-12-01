@@ -1,6 +1,6 @@
 #ushout_ushoutbar {
 	position: absolute;
-	z-index: 999; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
+	z-index: auto;
 	top: auto;
 	right: 0;
 	bottom: 0;

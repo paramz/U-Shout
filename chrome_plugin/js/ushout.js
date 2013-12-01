@@ -151,6 +151,20 @@ function ushout($body, log, warn, _u) {
 					}
 				];
 			},
+			pushComment: function (comment) {
+				comment = {
+					'vid': video.id, // video id
+					'tiv': video.ctime, // current time in video
+					'dop': 0, // date of posting (with time)
+					'ptype': 0,
+					'poi': {
+						x: 0,
+						y: 0
+					},
+					'dtype': 0,
+					'data': 'test push comment'
+				}
+			}
 		},
 		localSettings: {
 			rtcActivated: false,
