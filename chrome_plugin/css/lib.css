@@ -311,6 +311,9 @@ body.ushout_rtc #ushout_comments {
 	margin: -110px;
 	pointer-events: none;
 }
+.ushout_dishbutton[disabled] {
+	opacity: 0.4;
+}
 .ushout_dishbutton_clipper {
 	position: absolute;
 	bottom: 100px;
@@ -344,7 +347,7 @@ body.ushout_rtc #ushout_comments {
 #ushout_dishpanel.active .ushout_dishbutton_clipper .ushout_dishbutton_hoverdamper {
 	pointer-events: auto;
 }
-.ushout_dishbutton_clipper.ushout_mouseover {
+.ushout_dishbutton:not([disabled]) .ushout_dishbutton_clipper.ushout_mouseover {
 	height: 140px;
 	-webkit-transition: height 150ms;
 	-moz-transition: height 150ms;
@@ -352,7 +355,7 @@ body.ushout_rtc #ushout_comments {
 	-o-transition: height 150ms;
 	transition: height 150ms;
 }
-.ushout_dishbutton_clipper.ushout_mouseover .ushout_dishbutton_hoverdamper {
+.ushout_dishbutton:not([disabled]) .ushout_dishbutton_clipper.ushout_mouseover .ushout_dishbutton_hoverdamper {
 	top: 0px;
 	height: 105px;
 	-webkit-transition: top 140ms, height 120ms;
@@ -488,7 +491,7 @@ body.ushout_rtc #ushout_comments {
 	transition: color 150ms ease-in, border-color 150ms ease-in;
 }
 
-.ushout_dishbutton_clipper.ushout_mouseover label.ushout_dishbutton_title {
+.ushout_dishbutton:not([disabled]) .ushout_dishbutton_clipper.ushout_mouseover label.ushout_dishbutton_title {
 	color: #CCC;
 	border-color: white;
 	-webkit-transition: color 150ms ease-in, border-color 150ms ease-in;

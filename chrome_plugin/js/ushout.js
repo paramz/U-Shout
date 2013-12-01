@@ -112,6 +112,46 @@ function ushout($body, log, warn, _u) {
 	
 	// data object for ushout
 	var ushout = {
+		server: {
+			/**
+			 * this function gets a list of comments of the current video since the
+			 * given timeStamp
+			 * if a timeStamp is not specified, get the whole list
+			 **/
+			pullComments: function (timeStamp) {
+				// fake data
+				return (timeStamp) ? [] : [
+					{
+						'id': 1, // id of the comment in database
+						'uid': 1, // id of the user who posted this comment
+						'pid': 0, // post id. non-zero if this is a follow-up
+						'tiv': 10000, // time in video, in milliseconds
+						'dop': 0, // date of posting
+						'ptype': 0, // position type
+						/**
+						 * ptype: 0 - normal, right-to-left floating comment
+						 * ptype: 1 - normal, left-to-right floating comment
+						 * ptype: 2 - normal, top fixed comment
+						 * ptype: 3 - normal, bottom fixed comment
+						 * ptype: 4 - POI (point of interest) comment
+						 **/
+						'poi': { // only used when ptype = 4
+							x: 0.3, // coordinate in percentages
+							y: 0.3
+						},
+						'dtype': 0, // data type
+						/**
+						 * dtype: 0 - text
+						 * dtype: 1 - audio
+						 * dtype: 2 - video
+						 * dtype: 3 - macro
+						 **/
+						'data': 'hello world!', // comment data in strings (base64 string for binary data)
+						'repu': 0 // reputation, for votings
+					}
+				];
+			},
+		},
 		localSettings: {
 			rtcActivated: false,
 			volume: 100,

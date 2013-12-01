@@ -87,6 +87,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	};
 	
 	ushout.$dishButton0 = ushout.templates.dishButton()
+		.attr({
+			'disabled': true
+		})
 		.addClass(_u('pos0'))
 		.mouseup(function () {
 			log('video comment from dish panel');
@@ -94,6 +97,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton0.$title.text('V');
 	
 	ushout.$dishButton1 = ushout.templates.dishButton()
+		.attr({
+			'disabled': true
+		})
 		.addClass(_u('pos1'))
 		.mouseup(function () {
 			log('comment vote up from dish panel');
@@ -101,6 +107,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton1.$title.text('+');
 	
 	ushout.$dishButton2 = ushout.templates.dishButton()
+		.attr({
+			'disabled': true
+		})
 		.addClass(_u('pos2'))
 		.mouseup(function () {
 			log('text comment from dish panel');
@@ -111,6 +120,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton2.$title.text('T');
 	
 	ushout.$dishButton3 = ushout.templates.dishButton()
+		.attr({
+			'disabled': true
+		})
 		.addClass(_u('pos3'))
 		.mouseup(function () {
 			log('audio comment from dish panel');
@@ -118,6 +130,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton3.$title.text('A');
 	
 	ushout.$dishButton4 = ushout.templates.dishButton()
+		.attr({
+			'disabled': true
+		})
 		.addClass(_u('pos4'))
 		.mouseup(function () {
 			log('comment vote down from dish panel');
@@ -125,6 +140,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton4.$title.text('-');
 	
 	ushout.$dishButton5 = ushout.templates.dishButton()
+		.attr({
+			'disabled': true
+		})
 		.addClass(_u('pos5'))
 		.mouseup(function () {
 			log('comment info from dish panel');
@@ -497,7 +515,10 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			var mouseX = event.pageX - ushout.$touchArea.offset().left,
 				mouseY = event.pageY - ushout.$touchArea.offset().top;
 			
-			
+			ushout.$dishButton2
+				.attr({
+					'disabled': false
+				});
 			
 			ushout.$dishPanel.moveTo(mouseX, mouseY);
 			window.clearTimeout(ushout.data.dishPanelTimer);
@@ -1065,6 +1086,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$volume_button.attr('disabled', false);
 	ushout.$fullwindow_button.attr('disabled', false);
 	ushout.$rtc_channels_expand_button.attr('disabled', false);
+	
+	// fix flash player
+	youtube.$movieplayer.attr('wmode', 'opaque');
 	
 	// restore rtc state
 	chrome.storage.local.get([
