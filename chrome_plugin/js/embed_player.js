@@ -280,6 +280,30 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	// start higher level logics from here
 	//===========================================================================//
+
+	/**
+	 * this function is called when a new video is loaded and the page needs
+	 * to be re-configured because youtube has reset some portion of the page.
+	 *
+	 * this function, however, doesn't need to change the setting of or reload the
+	 * the player as it is most likely holding its previous setting.
+	 **/
+	ushout.configure = function () {
+		log('>> configuring...');
+		video.updateID();
+		ushout.controller.updateVolumeIcon();
+		ushout.controller.updatePlayTime();
+		// get into ad mode
+		$body.addClass(_u('playing'));
+		ushout.data.adState = adState.playing;
+		ushout.data.playState = playState.unstarted;
+		if (ushout.localSettings.rtcActivated) {
+			log('turning RTC back on');
+			$body.addClass(_u('rtc'));
+		} else {
+			$body.removeClass(_u('rtc'));
+		}
+	};
 	
 	/* global support for mouseup --
 	$(document).mouseup(function () {
@@ -296,20 +320,24 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		buffering: 3,
 		video_cued: 5
 	};
-	ushout.data.playState = playState.unstarted;
+//	ushout.data.playState = playState.unstarted;
 	var adState = {
 		unstarted: -1,
 		ended: 0,
 		playing: 1,
 		paused: 2
 	};
-	ushout.data.adState = adState.unstarted;
+//	ushout.data.adState = adState.unstarted;
 	ushout.$play_pause_button.click(function () {
 		// the player has to be located first
-		if (video.player === null)
+		if (video.player === null) {
+			warn('player not found');
 			return;
+		}
 		
-		switch (ushout.controller.playState) {
+		log('playState: ' + ushout.data.playState);
+		
+		switch (ushout.data.playState) {
 			case -1: // unstarted
 				switch (ushout.data.adState) {
 					case adState.unstarted:
@@ -347,7 +375,43 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			default:
 		}
 	});
-	ushout.controller.stateChangeJumpTable = {
+	ushout.controller.stateChangeJumpTable_leaving = {
+		'-1': function () {},
+		'0' : function () {},
+		'1' : function () {
+			$body.removeClass(_u('playing'));
+			// start slow updating time
+			ushout.controller.slowUpdatePlayTime();
+		},
+		'2' : function () {},
+		'3' : function () {},
+		'5' : function () {}
+	};
+	ushout.controller.stateChangeJumpTable_arriving = {
+		'-1': function () {
+			if (ushout.data.redirecting === 1) {
+				ushout.data.redirecting = 2;
+			} else if (ushout.data.redirecting === 3) {
+				// this state change means video redirecting is done
+				ushout.data.redirecting = 0;
+			//	ushout.configure();
+			}
+		},
+		'0' : function () {},
+		'1' : function () {
+			$body.addClass(_u('playing'));
+			// start fast updating time
+			ushout.controller.fastUpdatePlayTime();
+		},
+		'2' : function () {},
+		'3' : function () {},
+		'5' : function () {
+			if (ushout.data.redirecting === 2) {
+				ushout.data.redirecting = 3;
+			}
+		}
+	};
+	ushout.controller.stateChangeJumpTable_transition = {
 		'-1': { // unstarted
 			'-1': function () {},
 			'0' : function () {
@@ -356,51 +420,35 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			},
 			'1' : function () {
 				log('started playing.');
-				$body.addClass(_u('playing'));
-				ushout.controller.adMode = false;
-				ushout.controller.adPlaying = false;
+				ushout.data.adState = adState.ended;
 			},
-			'2' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'2' : function () {},
 			'3' : function () {},
 			'5' : function () {}
 		},
 		'0' : { // ended
 			'-1': function () {},
-			'0' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'0' : function () {},
 			'1' : function () {
 				log('started playing from ended.');
-				$body.addClass(_u('playing'));
 			},
-			'2' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'2' : function () {},
 			'3' : function () {},
 			'5' : function () {}
 		},
 		'1' : { // playing
 			'-1': function () {},
-			'0' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'0' : function () {},
 			'1' : function () {},
-			'2' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'2' : function () {},
 			'3' : function () {},
 			'5' : function () {}
 		},
 		'2' : { // paused
 			'-1': function () {},
-			'0' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'0' : function () {},
 			'1' : function () {
 				log('started playing from paused.');
-				$body.addClass(_u('playing'));
 			},
 			'2' : function () {},
 			'3' : function () {},
@@ -408,71 +456,126 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		},
 		'3' : { // buffering
 			'-1': function () {},
-			'0' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'0' : function () {},
 			'1' : function () {
 				log('started playing from buffering.');
-				$body.addClass(_u('playing'));
 			},
-			'2' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'2' : function () {},
 			'3' : function () {},
 			'5' : function () {}
 		},
 		'5' : { // video cued
 			'-1': function () {},
-			'0' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'0' : function () {},
 			'1' : function () {
 				log('started playing from cued.');
-				$body.addClass(_u('playing'));
 			},
-			'2' : function () {
-				$body.removeClass(_u('playing'));
-			},
+			'2' : function () {},
 			'3' : function () {},
 			'5' : function () {}
 		}
 	}; // ushout.controller.stateChangeJumpTable
 	window.playerOnStateChange = function (newState) {
 		var newStateString = String(newState);
-		log('state: ' + newStateString);
 		var currentStateString = String(ushout.data.playState);
-		var toDo = ushout.controller.stateChangeJumpTable[currentStateString][newStateString];
-		if (typeof toDo === 'function') {
-			log('state: ' + currentStateString + ' > ' + newStateString);
-			ushout.data.playState = newState;
-			toDo();
-		} else {
-			warn('invalid state: ' + newStateString);
+		log('state change: ' + currentStateString + ' > ' + newStateString);
+		if (ushout.localSettings.rtcActivated) {
+			var toDo_leaving = ushout.controller.stateChangeJumpTable_leaving[currentStateString],
+				toDo_arriving = ushout.controller.stateChangeJumpTable_arriving[newStateString],
+				toDo_transition = ushout.controller.stateChangeJumpTable_transition[currentStateString][newStateString];
+			if ((typeof toDo_leaving === 'function') &&
+				(typeof toDo_arriving === 'function') &&
+				(typeof toDo_transition === 'function')) {
+				toDo_leaving();
+				toDo_transition();
+				ushout.data.playState = newState;
+				toDo_arriving();
+				log('final state: ' + String(ushout.data.playState));
+			} else {
+				warn('invalid state: ' + newStateString);
+			}
 		}
 	};
 	
 	// mute/unmute actions
-	ushout.data.volume = 0;
-	ushout.data.restoreVolume = 0;
+//	ushout.localSettings.volume = 0;
+//	ushout.localSettings.restoreVolume = 0;
 	ushout.controller.unMute = function () {
+		// the player has to be located first
+		if (video.player === null) {
+			warn('player not found');
+			return;
+		}
+		ushout.localSettings.muted = false;
+		// save to local storage
+		chrome.storage.local.set(ushout.localSettings);
+		
 		video.player.unMute();
 		ushout.$volume_slider.slider({
-			value: ushout.data.restoreVolume
+			value: ushout.localSettings.restoreVolume
 		});
 		$body.removeClass(_u('muted'));
 	};
 	ushout.controller.mute = function () {
-		ushout.data.restoreVolume = video.player.getVolume();
+		// the player has to be located first
+		if (video.player === null) {
+			warn('player not found');
+			return;
+		}
+		ushout.localSettings.restoreVolume = video.player.getVolume();
+		ushout.localSettings.muted = true;
+		// save to local storage
+		chrome.storage.local.set(ushout.localSettings);
+		
 		video.player.mute();
 		ushout.$volume_slider.slider({
 			value: 0
 		});
 		$body.addClass(_u('muted'));
 	};
+	ushout.controller.updateVolumeIcon = function () {
+		// the player has to be located first
+		if (video.player === null) {
+			warn('player not found');
+			return;
+		}
+		ushout.localSettings.volume = video.player.getVolume();
+		if (video.player.isMuted()) {
+			$body.addClass(_u('muted'));
+			$body.removeClass(_u('loud'));
+			$body.removeClass(_u('quiet'));
+		} else {
+			if (ushout.localSettings.volume < 20) {
+				$body.addClass(_u('quiet'));
+				$body.removeClass(_u('loud'));
+			} else if (ushout.localSettings.volume > 60) {
+				$body.addClass(_u('loud'));
+				$body.removeClass(_u('quiet'));
+			} else {
+				$body.removeClass(_u('loud'));
+				$body.removeClass(_u('quiet'));
+			}
+		}
+	};
+	ushout.controller.setVolume = function (volumeValue) {
+		// the player has to be located first
+		if (video.player === null) {
+			warn('player not found');
+			return;
+		}
+		video.player.setVolume(volumeValue);
+		ushout.localSettings.volume = video.player.getVolume();
+		// save to local storage
+		chrome.storage.local.set(ushout.localSettings);
+		
+		ushout.controller.updateVolumeIcon();
+	};
 	ushout.$volume_button.click(function () {
 		// the player has to be located first
-		if (video.player === null)
+		if (video.player === null) {
+			warn('player not found');
 			return;
+		}
 		
 		if (video.player.isMuted()) {
 			// call the macro function in ushout.controller
@@ -483,20 +586,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		}
 	});
 	// volume slider actions
-	ushout.controller.updateVolumeIcon = function () {
-		var currentVolumeValue = video.player.getVolume();
-		ushout.data.volume = currentVolumeValue;
-		if (currentVolumeValue < 20) {
-			$body.addClass(_u('quiet'));
-			$body.removeClass(_u('loud'));
-		} else if (currentVolumeValue > 60) {
-			$body.addClass(_u('loud'));
-			$body.removeClass(_u('quiet'));
-		} else {
-			$body.removeClass(_u('loud'));
-			$body.removeClass(_u('quiet'));
-		}
-	};
 	ushout.$volume_slider.slider({
 		animate: false, // disable sliding animation
 		disabled: true,
@@ -511,19 +600,16 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		},
 		slide: function (e, ui) {
 			// update player as it slides
-			video.player.setVolume(ui.value);
-			ushout.controller.updateVolumeIcon();
+			ushout.controller.setVolume(ui.value);
 		},
 		change: function (e, ui) {
 			if (e.originalEvent) {
 				// changed by user
-				video.player.setVolume(ui.value);
-				// save change to html5 localstorage
-				localStorage.setItem(_u('volume'), ui.value);
+				ushout.controller.setVolume(ui.value);
 			} else {
 				// changed by program
+			//	ushout.controller.updateVolumeIcon();
 			}
-			ushout.controller.updateVolumeIcon();
 		}
 	});
 	
@@ -533,6 +619,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	};
 	ushout.data.formatTimeString = function (timeInSeconds, showHour) {
 		var seconds, timeInMinutes, minutes, hours;
+		
+		timeInSeconds = Math.ceil(timeInSeconds);
 		
 		seconds = timeInSeconds % 60;
 		timeInMinutes = (timeInSeconds - seconds) / 60;
@@ -559,11 +647,24 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	};
 	ushout.controller.updatePlayTime = function () {
 		// the player has to be located first
-		if (video.player === null)
+		if (video.player === null) {
+			warn('player not found');
 			return;
+		}
 		video.mtime = video.player.getDuration();
 		video.ctime = video.player.getCurrentTime();
 		ushout.$playtime_label.update();
+	};
+	ushout.controller.stopUpdatePlayTime = function () {
+		window.clearInterval(ushout.data.playTimeUpdater);
+	};
+	ushout.controller.fastUpdatePlayTime = function () {
+		ushout.controller.stopUpdatePlayTime();
+		ushout.data.playTimeUpdater = window.setInterval(ushout.controller.updatePlayTime, 300);
+	};
+	ushout.controller.slowUpdatePlayTime = function () {
+		ushout.controller.stopUpdatePlayTime();
+		ushout.data.playTimeUpdater = window.setInterval(ushout.controller.updatePlayTime, 1000);
 	};
 	
 	// fullwindow button actions
@@ -584,17 +685,17 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		ushout.data.windowMode = windowMode.small;
 	};
 	ushout.$fullwindow_button.click(function () {
-		switch (ushout.controller.windowMode) {
-			case 1: // Default
+		switch (ushout.data.windowMode) {
+			case windowMode.small:
+			case windowMode.medium:
+			case windowMode.large:
 				// call the macro function in ushout.controller
 				ushout.controller.expandToFullWindow();
 				break;
-			case 2: // Reserved
-				break;
-			case 3: // Fullwindow
+			case windowMode.fullwindow:
 				ushout.controller.restoreFromFullWindow();
 				break;
-			case 4: // Fullscreen
+			case windowMode.fullscreen:
 				break;
 			default:
 		}
@@ -611,75 +712,133 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		youtube.$movieplayer.attr('flashvars', flashvars);
 		return youtube.$movieplayer;
 	};
+	youtube.$movieplayer.matchSettings = function (matchSettings) {
+		var flashvars = youtube.$movieplayer.attr('flashvars');
+		var parse = parseQueryString(flashvars);
+		var result = true;
+		for (var key in matchSettings) {
+			if (parse[key] != matchSettings[key]) {
+				log('player setting mis-match on ' + key);
+				result = false;
+			}
+		}
+		return result;
+	};
 	youtube.$movieplayer.reload = function () {
 		youtube.$movieplayer.detach();
 		youtube.$movieplayer.prependTo(youtube.$playerapi);
 		return youtube.$movieplayer;
 	};
-	
 	ushout.controller.activateRTC = function () {
 		$body.addClass(_u('rtc'));
-		//=================
-		
-		youtube.$movieplayer.changeSettings({
+		// match settings first to avoid unnecessary reloads
+		if (!youtube.$movieplayer.matchSettings({
 			controls: 0
-		}).reload();
-		
+		})) {
+			// reload player with correct settings
+			youtube.$movieplayer.changeSettings({
+				controls: 0
+			}).reload();
+		}
 		// set flag
-		ushout.active = true;
+		ushout.localSettings.rtcActivated = true;
+		// save to local storage
+		chrome.storage.local.set(ushout.localSettings);
 		return true;
 	};
 	ushout.controller.deactivateRTC = function () {
+		// set flag
+		ushout.localSettings.rtcActivated = false;
+		// save to local storage
+		chrome.storage.local.set(ushout.localSettings);
 		$body.removeClass(_u('rtc'));
 		// cancel fullwindow mode
 		ushout.controller.restoreFromFullWindow();
-		//=================
-		
-		youtube.$movieplayer.changeSettings({
-			controls: 1
-		}).reload();
-		
-		// set flag
-		ushout.active = false;
+		// stop updating playtime
+		ushout.controller.stopUpdatePlayTime();
+		// match settings first to avoid unnecessary reloads
+		if (youtube.$movieplayer.matchSettings({
+			controls: 0
+		})) {
+			// reload player with correct settings
+			youtube.$movieplayer.changeSettings({
+				controls: 1
+			}).reload();
+		}
 		return true;
 	};
 	ushout.$rtc_toggle_switch.click(function () {
-		if (ushout.active) {
+		if (ushout.localSettings.rtcActivated) {
 			ushout.controller.deactivateRTC();
 		} else {
 			ushout.controller.activateRTC();
 		}
 	});
 	
+	/* initialization sequence ==================================================*/
+	
+	// enable buttons
+	ushout.$play_pause_button.attr('disabled', false);
+	ushout.$volume_button.attr('disabled', false);
+	ushout.$fullwindow_button.attr('disabled', false);
+	ushout.$rtc_channels_expand_button.attr('disabled', false);
+	
+	// restore rtc state
+	chrome.storage.local.get([
+		'rtcActivated',
+		'volume',
+		'muted',
+		'restoreVolume'
+	], function (local) {
+		warn('loading local settings...');
+		for (var key in local) {
+			ushout.localSettings[key] = local[key];
+		}
+		
+		if (ushout.localSettings.rtcActivated === true) {
+			log('re-activating RTC...');
+			ushout.controller.activateRTC();
+		} else {
+			ushout.controller.deactivateRTC();
+		}
+	});
+	/* deprecated
+	if (localStorage.getItem(_u('active')) === true) {
+		log('re-activating RTC...');
+		ushout.controller.activateRTC();
+	} else {
+	//	ushout.controller.deactivateRTC();
+	}
+	*/
+	
 	window.onYouTubePlayerReady = function () {
 		video.player = youtube.$movieplayer[0];
 		if (video.player)
 			video.player.addEventListener("onStateChange", "ushout_playerOnStateChange");
 		
-		// enable buttons
-		ushout.$play_pause_button.attr('disabled', false);
-		ushout.$volume_button.attr('disabled', false);
-		ushout.$fullwindow_button.attr('disabled', false);
-		ushout.$rtc_channels_expand_button.attr('disabled', false);
+		youtube.$movieplayer.ready(function () {
+			// after monitering this message, it seems the player doesn't reload when redirecting.
+			log('--------- player ready ---------');
+		});
 		
-		// use html5 localstorage to save user volume settings
-		var volumeValue = localStorage.getItem(_u('volume'));
-		if (volumeValue === null) {
-			volumeValue = video.player.getVolume();
+		// mute state
+		if (ushout.localSettings.muted) {
+			ushout.controller.mute();
 		} else {
-			video.player.setVolume(volumeValue);
+			ushout.controller.unMute();
 		}
+		
+		// volume
+		ushout.controller.setVolume(ushout.localSettings.volume);
+		
 		// volume slider
 		ushout.$volume_slider.slider({
 			disabled: false,
-			value: volumeValue
+			value: ushout.localSettings.volume
 		});
 		
-		ushout.controller.updatePlayTime();
-		
-		// get into ad mode
-		$body.addClass(_u('playing'));
-		ushout.data.adState = adState.playing;
+		ushout.configure();
+
 	//	video.player.loadVideoById('NBSfikrbLV4'); // load a new video
 		
 	//	video.player.playVideo();
@@ -687,5 +846,30 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	//	stopVideo()
 	//	seekTo(seconds:Number, allowSeekAhead:Boolean)
 	//	
+	};
+	
+	/**
+	 * the following code clip uses MutationObserver to monitor changes on
+	 * className of document.body so we can know if Youtube resets body
+	 **/
+	var redirectObserver = new MutationObserver(function (mutations) {
+		mutations.forEach(function (mutation) {
+			var newVal = $(mutation.target).prop(mutation.attributeName);
+			if (mutation.attributeName === "class") {
+				if (ushout.localSettings.rtcActivated && !$body.hasClass(_u('rtc'))) {
+					ushout.configure();
+				}
+			}
+		});
+	});
+	redirectObserver.observe(document.body, {
+		attributes: true,
+		childList: false,
+		characterData: false
+	});
+	
+	window.pushState = function () {
+		// this state change happens during video redirecting
+		ushout.data.redirecting = 1;
 	};
 }

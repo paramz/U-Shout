@@ -1,81 +1,4 @@
-.ushout_pointercursor {
-	cursor: pointer;
-}
-.ushout_pointercursor[disabled] {
-	cursor: default;
-}
-
-.ushout_simplebox {
-	margin: 0;
-	border: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-.ushout_iconbutton {
-	background-repeat: no-repeat;
-	background-position-y: -100%;
-}
-.ushout_iconbutton:hover {
-	background-position-y: -200%;
-}
-.ushout_iconbutton[disabled] {
-	background-position-y: 0%;
-}
-
-#ushout_overlay_base {
-	position: relative;
-	
-	overflow: visible;
-	height: 1px;
-	
-	background-color: red;
-	
-	pointer-events: none;
-}
-
-#ushout_overlay {
-	position: absolute;
-	z-index: 999;
-	top: 100%;
-	left: 0;
-	
-	padding-bottom: 27px;
-	
-	box-sizing: content-box;
-}
-
-#ushout_toucharea {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 54px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
-	left: 0;
-	
-	background-color: transparent;
-	
-/*	pointer-events: auto; */
-}
-
-.ushout_controlitem {
-	display: block;
-	
-	position: relative;
-	
-	background-color: transparent;
-	
-	pointer-events: auto;
-}
-
-.ushout_controlitem.ushout_leftaligned {
-	float: left;
-}
-
-.ushout_controlitem.ushout_rightaligned {
-	float: right;
-}
-
-/* tool tip */
+/* tooltip ===================================================================*/
 *[ushout_tooltip] {
 	position: relative;
 }
@@ -113,12 +36,10 @@
 	-o-transition-delay: 0s;
 	transition-delay: 0s;
 }
-
 *[ushout_tooltip][ushout_tooltip_rightaligned='true']:before {
 	left: auto;
 	right: 0px;
 }
-
 *[ushout_tooltip][demo="yes"]:before,
 *[ushout_tooltip]:hover:before {
 	opacity: 1;
@@ -131,4 +52,345 @@
 	-moz-transition-delay: 300ms;
 	-o-transition-delay: 300ms;
 	transition-delay: 300ms;
+}
+
+/* overlay ===================================================================*/
+#ushout_overlay_base {
+	position: relative;
+	
+	overflow: visible;
+	height: 1px;
+	
+	background-color: red;
+	
+	pointer-events: none;
+}
+#ushout_overlay {
+	position: absolute;
+	z-index: 999;
+	top: 100%;
+	left: 0;
+	
+	padding-bottom: 27px;
+	
+	box-sizing: content-box;
+}
+#ushout_toucharea {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 54px; /* this value should be the sum of controlBar height and another 40px for the Youtube control bar. */
+	left: 0;
+	
+	background-color: transparent;
+	
+/*	pointer-events: auto; */
+}
+
+/* control bar ===============================================================*/
+.ushout_pointercursor {
+	cursor: pointer;
+}
+.ushout_pointercursor[disabled] {
+	cursor: default;
+}
+
+.ushout_simplebox {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.ushout_controlitem {
+	display: block;
+	
+	position: relative;
+	
+	background-color: transparent;
+	
+	pointer-events: auto;
+}
+
+.ushout_controlitem.ushout_leftaligned {
+	float: left;
+}
+
+.ushout_controlitem.ushout_rightaligned {
+	float: right;
+}
+
+#ushout_controlbar {
+	position: absolute;
+	z-index: 999; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
+	top: auto;
+	right: 0;
+	bottom: 27px;
+	left: 0;
+	
+	margin-bottom: -27px;
+	
+	height: 27px; /* controlBar height */
+	
+	background-color: #1b1b1b; /* this is the youtube control bar background color */
+
+	pointer-events: none;
+
+	-webkit-transition: margin-bottom 300ms;
+	-moz-transition: margin-bottom 300ms;
+	-ms-transition: margin-bottom 300ms;
+	-o-transition: margin-bottom 300ms;
+	transition: margin-bottom 300ms;
+}
+body.ushout_rtc #ushout_controlbar {
+	margin-bottom: 0;
+	
+	pointer-events: auto;
+	
+	-webkit-transition: margin-bottom 300ms;
+	-moz-transition: margin-bottom 300ms;
+	-ms-transition: margin-bottom 300ms;
+	-o-transition: margin-bottom 300ms;
+	transition: margin-bottom 300ms;
+}
+#ushout_controlbar .ushout_controlitem {
+	pointer-events: none;
+}
+body.ushout_rtc #ushout_controlbar .ushout_controlitem {
+	pointer-events: auto;
+}
+
+/*========================================================*/
+
+#ushout_play_pause_frame {
+	
+}
+#ushout_play_pause_button {
+	height: 27px;
+	width: 56px;
+	
+	background-color: transparent;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/play_pause.png');
+	background-repeat: no-repeat;
+	background-position-y: -27px;
+	background-position-x: 0;
+	
+	outline: none;
+}
+#ushout_play_pause_button:hover {
+	background-position-y: -54px;
+}
+#ushout_play_pause_button[disabled] {
+	background-position-y: 0;
+}
+body.ushout_playing #ushout_play_pause_button {
+	background-position-x: -56px;
+}
+/* tooltip */
+#ushout_play_pause_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_play__;
+	
+	width: __MSG_tooltipLength_play__;
+	content: "__MSG_tooltip_play__";
+}
+body.ushout_playing #ushout_play_pause_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_pause__;
+	
+	width: __MSG_tooltipLength_pause__;
+	content: "__MSG_tooltip_pause__";
+}
+
+/*========================================================*/
+
+#ushout_volume_frame {
+	
+}
+
+#ushout_volume_wrapper {
+	position: relative;
+	
+	height: 27px;
+	width: 29px;
+	
+	-webkit-transition: width 200ms ease-out;
+	-moz-transition: width 200ms ease-out;
+	-ms-transition: width 200ms ease-out;
+	-o-transition: width 200ms ease-out;
+	transition: width 200ms ease-out;
+}
+#ushout_volume_wrapper:hover {
+	width: 100px;
+	
+	-webkit-transition: width 200ms ease-in;
+	-moz-transition: width 200ms ease-in;
+	-ms-transition: width 200ms ease-in;
+	-o-transition: width 200ms ease-in;
+	transition: width 200ms ease-in;
+}
+
+#ushout_volume_button {
+	position: absolute;
+	top: 0;
+	right: auto;
+	bottom: auto;
+	left: 0;
+	
+	height: 27px;
+	width: 29px;
+	
+	background-color: transparent;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/volume.png');
+	background-repeat: no-repeat;
+	background-position-y: -27px;
+	background-position-x: -29px;
+	
+	outline: none;
+}
+#ushout_volume_button:hover {
+	background-position-y: -54px;
+}
+#ushout_volume_button[disabled] {
+	background-position-y: 0;
+}
+body.ushout_loud #ushout_volume_button {
+	background-position-x: 0;
+}
+body.ushout_quiet #ushout_volume_button {
+	background-position-x: -58px;
+}
+body.ushout_muted #ushout_volume_button {
+	background-position-x: -87px;
+}
+/* tooltip */
+#ushout_volume_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_mute__;
+	
+	width: __MSG_tooltipLength_mute__;
+	content: "__MSG_tooltip_mute__";
+}
+body.ushout_muted #ushout_volume_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_unmute__;
+	
+	width: __MSG_tooltipLength_unmute__;
+	content: "__MSG_tooltip_unmute__";
+}
+
+#ushout_volume_slider_wrapper {
+	display: block;
+	
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 29px;
+	
+	overflow: hidden;
+}
+
+#ushout_volume_slider {
+	display: block;
+	
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	bottom: auto;
+	left: auto;
+	
+	margin: -2px 0 0 0;
+	
+	height: 4px;
+	width: 50px;
+	
+	background-color: #757575;
+}
+
+#ushout_volume_slider .ui-slider-range {
+	display: block;
+	
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: auto;
+	bottom: 0;
+	left: 0;
+	
+	background-color: #d00000;
+}
+
+#ushout_volume_slider .ui-slider-handle {
+	display: block;
+	
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	
+	margin: -5px 0 0 -2px;
+	
+	height: 14px;
+	width: 5px;
+	
+	background-color: #dddddd;
+	
+	outline: none;
+	
+	pointer-events: none;
+}
+
+/*========================================================*/
+
+#ushout_playtime_frame {
+	
+}
+
+#ushout_playtime_label {
+	width: 75px;
+	height: 27px;
+	
+	font-size: 10px;
+	line-height: 27px;
+	text-align: center;
+	pointer-events: none;
+}
+
+/*========================================================*/
+
+#ushout_fullwindow_frame {
+	
+}
+
+#ushout_fullwindow_button {
+	height: 27px;
+	width: 31px;
+	
+	background-color: transparent;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/fullwindow.png');
+	background-repeat: no-repeat;
+	background-position-y: -27px;
+	background-position-x: 0;
+	
+	outline: none;
+}
+#ushout_fullwindow_button:hover {
+	background-position-y: -54px;
+}
+#ushout_fullwindow_button[disabled] {
+	background-position-y: 0;
+}
+body.ushout_rtc.ushout_fullwindow #ushout_fullwindow_button {
+	background-position-x: -31px;
+}
+/* tooltip */
+#ushout_fullwindow_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_fullWindow__;
+	
+	width: __MSG_tooltipLength_fullWindow__;
+	content: "__MSG_tooltip_fullWindow__";
+}
+body.ushout_rtc.ushout_fullwindow #ushout_fullwindow_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_restoreFromFullWindow__;
+	
+	width: __MSG_tooltipLength_restoreFromFullWindow__;
+	content: "__MSG_tooltip_restoreFromFullWindow__";
 }

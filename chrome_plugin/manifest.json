@@ -6,7 +6,7 @@
 // commented out because not supported yet	
 //	"short_name": "__MSG_extShortName__", // __MSG_extShortName__ will load 'extShortName' from messages.json from _locales
 	
-	"version": "2013.11.29.0", // version number
+	"version": "2013.11.30.0", // version number
 	
 	"description": "__MSG_extDesc__", // __MSG_extDesc__ will load 'extDesc' from messages.json from _locales
 	
@@ -48,7 +48,6 @@
 			],
 			"css": [ // css files to be injected
 				"css/youtube_player.css", // css for fixing the youtube player
-				"css/controlbar.css", // css for the fake youtube control bar
 				"css/ushoutbar.css", // css for the ushout control bar
 				"css/lib.css" // css for the library
 			],
@@ -94,7 +93,9 @@ Note: With "document_idle", content scripts may not necessarily receive the
 	
 	"optional_permissions": ["management"],
 	
-	"permissions": [],
+	"permissions": [
+		"storage"
+	],
 	
 	"web_accessible_resources": [ // only the files listed here can be loaded
 		// javascript files

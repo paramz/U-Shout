@@ -127,5 +127,18 @@
 	"tooltipMarginLeftOffset_send": {
 		"message": "-21px",
 		"description": "Margin-Left of the Tooltip"
+	},
+	
+	"tooltip_help": {
+		"message": "Help",
+		"description": "Tooltip for Help button"
+	},
+	"tooltipLength_help": {
+		"message": "38px",
+		"description": "Length of the Tooltip"
+	},
+	"tooltipMarginLeftOffset_help": {
+		"message": "-19px",
+		"description": "Margin-Left of the Tooltip"
 	}
 }

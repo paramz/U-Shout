@@ -8,11 +8,6 @@ function ushout($body, log, warn, _u) {
 		return;
 	}
 	
-	var queryString = window.location.search;
-	// get rid of the leading ?
-	var queryParse = queryString.split('?');
-	queryString = (queryParse.length === 1) ? queryParse[0] : queryParse[1];
-	
 	window.parseQueryString = function (queryString) {
 		var parse1 = queryString.split('&');
 		// collect queries with a name
@@ -35,99 +30,107 @@ function ushout($body, log, warn, _u) {
 		return queryStrings.join('&');
 	};
 	
-	var queries = parseQueryString(queryString);
-	
-	log('query: ' + queryString);
-	log('vid: ' + queries.v);
+	// data object for the video
+	var video = {
+		id: '',
+		ctime: 0,
+		mtime: 0,
+		player: null,
+		updateID: function () {
+			var queryString = window.location.search;
+			// get rid of the leading ?
+			var queryParse = queryString.split('?');
+			queryString = (queryParse.length === 1) ? queryParse[0] : queryParse[1];
+			var queries = parseQueryString(queryString);
+			log('videoID: ' + queries.v);
+			video.id = queries.v;
+		}
+	};
 	
 	var youtube = {};
 	// locate body-container
 	youtube.$bodyContainer = $body.find("#body-container");
 	if (youtube.$bodyContainer.length !== 1) {
+		warn('#body-container not found');
 		return;
 	}
-	log('#body-container check');
 	// locate page-container
 	youtube.$pageContainer = youtube.$bodyContainer.find("#page-container");
 	if (youtube.$pageContainer.length !== 1) {
+		warn('#page-container not found');
 		return;
 	}
-	log('#page-container check');
 	// locate page
 	youtube.$page = youtube.$pageContainer.find("#page");
 	if (youtube.$page.length !== 1) {
+		warn('#page not found');
 		return;
 	}
-	log('#page check');
 	// locate player
 	youtube.$player = youtube.$page.find("#player");
 	if (youtube.$player.length !== 1) {
 		warn('fail because can not find player wrapper on this page.');
 		return;
 	}
-	log('#player check');
 	// locate playerapi
 	youtube.$playerapi = youtube.$player.find("#player-api");
 	if (youtube.$playerapi.length !== 1) {
 		warn('fail because can not find player on this page.');
 		return;
 	}
-	log('#player-api check');
 	// locate movieplayer
 	youtube.$movieplayer = youtube.$playerapi.find("#movie_player");
 	if (youtube.$movieplayer.length !== 1) {
 		warn('fail because can not find movie player on this page.');
 		return;
 	}
-	log('#movie_player check');
 	// locate playlist
 	youtube.$playlist = youtube.$player.find("#playlist");
 	if (youtube.$playlist.length !== 1) {
 	//	warn('fail because can not find playlist wrapper on this page.');
 		return;
 	}
-	log('#playlist check');
 	// locate playlisttray
 	youtube.$playlisttray = youtube.$player.find("#playlist-tray");
 	if (youtube.$playlisttray.length !== 1) {
 	//	warn('fail because can not find playlist tray on this page.');
 		return;
 	}
-	log('#playlist-tray check');
 	// locate guide
 	youtube.$guide = youtube.$page.find("#guide");
 	if (youtube.$guide.length !== 1) {
 	//	warn('fail because can not find guide wrapper on this page.');
 		return;
 	}
-	log('#guide check');
 	// locate content
 	youtube.$content = youtube.$page.find("#content");
 	if (youtube.$content.length !== 1) {
 	//	warn('fail because can not find content wrapper on this page.');
 		return;
 	}
-	log('#content check');
-
-	// data object for the video
-	var video = {
-		id: queries.v,
-		ctime: 0,
-		mtime: 0,
-		player: null
-	};
+	log('page structure checked');
 	
 	// data object for ushout
 	var ushout = {
-		// toggle flag for ushout functions
-		active : false,
-		data: {},
+		localSettings: {
+			rtcActivated: false,
+			volume: 100,
+			muted: false,
+			restoreVolume: -1
+		},
+		data: {
+			playState: -1,
+			adState: -1,
+			playTimeUpdater: 0
+		},
 		controller : {
 			stateChangeJumpTable: {}
 		}, // controller
 		templates: {
 			$DIV    : $('<div>').addClass(_u('simplebox')),
-			$BUTTON : $('<button>'),
+			$BUTTON : $('<button>').click(function () {
+				log('button "' + $(this).attr('id') + '" clicked');
+			}),
 			$INPUT  : $('<button>'),
 			$LABEL  : $('<label>').addClass(_u('simplebox'))
 		}
