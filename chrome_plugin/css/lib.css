@@ -87,6 +87,211 @@
 /*	pointer-events: auto; */
 }
 
+/* progress bar ==============================================================*/
+#ushout_progressbar {
+	position: absolute;
+	z-index: 1000; /* Youtube HTML5 player sits at 900, its control bar sits at 930 */
+	top: auto;
+	right: 0;
+	bottom: 54px;
+	left: 0;
+	
+	margin-bottom: -30px;
+	
+	height: 3px; /* progressBar height */
+	
+	background-color: #444444; /* this is the youtube control bar background color */
+
+	pointer-events: none;
+
+	-webkit-transition: margin-bottom 300ms height 300ms;
+	-moz-transition: margin-bottom 300ms height 300ms;
+	-ms-transition: margin-bottom 300ms height 300ms;
+	-o-transition: margin-bottom 300ms height 300ms;
+	transition: margin-bottom 300ms height 300ms;
+}
+body.ushout_rtc #ushout_progressbar {
+	margin-bottom: 0;
+	
+	pointer-events: auto;
+	
+	-webkit-transition: margin-bottom 300ms;
+	-moz-transition: margin-bottom 300ms;
+	-ms-transition: margin-bottom 300ms;
+	-o-transition: margin-bottom 300ms;
+	transition: margin-bottom 300ms;
+}
+body.ushout_rtc.ushout_ads #ushout_progressbar {
+	height: 3px !important; /* progressBar height */
+}
+body.ushout_rtc #ushout_overlay:hover #ushout_progressbar {
+	height: 8px;
+	
+	-webkit-transition: height 300ms;
+	-moz-transition: height 300ms;
+	-ms-transition: height 300ms;
+	-o-transition: height 300ms;
+	transition: height 300ms;
+}
+body.ushout_rtc #ushout_progressbar:before {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: auto;
+	bottom: 0;
+	left: 0;
+	
+	width: 9px;
+	
+	background-color: #ffcc00;
+	
+	content: "";
+	
+	pointer-events: none;
+}
+body.ushout_rtc #ushout_progressbar:after {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: auto;
+	
+	width: 9px;
+	
+	background-color: #ffcc00;
+	
+	content: "";
+	
+	pointer-events: none;
+}
+
+/* buff progress =============================================================*/
+#ushout_buffProgress {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	
+	pointer-events: none;
+	
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	-ms-transition: opacity 300ms;
+	-o-transition: opacity 300ms;
+	transition: opacity 300ms;
+}
+body.ushout_rtc.ushout_ads #ushout_buffProgress {
+	opacity: 0;
+}
+body.ushout_rtc #ushout_buffProgress {
+	opacity: 1;
+	
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	-ms-transition: opacity 300ms;
+	-o-transition: opacity 300ms;
+	transition: opacity 300ms;
+}
+#ushout_buffProgress .ui-progressbar-value {
+	position: absolute;
+	top: 0;
+	right: auto;
+	bottom: 0;
+	left: 0;
+	
+	background-color: #777777;
+}
+
+/* seek slider ===============================================================*/
+#ushout_seekSlider {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	right: 9px;
+	bottom: 0;
+	left: 9px;
+	
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	-ms-transition: opacity 300ms;
+	-o-transition: opacity 300ms;
+	transition: opacity 300ms;
+}
+body.ushout_rtc.ushout_ads #ushout_seekSlider {
+	opacity: 0;
+}
+body.ushout_rtc #ushout_seekSlider {
+	opacity: 1;
+	
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	-ms-transition: opacity 300ms;
+	-o-transition: opacity 300ms;
+	transition: opacity 300ms;
+}
+#ushout_seekSlider .ui-slider-range {
+	position: absolute;
+	top: 0;
+	right: auto;
+	bottom: 0;
+	left: 0;
+	
+	background-color: #d00000;
+}
+
+#ushout_seekSlider .ui-slider-handle {
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 0;
+	
+	margin: 0;
+	border-radius: 8px;
+	
+	height: 0;
+	width: 0;
+	
+	background-color: #eaeaea;
+	
+	outline: none;
+	
+	-webkit-transition: margin 300ms, height 300ms, width 300ms;
+	-moz-transition: margin 300ms, height 300ms, width 300ms;
+	-ms-transition: margin 300ms, height 300ms, width 300ms;
+	-o-transition: margin 300ms, height 300ms, width 300ms;
+	transition: margin 300ms, height 300ms, width 300ms;
+}
+body.ushout_rtc #ushout_overlay:hover #ushout_seekSlider .ui-slider-handle {
+	margin: -8px;
+	height: 16px;
+	width: 16px;
+
+	-webkit-transition: margin 300ms, height 300ms, width 300ms;
+	-moz-transition: margin 300ms, height 300ms, width 300ms;
+	-ms-transition: margin 300ms, height 300ms, width 300ms;
+	-o-transition: margin 300ms, height 300ms, width 300ms;
+	transition: margin 300ms, height 300ms, width 300ms;
+}
+#ushout_seekSlider .ui-slider-handle:after {
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 50%;
+	
+	margin: -18.75%;
+	border-radius: 6px;
+	
+	height: 37.5%;
+	width: 37.5%;
+	
+	background-color: #adadad;
+	
+	content: "";
+}
+
 /* control bar ===============================================================*/
 .ushout_pointercursor {
 	cursor: pointer;

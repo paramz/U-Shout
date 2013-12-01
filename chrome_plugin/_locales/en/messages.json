@@ -140,5 +140,18 @@
 	"tooltipMarginLeftOffset_help": {
 		"message": "-19px",
 		"description": "Margin-Left of the Tooltip"
+	},
+	
+	"tooltip_settings": {
+		"message": "Settings",
+		"description": "Tooltip for Settings button"
+	},
+	"tooltipLength_settings": {
+		"message": "54px",
+		"description": "Length of the Tooltip"
+	},
+	"tooltipMarginLeftOffset_settings": {
+		"message": "-27px",
+		"description": "Margin-Left of the Tooltip"
 	}
 }

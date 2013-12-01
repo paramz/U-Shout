@@ -10,7 +10,7 @@
 	
 	background-color: white;
 	
-/*	pointer-events: auto; */
+	pointer-events: auto;
 }
 
 #ushout_rtc_controls_wrapper {
@@ -265,7 +265,7 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 #ushout_post_text_comment_frame {
 	position: absolute;
 	top: 2px;
-	right: 170px;
+	right: 200px;
 	bottom: 2px;
 	left: 65px;
 	
@@ -414,6 +414,34 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 	
 	width: __MSG_tooltipLength_help__;
 	content: "__MSG_tooltip_help__";
+}
+
+/*========================================================*/
+
+#ushout_settings_frame {
+	
+}
+#ushout_settings_button {
+	height: 27px;
+	width: 29px;
+	
+	background-color: transparent;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/settings.png');
+	
+	outline: none;
+}
+#ushout_settings_button:hover {
+	background-position-y: -54px;
+}
+#ushout_settings_button[disabled] {
+	background-position-y: 0;
+}
+/* tooltip */
+#ushout_settings_button:before {
+	margin-left: __MSG_tooltipMarginLeftOffset_settings__;
+	
+	width: __MSG_tooltipLength_settings__;
+	content: "__MSG_tooltip_settings__";
 }
 
 /* rtc on ======================================*/

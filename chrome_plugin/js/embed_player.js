@@ -20,6 +20,11 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$ushoutBar = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('ushoutbar'));
 	
+	ushout.$buffProgress = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('buffProgress'));
+	ushout.$seekSlider = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('seekSlider'));
+	
 	// create extra templates
 	ushout.templates.controlItem = ushout.templates.$DIV.clone(true)
 		.addClass(_u('controlitem'));
@@ -157,6 +162,17 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			'ushout_tooltip': 'Help'
 		});
 	
+	// settings button ====================================================//
+	ushout.$settings_frame = ushout.templates.controlItem_rightAligned.clone(true)
+		.attr({
+			'id': _u('settings_frame')
+		});
+	ushout.$settings_button = ushout.templates.controlItem_button_withIcon.clone(true)
+		.attr({
+			'id': _u('settings_button'),
+			'ushout_tooltip': 'Settings'
+		});
+	
 	// channels select list ===========================================//
 	ushout.$rtc_channels_frame = ushout.templates.controlItem_rightAligned.clone(true)
 		.attr({
@@ -219,7 +235,10 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$overlay_base.append(
 		ushout.$overlay.append(
 			ushout.$touchArea,
-			ushout.$progressBar,
+			ushout.$progressBar.append(
+				ushout.$buffProgress,
+				ushout.$seekSlider
+			),
 			ushout.$controlBar.append(
 				ushout.$play_pause_frame.append(
 					ushout.$play_pause_button
@@ -266,6 +285,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 						ushout.$help_frame.append(
 							ushout.$help_button
 						),
+						ushout.$settings_frame.append(
+							ushout.$settings_button
+						),
 						ushout.$rtc_channels_frame.append(
 							ushout.$rtc_channels_wrapper.append(
 								ushout.$rtc_channels_label,
@@ -292,9 +314,10 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		log('>> configuring...');
 		video.updateID();
 		ushout.controller.updateVolumeIcon();
-		ushout.controller.updatePlayTime();
+		ushout.controller.updateFromPlayer();
 		// get into ad mode
 		$body.addClass(_u('playing'));
+		$body.addClass(_u('ads'));
 		ushout.data.adState = adState.playing;
 		ushout.data.playState = playState.unstarted;
 		if (ushout.localSettings.rtcActivated) {
@@ -310,6 +333,57 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		$body.find('.mousedown').removeClass('mousedown');
 	});
 	//-- global support for mouseup */
+	
+	// seekbar
+	ushout.$seekSlider.slider({
+		animate: false, // disable sliding animation
+		disabled: true, // slider initially disabled
+		max: 100,
+		min: 0,
+		orientation: 'horizontal',
+		value: 0,
+		range: 'min',
+		start: function (e, ui) {
+			log('User Action: seekBar start');
+			// if playing, manually pause and resume to force sending
+			// playStateChange to playing to trigger bullet timeframe reset
+			if (ushout.data.playState === playState.playing) {
+				video.player.pauseVideo();
+				ushout.data.shouldResume = true;
+			} else {
+				ushout.data.shouldResume = false;
+			}
+			// stop updating slider
+			ushout.data.seekBarDragging = true;
+		},
+		slide: function (e, ui) {
+			video.player.seekTo(ui.value, false);
+		},
+		change: function (e, ui) {
+			if (e.originalEvent) {
+				// changed by user
+				log('User Action: seekBar change');
+				var targetTimeFrame = ui.value;
+				log('User Action: seek to ' + targetTimeFrame);
+				video.player.seekTo(targetTimeFrame, true);
+				if (ushout.data.shouldResume) {
+					video.player.playVideo();
+					ushout.data.shouldResume = false;
+				}
+			} else {
+				// changed by program
+			}
+		},
+		stop: function (e, ui) {
+			log('User Action: seekBar stop');
+			// continue updating slider
+			ushout.data.seekBarDragging = false;
+		}
+	}).removeClass('ui-corner-all');
+	
+	ushout.$buffProgress.progressbar({
+		value: 0
+	}).removeClass('ui-corner-all');
 	
 	// play/pause button actions
 	var playState = {
@@ -381,7 +455,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		'1' : function () {
 			$body.removeClass(_u('playing'));
 			// start slow updating time
-			ushout.controller.slowUpdatePlayTime();
+			ushout.controller.slowUpdate();
 		},
 		'2' : function () {},
 		'3' : function () {},
@@ -401,7 +475,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		'1' : function () {
 			$body.addClass(_u('playing'));
 			// start fast updating time
-			ushout.controller.fastUpdatePlayTime();
+			ushout.controller.fastUpdate();
 		},
 		'2' : function () {},
 		'3' : function () {},
@@ -420,6 +494,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			},
 			'1' : function () {
 				log('started playing.');
+				$body.removeClass(_u('ads'));
 				ushout.data.adState = adState.ended;
 			},
 			'2' : function () {},
@@ -655,17 +730,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		video.ctime = video.player.getCurrentTime();
 		ushout.$playtime_label.update();
 	};
-	ushout.controller.stopUpdatePlayTime = function () {
-		window.clearInterval(ushout.data.playTimeUpdater);
-	};
-	ushout.controller.fastUpdatePlayTime = function () {
-		ushout.controller.stopUpdatePlayTime();
-		ushout.data.playTimeUpdater = window.setInterval(ushout.controller.updatePlayTime, 300);
-	};
-	ushout.controller.slowUpdatePlayTime = function () {
-		ushout.controller.stopUpdatePlayTime();
-		ushout.data.playTimeUpdater = window.setInterval(ushout.controller.updatePlayTime, 1000);
-	};
 	
 	// fullwindow button actions
 	var windowMode = {
@@ -737,7 +801,17 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		})) {
 			// reload player with correct settings
 			youtube.$movieplayer.changeSettings({
-				controls: 0
+				'controls'      : 0, // hide controls
+				'disablekb'     : 1, // disable youtube keyboard shortcut
+				'enablejsapi'   : 1,
+				'fs'            : 0, // disable full screen support
+				'iv_load_policy': 0,
+				'loop'          : 0, // disable looping
+				'modestbranding': 1,
+				'origin'        : location.host,
+				'rel'           : 0, // disable related videos at the end
+				'showinfo'      : 0, // disable video info
+				'version'       : 3
 			}).reload();
 		}
 		// set flag
@@ -755,14 +829,24 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		// cancel fullwindow mode
 		ushout.controller.restoreFromFullWindow();
 		// stop updating playtime
-		ushout.controller.stopUpdatePlayTime();
+		ushout.controller.stopUpdate();
 		// match settings first to avoid unnecessary reloads
 		if (youtube.$movieplayer.matchSettings({
 			controls: 0
 		})) {
 			// reload player with correct settings
 			youtube.$movieplayer.changeSettings({
-				controls: 1
+				'controls'      : 1, // show controls
+				'disablekb'     : 0, // disable youtube keyboard shortcut
+				'enablejsapi'   : 1,
+				'fs'            : 1, // enable full screen support
+				'iv_load_policy': 0,
+				'loop'          : 0, // disable looping
+				'modestbranding': 1,
+				'origin'        : location.host,
+				'rel'           : 1, // disable related videos at the end
+				'showinfo'      : 0, // disable video info
+				'version'       : 3
 			}).reload();
 		}
 		return true;
@@ -774,6 +858,33 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			ushout.controller.activateRTC();
 		}
 	});
+	
+	ushout.controller.updateFromPlayer = function () {
+        if (video.player !== null) {
+            ushout.controller.updatePlayTime();
+            // seekBar
+            if (!ushout.data.seekBarDragging)
+            	ushout.$seekSlider.slider({
+	                // only update when user not dragging
+	                value: video.player.getCurrentTime(),
+	                max: video.player.getDuration()
+	            });
+            var buffProgressValue = video.player.getVideoLoadedFraction() * 100;
+            if (buffProgressValue !== ushout.$buffProgress.progressbar('value'))
+            	ushout.$buffProgress.progressbar('value', buffProgressValue);
+        }
+    };
+    ushout.controller.stopUpdate = function () {
+		window.clearInterval(ushout.data.updater);
+	};
+	ushout.controller.fastUpdate = function () {
+		ushout.controller.stopUpdate();
+		ushout.data.updater = window.setInterval(ushout.controller.updateFromPlayer, 500);
+	};
+	ushout.controller.slowUpdate = function () {
+		ushout.controller.stopUpdate();
+		ushout.data.updater = window.setInterval(ushout.controller.updateFromPlayer, 1000);
+	};
 	
 	/* initialization sequence ==================================================*/
 	
@@ -819,6 +930,13 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		youtube.$movieplayer.ready(function () {
 			// after monitering this message, it seems the player doesn't reload when redirecting.
 			log('--------- player ready ---------');
+		});
+		
+		// seek bar
+		ushout.$seekSlider.slider({
+			disabled: false, // enable it
+			max: video.player.getDuration(), // set max
+			value: video.player.getCurrentTime() // set value
 		});
 		
 		// mute state
