@@ -1373,5 +1373,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	};
 	
 	// connect to ushout server
+	video.updateID();
 	ushout.server.pullComments(0, ushout.controller.loadComments);
 }

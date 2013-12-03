@@ -121,6 +121,13 @@ function ushout($body, log, warn, _u) {
 			 * function passed in
 			 **/
 			pullComments: function (timeStamp, callback) {
+				// send json request to server
+				var url = 'http://lab.icradle.net/ushout/feeds_uiuc.php?v=' + video.id + '&lastcheck=' + timeStamp;
+				log(url);
+				$.getJSON( url, function( data ) {
+					callback(data.list);
+				});
+				return;
 				// fake data
 				callback( (timeStamp) ? [] : [
 					{
