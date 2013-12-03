@@ -1,0 +1,20 @@
+<?php include '../template-header.php';?>
+<h2>Account Settings</h2>
+
+<div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
+   <form id="accountsettingsForm" method="post" action="#">
+     <table>
+     <tr><td>Username:</td><td><input type="text" name="username"></td></tr>
+     <tr><td>Password:</td><td><input type="password" name="password"></td></tr>
+     <tr><td>Confirm Password:</td><td><input type="password" name="password2"></td></tr>
+     <tr><td>Email:</td><td><input type="text" name="email"></td></tr>
+     <tr><td><input type="submit" name="submitButton" value="Submit"></td>
+     <td><input type="reset" name="resetButton" value="Reset"></td></tr>
+     </table>
+   
+   </form>
+
+
+</div>
+
+<?php include '../template-footer.php';?>
