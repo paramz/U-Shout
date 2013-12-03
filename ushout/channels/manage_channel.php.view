@@ -1,7 +1,78 @@
 <?php include '../template-header.php';?>
 <h2>Manage Channel</h2>
 
-<div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
+<div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc; overflow: scroll;">
+
+<div style="float: left;">
+<form>
+    <h3>Name</h3>
+    <input type="text"></input>
+    <h3>Description</h3>
+    <textarea></textarea>
+    <br>
+    <button class="prompt">update</button>
+</form>
 </div>
+
+<div class="invites" style="width: 400px; float: right;">
+<h3>Access</h3>
+<form>
+    <input type="radio">Public</input><br>
+    <input type="radio">Private (with invite request)</input><br>
+    <input type="radio">Private</input><br>
+</form>
+<h3>Users</h3>
+<div class="members">
+
+<div class="user">
+<img src="/user_img.png">
+<button class="prompt">Remove</button>
+</div>
+
+<div class="user">
+<img src="/user_img.png">
+<button class="prompt">Remove</button>
+</div>
+
+<div class="user">
+<img src="/user_img.png">
+<button class="prompt">Remove</button>
+</div>
+
+</div> <!-- ends members class div-->
+<button class="prompt">Manage Invites</button>
+</div> <!-- end invites div -->
+
+<hr style="clear: both;"></hr>
+
+<h3>Upload a video</h3>
+<button class="prompt">Upload Video</button>
+
+<hr style="clear: both;"></hr>
+
+
+<div class="chanvideos">
+<div class="videobox" style="float: left;">
+<iframe width="280" height="150" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<button class="prompt">Tag</button>
+<button class="prompt">Remove</button>
+</div>
+
+<div class="videobox" style="float: left;">
+<iframe width="280" height="150" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<button class="prompt">Tag</button>
+<button class="prompt">Remove</button>
+</div>
+
+<div class="videobox" style="float: left;">
+<iframe width="280" height="150" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<button class="prompt">Tag</button>
+<button class="prompt">Remove</button>
+</div>
+
+</div> <!-- end chanvideos -->
+
+
+</div> <!-- end page content -->
 
 <?php include '../template-footer.php';?>
