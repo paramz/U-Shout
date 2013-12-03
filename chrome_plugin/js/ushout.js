@@ -160,19 +160,23 @@ function ushout($body, log, warn, _u) {
 					}
 				]);
 			},
-			pushComment: function (comment, callback) {
-				comment = {
-					'vid': video.id, // video id
-					'tiv': video.ctime, // current time in video
-					'dop': 0, // date of posting (with time)
-					'ptype': 0,
-					'poi': {
-						x: 0,
-						y: 0
-					},
-					'dtype': 0,
-					'data': 'test push comment'
-				};
+			pushTextComment: function (textContent, callback) {
+				var url = 'http://lab.icradle.net/ushout/receipt_uiuc.php';
+				var secretTimeStamp = (new Date()).getMilliseconds();
+				var videoTimeInMilliseconds = Math.floor(video.player.getCurrentTime() * 1000);
+				ushout.data.textCommentSecret = secretTimeStamp;
+				$.post(url, {
+					'v': video.id,
+					'secret': secretTimeStamp,
+					'content': String(textContent),
+					'time': videoTimeInMilliseconds
+				}, function (data, textStatus, jqXHR) {
+					if (ushout.data.textCommentSecret === parseInt(data)) {
+						callback();
+					} else {
+						warn('secret mis-match: ' + ushout.data.textCommentSecret + ' - ' + data);
+					}
+				});
 				// add code here to send request to server
 			}
 		},
@@ -224,6 +228,7 @@ function ushout($body, log, warn, _u) {
 			$DIV    : $('<div>').addClass(_u('simplebox')),
 			$UL     : $('<ul>').addClass(_u('simplebox')),
 			$LI     : $('<li>').addClass(_u('simplebox')),
+			$FORM   : $('<form>').addClass(_u('simplebox')),
 			$BUTTON : $('<button>').click(function () {
 				log('button "' + $(this).attr('id') + '" clicked');
 			}),

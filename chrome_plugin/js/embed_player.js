@@ -28,17 +28,45 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr('id', _u('dishpanel'));
 	ushout.$dishPanel_operationMask = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('dishpanel_operationmask'));
-	ushout.$dishPanel_textComment_frame = ushout.templates.$DIV.clone(true)
-		.attr('id', _u('dishpanel_textcomment_frame'));
+	ushout.$dishPanel_textComment_frame = ushout.templates.$FORM.clone(true)
+		.attr('id', _u('dishpanel_textcomment_frame'))
+		.submit(function () {
+			warn('dish panel text comment on submit');
+			var commentText = ushout.$dishPanel_textComment_input.val();
+			
+			// hide text comment panel from dish panel
+			ushout.$dishPanel_textComment_frame.removeClass('active');
+			ushout.$dishPanel_operationMask.removeClass('active');
+			if (ushout.data.shouldResume) {
+				video.player.playVideo();
+				// reset flag
+				ushout.data.shouldResume = false;
+			}
+			
+			// trim white spaces
+			commentText = commentText.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+			// there has to be content
+			if (commentText === '') return false;
+			// lock text comment
+			ushout.controller.lockAfterPostingComment();
+			ushout.server.pushTextComment(commentText, function () {
+				ushout.controller.unlockAfterPostingComment();
+			});
+			
+			return false;
+		});
 	ushout.$dishPanel_textComment_input = ushout.templates.$INPUT.clone(true)
 		.attr({
 			'id': _u('dishpanel_textcomment_input'),
+			'disabled': true,
 			'type': 'text'
 		})
 		.addClass(_u('simplebox'));
 	ushout.$dishPanel_textComment_submit = ushout.templates.$BUTTON.clone(true)
 		.attr({
-			'id': _u('dishpanel_textcomment_submit')
+			'id': _u('dishpanel_textcomment_submit'),
+			'disabled': true,
+			'type': 'submit'
 		})
 		.text('Post It');
 	ushout.$dishPanel_textComment_cancel = ushout.templates.$BUTTON.clone(true)
@@ -350,19 +378,38 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		});
 	
 	// text comment field =============================================//
-	ushout.$post_text_comment_frame = ushout.templates.$controlItem.clone(true)
+	ushout.$post_text_comment_frame = ushout.templates.$FORM.clone(true)
+		.addClass(_u('controlitem'))
 		.attr({
 			'id': _u('post_text_comment_frame')
+		})
+		.submit(function () {
+			warn('text comment on submit');
+			var commentText = ushout.$post_text_comment_input.val();
+			// trim white spaces
+			commentText = commentText.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+			// there has to be content
+			if (commentText === '') return false;
+			
+			// lock text comment
+			ushout.controller.lockAfterPostingComment();
+			ushout.server.pushTextComment(commentText, function () {
+				ushout.controller.unlockAfterPostingComment();
+			});
+			
+			return false;
 		});
 	ushout.$post_text_comment_input = ushout.templates.$INPUT.clone(true)
 		.attr({
 			'id': _u('post_text_comment_input'),
+			'disabled': true,
 			'type': 'text'
 		})
 		.addClass(_u('simplebox'));
 	ushout.$post_text_comment_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('post_text_comment_button'),
+			'type': 'submit',
 			'ushout_tooltip': 'Post Comment'
 		})
 		.text('Send');
@@ -656,7 +703,10 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		}
 	});
 	ushout.controller.stateChangeJumpTable_leaving = {
-		'-1': function () {},
+		'-1': function () {
+			// unlock the comment controls after the video plays
+			ushout.controller.unlockTextComment();
+		},
 		'0' : function () {},
 		'1' : function () {
 			$body.removeClass(_u('playing'));
@@ -1372,6 +1422,33 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			}
 			ushout.$commentsList.append($newComment);
 		}
+	};
+	
+	ushout.controller.unlockTextComment = function () {
+		// bottom
+		ushout.$post_text_comment_input.attr('disabled', false);
+		ushout.$post_text_comment_button.attr('disabled', false);
+		// dish panel
+		ushout.$dishPanel_textComment_input.attr('disabled', false);
+		ushout.$dishPanel_textComment_submit.attr('disabled', false);
+	};
+	ushout.controller.lockTextComment = function () {
+		// bottom
+		ushout.$post_text_comment_input.attr('disabled', true);
+		ushout.$post_text_comment_button.attr('disabled', true);
+		// dish panel
+		ushout.$dishPanel_textComment_input.attr('disabled', true);
+		ushout.$dishPanel_textComment_submit.attr('disabled', true);
+	};
+	ushout.controller.lockAfterPostingComment = function () {
+		ushout.$post_text_comment_input.val('please wait...');
+		ushout.$dishPanel_textComment_input.val('please wait...');
+		ushout.controller.lockTextComment();
+	};
+	ushout.controller.unlockAfterPostingComment = function () {
+		ushout.$post_text_comment_input.val('');
+		ushout.$dishPanel_textComment_input.val('');
+		ushout.controller.unlockTextComment();
 	};
 	
 	// connect to ushout server
