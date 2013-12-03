@@ -8,26 +8,24 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr('id', _u('overlay'))
 		.addClass('player-width player-height'); // youtube classes
 	
+	// comments panel =================================================//
+	ushout.$commentsPanel = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('commentspanel'));
+	ushout.$commentsList = ushout.templates.$UL.clone(true)
+		.attr('id', _u('commentslist'));
+	ushout.templates.$commentItem = ushout.templates.$LI.clone(true)
+		.addClass(_u('commentitem'));
+	ushout.templates.$commentBullet = ushout.templates.$DIV.clone(true)
+		.addClass(_u('commentbullet'));
+	
+	// video area =====================================================//
 	ushout.$touchArea = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('toucharea'));
-	
-	ushout.$dishPanel = ushout.templates.$DIV.clone(true)
-		.attr('id', _u('dishpanel'));
-	
-	ushout.$progressBar = ushout.templates.$DIV.clone(true)
-		.attr('id', _u('progressbar'));
-	
-	ushout.$controlBar = ushout.templates.$DIV.clone(true)
-		.attr('id', _u('controlbar'));
-	
-	ushout.$ushoutBar = ushout.templates.$DIV.clone(true)
-		.attr('id', _u('ushoutbar'));
-	
-	// comment display area ===========================================//
 	ushout.$comments = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('comments'));
-	
 	// dish panel =====================================================//
+	ushout.$dishPanel = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('dishpanel'));
 	ushout.$dishPanel_operationMask = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('dishpanel_operationmask'));
 	ushout.$dishPanel_textComment_frame = ushout.templates.$DIV.clone(true)
@@ -57,7 +55,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 				ushout.data.shouldResume = false;
 			}
 		});
-	
+	// macro function for creating a dish button structure
 	ushout.templates.dishButton = function () {
 		var $result = ushout.templates.$BUTTON.clone(true)
 			.addClass(_u('dishbutton'))
@@ -150,39 +148,44 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton5.$title.text('i');
 	
 	// progress bar ===================================================//
+	ushout.$progressBar = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('progressbar'));
 	ushout.$buffProgress = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('buffProgress'));
 	ushout.$seekSlider = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('seekSlider'));
 	
 	// create extra templates
-	ushout.templates.controlItem = ushout.templates.$DIV.clone(true)
+	ushout.templates.$controlItem = ushout.templates.$DIV.clone(true)
 		.addClass(_u('controlitem'));
-	ushout.templates.controlItem_leftAligned = ushout.templates.controlItem.clone(true)
+	ushout.templates.$controlItem_leftAligned = ushout.templates.$controlItem.clone(true)
 		.addClass(_u('leftaligned'));
-	ushout.templates.controlItem_rightAligned = ushout.templates.controlItem.clone(true)
+	ushout.templates.$controlItem_rightAligned = ushout.templates.$controlItem.clone(true)
 		.addClass(_u('rightaligned'));
-	ushout.templates.controlItem_button = ushout.templates.$BUTTON.clone(true)
+	ushout.templates.$controlItem_button = ushout.templates.$BUTTON.clone(true)
 		.attr({
 			'disabled': true
 		})
 		.addClass(_u('simplebox', 'pointercursor'));
-	ushout.templates.controlItem_button_withIcon = ushout.templates.controlItem_button.clone(true)
+	ushout.templates.$controlItem_button_withIcon = ushout.templates.$controlItem_button.clone(true)
 		.addClass(_u('iconbutton'));
 	
+	// control bar ====================================================//
+	ushout.$controlBar = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('controlbar'));
 	// play/pause button ==============================================//
-	ushout.$play_pause_frame = ushout.templates.controlItem_leftAligned.clone(true)
+	ushout.$play_pause_frame = ushout.templates.$controlItem_leftAligned.clone(true)
 		.attr({
 			'id': _u('play_pause_frame')
 		});
-	ushout.$play_pause_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$play_pause_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('play_pause_button'),
 			'ushout_tooltip': 'Play'
 		});
 	
 	// volume controls ================================================//
-	ushout.$volume_frame = ushout.templates.controlItem_leftAligned.clone(true)
+	ushout.$volume_frame = ushout.templates.$controlItem_leftAligned.clone(true)
 		.attr({
 			'id': _u('volume_frame')
 		});
@@ -190,7 +193,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr({
 			'id': _u('volume_wrapper')
 		});
-	ushout.$volume_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$volume_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('volume_button'),
 			'ushout_tooltip': 'Mute'
@@ -206,7 +209,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		});
 	
 	// playtime =======================================================//
-	ushout.$playtime_frame = ushout.templates.controlItem_leftAligned.clone(true)
+	ushout.$playtime_frame = ushout.templates.$controlItem_leftAligned.clone(true)
 		.attr({
 			'id': _u('playtime_frame')
 		});
@@ -216,11 +219,11 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		});
 	
 	// fullwindow =====================================================//
-	ushout.$fullwindow_frame = ushout.templates.controlItem_rightAligned.clone(true)
+	ushout.$fullwindow_frame = ushout.templates.$controlItem_rightAligned.clone(true)
 		.attr({
 			'id': _u('fullwindow_frame')
 		});
-	ushout.$fullwindow_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$fullwindow_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('fullwindow_button'),
 			'ushout_tooltip': 'Full Window',
@@ -228,11 +231,11 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		});
 	
 	// fullscreen =====================================================//
-	ushout.$fullscreen_frame = ushout.templates.controlItem_rightAligned.clone(true)
+	ushout.$fullscreen_frame = ushout.templates.$controlItem_rightAligned.clone(true)
 		.attr({
 			'id': _u('fullscreen_frame')
 		});
-	ushout.$fullscreen_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$fullscreen_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('fullscreen_button'),
 			'ushout_tooltip': 'Full Screen',
@@ -240,6 +243,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		});
 	
 	// ushout control bar =============================================//
+	ushout.$ushoutBar = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('ushoutbar'));
 	ushout.$rtc_controls_wrapper = ushout.templates.$DIV.clone(true)
 		.attr({
 			'id': _u('rtc_controls_wrapper')
@@ -250,7 +255,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		});
 	
 	// rtc toggle =====================================================//
-	ushout.$rtc_toggle_frame = ushout.templates.controlItem_rightAligned.clone(true)
+	ushout.$rtc_toggle_frame = ushout.templates.$controlItem_rightAligned.clone(true)
 		.attr({
 			'id': _u('rtc_toggle_frame'),
 			'ushout_tooltip': 'Toggle Realtime Comment',
@@ -282,29 +287,29 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		});
 	
 	// help button ====================================================//
-	ushout.$help_frame = ushout.templates.controlItem_rightAligned.clone(true)
+	ushout.$help_frame = ushout.templates.$controlItem_rightAligned.clone(true)
 		.attr({
 			'id': _u('help_frame')
 		});
-	ushout.$help_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$help_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('help_button'),
 			'ushout_tooltip': 'Help'
 		});
 	
 	// settings button ====================================================//
-	ushout.$settings_frame = ushout.templates.controlItem_rightAligned.clone(true)
+	ushout.$settings_frame = ushout.templates.$controlItem_rightAligned.clone(true)
 		.attr({
 			'id': _u('settings_frame')
 		});
-	ushout.$settings_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$settings_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('settings_button'),
 			'ushout_tooltip': 'Settings'
 		});
 	
 	// channels select list ===========================================//
-	ushout.$rtc_channels_frame = ushout.templates.controlItem_rightAligned.clone(true)
+	ushout.$rtc_channels_frame = ushout.templates.$controlItem_rightAligned.clone(true)
 		.attr({
 			'id': _u('rtc_channels_frame')
 		});
@@ -317,35 +322,35 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			'id': _u('rtc_channels_label')
 		})
 		.text('Channels');
-	ushout.$rtc_channels_expand_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$rtc_channels_expand_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('rtc_channels_expand_button')
 		});
 	
 	// audio comment button ===========================================//
-	ushout.$post_audio_comment_frame = ushout.templates.controlItem_leftAligned.clone(true)
+	ushout.$post_audio_comment_frame = ushout.templates.$controlItem_leftAligned.clone(true)
 		.attr({
 			'id': _u('post_audio_comment_frame')
 		});
-	ushout.$post_audio_comment_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$post_audio_comment_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('post_audio_comment_button'),
 			'ushout_tooltip': 'Audio Comment'
 		});
 	
 	// video comment button ===========================================//
-	ushout.$post_video_comment_frame = ushout.templates.controlItem_leftAligned.clone(true)
+	ushout.$post_video_comment_frame = ushout.templates.$controlItem_leftAligned.clone(true)
 		.attr({
 			'id': _u('post_video_comment_frame')
 		});
-	ushout.$post_video_comment_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$post_video_comment_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('post_video_comment_button'),
 			'ushout_tooltip': 'Video Comment'
 		});
 	
 	// text comment field =============================================//
-	ushout.$post_text_comment_frame = ushout.templates.controlItem.clone(true)
+	ushout.$post_text_comment_frame = ushout.templates.$controlItem.clone(true)
 		.attr({
 			'id': _u('post_text_comment_frame')
 		});
@@ -355,7 +360,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			'type': 'text'
 		})
 		.addClass(_u('simplebox'));
-	ushout.$post_text_comment_button = ushout.templates.controlItem_button_withIcon.clone(true)
+	ushout.$post_text_comment_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('post_text_comment_button'),
 			'ushout_tooltip': 'Post Comment'
@@ -364,6 +369,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$overlay_base.append(
 		ushout.$overlay.append(
+			ushout.$commentsPanel.append(
+				ushout.$commentsList
+			),
 			ushout.$touchArea.append(
 				ushout.$comments,
 				ushout.$dishPanel_operationMask,
@@ -654,6 +662,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			$body.removeClass(_u('playing'));
 			// start slow updating time
 			ushout.controller.slowUpdate();
+			ushout.controller.haltBulletsUpdating();
+			ushout.controller.pauseAnimation();
 		},
 		'2' : function () {},
 		'3' : function () {},
@@ -674,6 +684,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			$body.addClass(_u('playing'));
 			// start fast updating time
 			ushout.controller.fastUpdate();
+		//	ushout.controller.setBulletsUpdatingFrame(video.player.getCurrentTime());
+			ushout.controller.resumeAnimation();
+			ushout.controller.beginBulletsUpdating();
 		},
 		'2' : function () {},
 		'3' : function () {},
@@ -1136,8 +1149,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		// seek bar
 		ushout.$seekSlider.slider({
 			disabled: false, // enable it
-			max: video.player.getDuration(), // set max
-			value: video.player.getCurrentTime() // set value
+			max: (video.player) ? video.player.getDuration() : 100, // set max
+			value: (video.player) ? video.player.getCurrentTime() : 0 // set value
 		});
 		
 		// mute state
@@ -1191,4 +1204,174 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		// this state change happens during video redirecting
 		ushout.data.redirecting = 1;
 	};
+	
+	// comments related functions
+	ushout.controller.pauseAnimation = function () {
+		
+	};
+	ushout.controller.resumeAnimation = function () {
+		
+	};
+	ushout.controller.shoot = function (comment, typeAgent) {
+		var $newBullet = ushout.templates.$commentBullet.clone(true);
+		if (typeof typeAgent !== 'undefined') $newBullet.addClass(typeAgent);
+		// prepare content based on data type
+		switch (comment.dtype) {
+			case 0: // text
+				$newBullet.addClass(_u('textcomment'));
+				$newBullet.text(comment.data);
+				break;
+			case 1: // audio
+				break;
+			case 2: // video
+				break;
+			case 3: // macro
+				break;
+			default:
+		}
+		
+		switch (comment.ptype) {
+			case 0: // normal, right-to-left floating comment
+				// find available height
+				var bulletTop, bulletLeft, bulletLength;
+				
+				var $last = ushout.data.bullets[0].$last;
+				if ($last !== null) {
+					var lastBullet_position = $last.position();
+					var lastBullet_left   = lastBullet_position.left,
+						lastBullet_top    = lastBullet_position.top,
+						lastBullet_width  = $last.width(),
+						lastBullet_height = $last.height();
+					var lastBullet_right  = lastBullet_left + lastBullet_width,
+						lastBullet_bottom = lastBullet_top + lastBullet_height;
+					if (lastBullet_right > ushout.$comments.width()) {
+						// the last comment hasn't left startline
+						bulletTop = lastBullet_bottom + ushout.data.bulletSeparation.y;
+					} else {
+						// the last comment has left startline
+						bulletTop = 0;
+					}
+				} else {
+					bulletTop = 0;
+				}
+				bulletLeft = ushout.$comments.width();
+				
+				log('comment (' + comment.id + ') shooting at ' + bulletTop);
+				// no need to save it
+			//	ushout.data.bullets[0].list.push($newBullet);
+				// use append because new bullets should always cover the old ones
+				ushout.$comments.append($newBullet);
+				// measure length after inserting into DOM
+				bulletLength = $newBullet.width();
+				
+				var trackDuration = (bulletLength + bulletLeft) / ushout.data.bulletSpeed * 1000;
+				var endingLeft = 0 - bulletLength;
+				$newBullet.css({
+					top: bulletTop + 'px',
+					left: bulletLeft + 'px'
+				}).animate({
+					left: endingLeft + 'px',
+				}, trackDuration, 'linear', function () {
+					// remove bullet from track
+					$newBullet.remove();
+				});
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			default:
+				break;
+		}
+	};
+	
+	ushout.controller.shootBullets = function () {
+		var lastShot = ushout.data.lastShot;
+		var videoTimeInMilliseconds = Math.floor(video.player.getCurrentTime() * 1000);
+		var magazine = [];
+
+		// search the comments array to find the comments that should be shot out now
+		for (var i = 0, n = ushout.data.comments.length; i < n; ++i) {
+			var currentBullet = ushout.data.comments[i];
+			if (lastShot <= currentBullet.tiv && currentBullet.tiv < videoTimeInMilliseconds) {
+				magazine.push(currentBullet);
+			}
+		}
+		// shoot comments
+		if (magazine.length > 0) {
+			log('shooting from ' + lastShot + ' to ' + videoTimeInMilliseconds);
+			while (magazine.length > 0) {
+				ushout.controller.shoot(magazine.shift());
+			}
+		}
+		// update the timestamp of lastshot
+		ushout.data.lastShot = videoTimeInMilliseconds;
+	};
+	ushout.controller.setBulletsUpdatingFrame = function (seconds) {
+		var newFrame = Math.floor(seconds * 1000);
+		ushout.data.lastShot = newFrame;
+		log('newFrame: ' + newFrame);
+    };
+	
+	ushout.controller.updateBullets = function () {
+		if (video.player && (ushout.data.playState === playState.playing) && !ushout.data.seekBarDragging) {
+			ushout.controller.shootBullets();
+		}
+	};
+	ushout.controller.beginBulletsUpdating = function () {
+		if (ushout.data.bulletUpdateTimer)
+			window.clearInterval(ushout.data.bulletUpdateTimer);
+		ushout.data.bulletUpdateTimer = window.setInterval(ushout.controller.updateBullets, ushout.data.commentsUpdateTime);
+	};
+	ushout.controller.haltBulletsUpdating = function () {
+		if (ushout.data.bulletUpdateTimer)
+			window.clearInterval(ushout.data.bulletUpdateTimer);
+	};
+	
+	ushout.controller.loadComments = function (comments) {
+		for (var i = 0, n = comments.length; i < n; ++i) {
+			var newComment = comments[i];
+			// insert into commentlist data structure
+			ushout.data.comments.push(newComment);
+			// insert into DOM
+			var $newComment = ushout.templates.$commentItem.clone(true)
+				.attr({
+					'id': _u('comment_' + newComment.id), // id of the comment in database
+					'uid': newComment.uid, // id of the user who posted this comment
+					'pid': newComment.pid, // post id. non-zero if this is a follow-up
+					'tiv': newComment.tiv, // time in video, in milliseconds
+					'dop': newComment.dop, // date of posting
+					'ptype': newComment.ptype, // position type
+					/**
+					 * ptype: 0 - normal, right-to-left floating comment
+					 * ptype: 1 - normal, left-to-right floating comment
+					 * ptype: 2 - normal, top fixed comment
+					 * ptype: 3 - normal, bottom fixed comment
+					 * ptype: 4 - POI (point of interest) comment
+					 **/
+					'dtype': newComment.dtype, // data type
+					/**
+					 * dtype: 0 - text
+					 * dtype: 1 - audio
+					 * dtype: 2 - video
+					 * dtype: 3 - macro
+					 **/
+					'data': newComment.data // comment data in strings (base64 string for binary data)
+				});
+			switch (newComment.dtype) {
+				case 0: // text comment
+					$newComment.text(newComment.data);
+					break;
+				default:
+			}
+			ushout.$commentsList.append($newComment);
+		}
+	};
+	
+	// connect to ushout server
+	ushout.server.pullComments(0, ushout.controller.loadComments);
 }
