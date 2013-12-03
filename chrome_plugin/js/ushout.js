@@ -117,15 +117,17 @@ function ushout($body, log, warn, _u) {
 			 * this function gets a list of comments of the current video since the
 			 * given timeStamp
 			 * if a timeStamp is not specified, get the whole list
+			 * since this function works asynchronized, it should have a callback
+			 * function passed in
 			 **/
-			pullComments: function (timeStamp) {
+			pullComments: function (timeStamp, callback) {
 				// fake data
-				return (timeStamp) ? [] : [
+				callback( (timeStamp) ? [] : [
 					{
 						'id': 1, // id of the comment in database
 						'uid': 1, // id of the user who posted this comment
 						'pid': 0, // post id. non-zero if this is a follow-up
-						'tiv': 10000, // time in video, in milliseconds
+						'tiv': 2000, // time in video, in milliseconds
 						'dop': 0, // date of posting
 						'ptype': 0, // position type
 						/**
@@ -149,9 +151,9 @@ function ushout($body, log, warn, _u) {
 						'data': 'hello world!', // comment data in strings (base64 string for binary data)
 						'repu': 0 // reputation, for votings
 					}
-				];
+				]);
 			},
-			pushComment: function (comment) {
+			pushComment: function (comment, callback) {
 				comment = {
 					'vid': video.id, // video id
 					'tiv': video.ctime, // current time in video
@@ -163,7 +165,8 @@ function ushout($body, log, warn, _u) {
 					},
 					'dtype': 0,
 					'data': 'test push comment'
-				}
+				};
+				// add code here to send request to server
 			}
 		},
 		localSettings: {
@@ -175,13 +178,45 @@ function ushout($body, log, warn, _u) {
 		data: {
 			playState: -1,
 			adState: -1,
-			updater: -1
+			updater: -1,
+			comments: [],
+			commentsUpdateTime: 100,
+			lastShot: -1,
+			bullets: [
+				{ // ptype: 0
+					list: [],
+					$last: null
+				},
+				{ // ptype: 1
+					list: [],
+					$last: null
+				},
+				{ // ptype: 2
+					list: [],
+					$last: null
+				},
+				{ // ptype: 3
+					list: [],
+					$last: null
+				},
+				{ // ptype: 4
+					list: [],
+					$last: null
+				}
+			],
+			bulletSeparation: { // gap in pixels
+				x: 10,
+				y: 3
+			},
+			bulletSpeed: 100
 		},
 		controller : {
 			stateChangeJumpTable: {}
 		}, // controller
 		templates: {
 			$DIV    : $('<div>').addClass(_u('simplebox')),
+			$UL     : $('<ul>').addClass(_u('simplebox')),
+			$LI     : $('<li>').addClass(_u('simplebox')),
 			$BUTTON : $('<button>').click(function () {
 				log('button "' + $(this).attr('id') + '" clicked');
 			}),

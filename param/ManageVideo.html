@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<HTML>
+<HEADER>
+<LINK REL=StyleSheet HREF="style.css" TYPE="text/css" MEDIA=screen />
+<script type="text/javascript">
+function selectAll(){
+   	
+}
+
+function uploadVideo(){
+  window.open('UploadFile.html','uploadPopUp',
+               'height=500,width=500,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+}
+
+function shareVideo(){
+   window.open('ShareVideo.html','sharePopUp',
+               'height=500,width=500,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');	
+}
+
+function searchVideo(searchBy, searchKey){
+   document.getElementById('ManageVideoBody').innerHTML=""; 
+   alert('searching videos by '+searchBy);
+   alert('search keywords are '+searchKey);
+   document.getElementById('ManageVideoBody').innerHTML="Return videos HTML for "+searchBy+" : "+searchKey+ " goes here";	
+}
+</script>
+</HEADER>
+<BODY>
+<input id="selectedFilesList" type="hidden" value="" />
+<DIV id="ManageVideoHeader">	
+   <Table width="100%">
+      <tr>
+         <td align="left">
+	    <font size="6"><b>U-Shout</b></font>
+         </td>	
+         <td align="right">
+	     <b>Search By:</b>&nbsp;
+                <Select id="searchSelectBox">
+                  <option value="tag">Tag</option>
+                  <option value="title">Title</option>
+                </Select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+		<input id="searchTextBox" type="text" value="">
+                <input type="button" value="Search" id="searchButton" onClick="searchVideo(document.getElementById('searchSelectBox').value, document.getElementById('searchTextBox').value)"> 
+         </td>
+         <td align="right">&nbsp;</td>
+         <td align = "center">
+              Menu goes here
+         </td>
+      </tr>
+      <tr>
+         <td></td>
+         <td align = "right">
+             <input type="checkbox" name="selectAllCheckBox" value="ALL">Select All
+	     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <input type="button" value="Share Selected" id="shareSelectedButton" onClick="shareVideo()" />
+         <td align="right">&nbsp;</td>
+         <td align = "right">  
+             <b>Upload Video:</b>
+             &nbsp;
+	     <input type="file" id="uploadBrowse" onChange="uploadVideo()"> 
+         </td>
+      </tr>
+   </Table>
+   <br/>
+</DIV>
+<HR />
+<DIV id="ManageVideoBody">
+Test
+</DIV>
+</BODY>
+</HTML>

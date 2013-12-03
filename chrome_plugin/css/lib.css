@@ -90,6 +90,20 @@
 	
 	box-sizing: content-box;
 }
+#ushout_commentspanel {
+	position: absolute;
+	z-index: auto;
+	top: 0;
+	left: 100%;
+	bottom: 0;
+	
+	margin-top: -1px;
+	border-top: 1px solid red;
+	
+	width: 200px;
+	
+	background-color: #1b1b1b;
+}
 #ushout_toucharea {
 	position: absolute;
 	z-index: auto;
@@ -126,7 +140,17 @@ body.ushout_rtc.ushout_ads #ushout_comments {
 	pointer-events: none;
 }
 body.ushout_rtc #ushout_comments {
+	opacity: 1;
 	pointer-events: auto;
+}
+
+#ushout_comments .ushout_commentbullet {
+	position: absolute;
+	top: 0;
+	right: auto;
+	left: 100%;
+	white-space: nowrap;	
+	color: white;
 }
 
 /* dish panel ================================================================*/
