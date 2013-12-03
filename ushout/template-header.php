@@ -43,11 +43,11 @@
 						</div>
 						<div class="signed_in">
 							<div id="profile_wrapper" class="clearfix">
-								<a id="username" tooltip="profile page" demo="no" href="#">Xingchen</a> <div style="float: right"> <img src="/ushout/user_img.png" /> </div>
+								<a id="username" tooltip="profile page" demo="no" href="#">Xingchen</a> <div style="float: right"> <img src="/user_img.png" /> </div>
 								<!-- button id="more_pages" class="activated" tooltip="more pages" demo="yes"></button-->
 								<ul id="more_page_list">
-									<li class="more_page_item"><a href="/ushout/channels/channels.php">My Channels</a></li>
-									<li class="more_page_item"><a href="/ushout/videos/videos.php">My Videos</a></li>
+									<li class="more_page_item"><a href="/channels/channels.php">My Channels</a></li>
+									<li class="more_page_item"><a href="/videos/videos.php">My Videos</a></li>
 									<li class="more_page_item"><a href="#">My Friends</a></li>
 									<li class="more_page_item"><a href="#">Account Settings</a></li>
 									<li class="more_page_item"><a href="#">Sign Out</a></li>
