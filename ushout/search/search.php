@@ -1,5 +1,5 @@
 <?php
-	$search_text="Type here to search"
+	$search_text="type here to search..."
 ?>
 <?php include '../template-header.php';?>
 	<?php
