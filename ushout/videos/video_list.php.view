@@ -1,0 +1,18 @@
+<?php include '../template-header.php';?>
+<script src="video_script.js"></script>
+<link rel="stylesheet" href="/ushout/css/manage_videos.css">
+<h2>My Videos</h2>
+
+<div class="new_video">
+    <form method="get" action="upload_video.php">
+        <button class="prompt" type="submit">Upload Video</button>
+    </form>
+</div>
+
+<div class="video_list">
+    <?php foreach ($videos as $video)
+        include 'video_list_item.php.view';
+    ?>
+</div>
+                 
+<?php include '../template-footer.php';?>
