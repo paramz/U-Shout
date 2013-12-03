@@ -69,6 +69,17 @@
 	box-sizing: border-box;
 }
 
+.ushout_textcommentinput {
+	padding: 2px 3px;
+	
+	text-align: left;
+	font-size: 12px;
+	line-height: 16px;
+	font-weight: normal;
+	
+	outline: none;
+}
+
 /* overlay ===================================================================*/
 #ushout_overlay_base {
 	position: relative;
@@ -103,6 +114,37 @@
 	width: 200px;
 	
 	background-color: #1b1b1b;
+
+	pointer-events: auto;
+}
+#ushout_commentslist {
+	position: absolute;
+	top: 40px;
+	right: 0;
+	bottom: 30px;
+	left: 0;
+
+	padding: 10px;
+
+	overflow: auto;
+}
+#ushout_commentslist .ushout_commentitem {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#ushout_commentslastupdated {
+	position: absolute;
+	top: auto;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	padding: 3px;
+
+	font-size: 10px;
+	text-align: left;
+	font-family: monospace;
 }
 #ushout_toucharea {
 	position: absolute;
@@ -132,6 +174,8 @@ body.ushout_rtc #ushout_toucharea {
 	bottom: 0;
 	left: 0;
 	
+	overflow: hidden;
+	
 	opacity: 0;
 	
 	pointer-events: none;
@@ -145,12 +189,20 @@ body.ushout_rtc #ushout_comments {
 }
 
 #ushout_comments .ushout_commentbullet {
+	display: block;
 	position: absolute;
 	top: 0;
 	right: auto;
 	left: 100%;
 	white-space: nowrap;	
 	color: white;
+}
+#ushout_comments .ushout_textcomment {
+	padding: 5px;
+	font-size: 14px;
+}
+#ushout_comments .ushout_commentbullet.ushout_user {
+	border: 1px solid blue;
 }
 
 /* dish panel ================================================================*/
@@ -262,16 +314,7 @@ body.ushout_rtc #ushout_comments {
 	bottom: 25px;
 	left: 2px;
 	
-	padding: 0 5px;
-	
 	height: 20px;
-	
-	text-align: left;
-	font-size: 12px;
-	line-height: 20px;
-	font-weight: normal;
-	
-	outline: none;
 }
 #ushout_dishpanel_textcomment_submit {
 	position: absolute;

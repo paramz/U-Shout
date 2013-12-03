@@ -122,10 +122,10 @@ function ushout($body, log, warn, _u) {
 			 **/
 			pullComments: function (timeStamp, callback) {
 				// send json request to server
-				var url = 'http://lab.icradle.net/ushout/feeds_uiuc.php?v=' + video.id + '&lastcheck=' + timeStamp;
-				log(url);
+				var url = 'http://uiuc.icradle.net/cs465/feeds.php?v=' + video.id + '&lastcheck=' + timeStamp;
 				$.getJSON( url, function( data ) {
-					callback(data.list);
+					ushout.data.lastPull = data.lastcheck;
+					callback(data.list, data.lastcheck);
 				});
 				return;
 				// fake data
@@ -161,7 +161,7 @@ function ushout($body, log, warn, _u) {
 				]);
 			},
 			pushTextComment: function (textContent, callback) {
-				var url = 'http://lab.icradle.net/ushout/receipt_uiuc.php';
+				var url = 'http://uiuc.icradle.net/cs465/receipt.php';
 				var secretTimeStamp = (new Date()).getMilliseconds();
 				var videoTimeInMilliseconds = Math.floor(video.player.getCurrentTime() * 1000);
 				ushout.data.textCommentSecret = secretTimeStamp;
@@ -171,12 +171,12 @@ function ushout($body, log, warn, _u) {
 					'content': String(textContent),
 					'time': videoTimeInMilliseconds
 				}, function (data, textStatus, jqXHR) {
-					if (ushout.data.textCommentSecret === parseInt(data)) {
-						callback();
+					if (ushout.data.textCommentSecret === data.secret) {
+						callback(data.cid);
 					} else {
-						warn('secret mis-match: ' + ushout.data.textCommentSecret + ' - ' + data);
+						warn('secret mis-match: ' + ushout.data.textCommentSecret + ' - ' + data.secret);
 					}
-				});
+				}, 'json');
 				// add code here to send request to server
 			}
 		},
@@ -191,7 +191,11 @@ function ushout($body, log, warn, _u) {
 			adState: -1,
 			updater: -1,
 			comments: [],
-			commentsUpdateTime: 100,
+			commentReloadTime: 1000,
+			commentReloader: -1,
+			pullingComments: false,
+			lastPull: -1,
+			bulletReloadTime: 100,
 			lastShot: -1,
 			bullets: [
 				{ // ptype: 0
@@ -229,10 +233,18 @@ function ushout($body, log, warn, _u) {
 			$UL     : $('<ul>').addClass(_u('simplebox')),
 			$LI     : $('<li>').addClass(_u('simplebox')),
 			$FORM   : $('<form>').addClass(_u('simplebox')),
-			$BUTTON : $('<button>').click(function () {
-				log('button "' + $(this).attr('id') + '" clicked');
-			}),
-			$INPUT  : $('<input>'),
+			$BUTTON : $('<button>')
+				.attr({
+					'disabled': true,
+					'type': 'button'
+				})
+				.click(function () {
+					log('button "' + $(this).attr('id') + '" clicked');
+				}),
+			$INPUT  : $('<input>')
+				.attr({
+					'disabled': true
+				}),
 			$LABEL  : $('<label>').addClass(_u('simplebox'))
 		}
 	} // ushout

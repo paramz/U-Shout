@@ -1,4 +1,53 @@
 function embed_player($body, youtube, video, ushout, log, warn, _u) {
+	// create extra templates
+	ushout.templates.$controlItem = ushout.templates.$DIV.clone(true)
+		.addClass(_u('controlitem'));
+	ushout.templates.$controlItem_leftAligned = ushout.templates.$controlItem.clone(true)
+		.addClass(_u('leftaligned'));
+	ushout.templates.$controlItem_rightAligned = ushout.templates.$controlItem.clone(true)
+		.addClass(_u('rightaligned'));
+	ushout.templates.$controlItem_button = ushout.templates.$BUTTON.clone(true)
+		.addClass(_u('simplebox', 'pointercursor'));
+	ushout.templates.$controlItem_button_withIcon = ushout.templates.$controlItem_button.clone(true)
+		.addClass(_u('iconbutton'));
+
+	ushout.templates.$textCommentInput = ushout.templates.$INPUT.clone(true)
+		.attr({
+			'type': 'text'
+		})
+		.addClass(_u('simplebox', 'textcommentinput'))
+		.focus(function () {
+			if ($(this).attr(_u('seal')) === 'fine') {
+				$(this).val('');
+			}
+		})
+		.keydown(function () {
+			if ($(this).attr(_u('seal')) === 'fine') {
+				$(this).attr(_u('seal'), 'damaged');
+			}
+		})
+		.blur(function () {
+			if ($(this).val() === '') {
+				$(this).val('type here to post a comment');
+				$(this).attr(_u('seal'), 'fine');
+			} else {
+				$(this).attr(_u('seal'), 'damaged');
+			}
+		});
+	ushout.templates.$textCommentInput.val = function (newValue) {
+		if (typeof newValue === 'undefined') {
+			warn('val executed');
+			if ($(this).attr(_u('seal')) === 'fine') {
+				return '';
+			} else {
+				return $(this).val();
+			}
+		} else {
+			return $(this).val(newValue);
+		}
+	}
+
+	// starting here ==================================================//
 	ushout.$overlay_base = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('overlay_base'))
 		.addClass('player-width watch-content'); // youtube classes
@@ -13,6 +62,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr('id', _u('commentspanel'));
 	ushout.$commentsList = ushout.templates.$UL.clone(true)
 		.attr('id', _u('commentslist'));
+	ushout.$commentsLastUpdated = ushout.templates.$LABEL.clone(true)
+		.attr('id', _u('commentslastupdated'));
+		
 	ushout.templates.$commentItem = ushout.templates.$LI.clone(true)
 		.addClass(_u('commentitem'));
 	ushout.templates.$commentBullet = ushout.templates.$DIV.clone(true)
@@ -31,41 +83,36 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishPanel_textComment_frame = ushout.templates.$FORM.clone(true)
 		.attr('id', _u('dishpanel_textcomment_frame'))
 		.submit(function () {
-			warn('dish panel text comment on submit');
-			var commentText = ushout.$dishPanel_textComment_input.val();
-			
-			// hide text comment panel from dish panel
-			ushout.$dishPanel_textComment_frame.removeClass('active');
-			ushout.$dishPanel_operationMask.removeClass('active');
-			if (ushout.data.shouldResume) {
-				video.player.playVideo();
-				// reset flag
-				ushout.data.shouldResume = false;
+			if (ushout.$dishPanel_textComment_input.attr(_u('seal')) === 'fine') {
+				ushout.$dishPanel_textComment_input.focus();
+			} else {
+				var commentText = ushout.$dishPanel_textComment_input.val();
+				// trim white spaces
+				commentText = commentText.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+				// there has to be content
+				if (commentText === '') return false;
+				
+				// hide text comment panel from dish panel
+				ushout.$dishPanel_textComment_frame.removeClass('active');
+				ushout.$dishPanel_operationMask.removeClass('active');
+				if (ushout.data.shouldResume) {
+					video.player.playVideo();
+					// reset flag
+					ushout.data.shouldResume = false;
+				}
+
+				ushout.controller.postFloatingTextComment(commentText);
 			}
-			
-			// trim white spaces
-			commentText = commentText.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-			// there has to be content
-			if (commentText === '') return false;
-			// lock text comment
-			ushout.controller.lockAfterPostingComment();
-			ushout.server.pushTextComment(commentText, function () {
-				ushout.controller.unlockAfterPostingComment();
-			});
 			
 			return false;
 		});
-	ushout.$dishPanel_textComment_input = ushout.templates.$INPUT.clone(true)
+	ushout.$dishPanel_textComment_input = ushout.templates.$textCommentInput.clone(true)
 		.attr({
-			'id': _u('dishpanel_textcomment_input'),
-			'disabled': true,
-			'type': 'text'
-		})
-		.addClass(_u('simplebox'));
+			'id': _u('dishpanel_textcomment_input')
+		});
 	ushout.$dishPanel_textComment_submit = ushout.templates.$BUTTON.clone(true)
 		.attr({
 			'id': _u('dishpanel_textcomment_submit'),
-			'disabled': true,
 			'type': 'submit'
 		})
 		.text('Post It');
@@ -113,9 +160,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	};
 	
 	ushout.$dishButton0 = ushout.templates.dishButton()
-		.attr({
-			'disabled': true
-		})
 		.addClass(_u('pos0'))
 		.mouseup(function () {
 			log('video comment from dish panel');
@@ -123,9 +167,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton0.$title.text('V');
 	
 	ushout.$dishButton1 = ushout.templates.dishButton()
-		.attr({
-			'disabled': true
-		})
 		.addClass(_u('pos1'))
 		.mouseup(function () {
 			log('comment vote up from dish panel');
@@ -133,9 +174,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton1.$title.text('+');
 	
 	ushout.$dishButton2 = ushout.templates.dishButton()
-		.attr({
-			'disabled': true
-		})
 		.addClass(_u('pos2'))
 		.mouseup(function () {
 			log('text comment from dish panel');
@@ -146,9 +184,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton2.$title.text('T');
 	
 	ushout.$dishButton3 = ushout.templates.dishButton()
-		.attr({
-			'disabled': true
-		})
 		.addClass(_u('pos3'))
 		.mouseup(function () {
 			log('audio comment from dish panel');
@@ -156,9 +191,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton3.$title.text('A');
 	
 	ushout.$dishButton4 = ushout.templates.dishButton()
-		.attr({
-			'disabled': true
-		})
 		.addClass(_u('pos4'))
 		.mouseup(function () {
 			log('comment vote down from dish panel');
@@ -166,9 +198,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$dishButton4.$title.text('-');
 	
 	ushout.$dishButton5 = ushout.templates.dishButton()
-		.attr({
-			'disabled': true
-		})
 		.addClass(_u('pos5'))
 		.mouseup(function () {
 			log('comment info from dish panel');
@@ -182,21 +211,6 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr('id', _u('buffProgress'));
 	ushout.$seekSlider = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('seekSlider'));
-	
-	// create extra templates
-	ushout.templates.$controlItem = ushout.templates.$DIV.clone(true)
-		.addClass(_u('controlitem'));
-	ushout.templates.$controlItem_leftAligned = ushout.templates.$controlItem.clone(true)
-		.addClass(_u('leftaligned'));
-	ushout.templates.$controlItem_rightAligned = ushout.templates.$controlItem.clone(true)
-		.addClass(_u('rightaligned'));
-	ushout.templates.$controlItem_button = ushout.templates.$BUTTON.clone(true)
-		.attr({
-			'disabled': true
-		})
-		.addClass(_u('simplebox', 'pointercursor'));
-	ushout.templates.$controlItem_button_withIcon = ushout.templates.$controlItem_button.clone(true)
-		.addClass(_u('iconbutton'));
 	
 	// control bar ====================================================//
 	ushout.$controlBar = ushout.templates.$DIV.clone(true)
@@ -384,28 +398,24 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			'id': _u('post_text_comment_frame')
 		})
 		.submit(function () {
-			warn('text comment on submit');
-			var commentText = ushout.$post_text_comment_input.val();
-			// trim white spaces
-			commentText = commentText.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-			// there has to be content
-			if (commentText === '') return false;
-			
-			// lock text comment
-			ushout.controller.lockAfterPostingComment();
-			ushout.server.pushTextComment(commentText, function () {
-				ushout.controller.unlockAfterPostingComment();
-			});
+			if (ushout.$post_text_comment_input.attr(_u('seal')) === 'fine') {
+				ushout.$post_text_comment_input.focus();
+			} else {
+				var commentText = ushout.$post_text_comment_input.val();
+				// trim white spaces
+				commentText = commentText.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+				// there has to be content
+				if (commentText === '') return false;
+				
+				ushout.controller.postFloatingTextComment(commentText);
+			}
 			
 			return false;
 		});
-	ushout.$post_text_comment_input = ushout.templates.$INPUT.clone(true)
+	ushout.$post_text_comment_input = ushout.templates.$textCommentInput.clone(true)
 		.attr({
-			'id': _u('post_text_comment_input'),
-			'disabled': true,
-			'type': 'text'
-		})
-		.addClass(_u('simplebox'));
+			'id': _u('post_text_comment_input')
+		});
 	ushout.$post_text_comment_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('post_text_comment_button'),
@@ -417,7 +427,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$overlay_base.append(
 		ushout.$overlay.append(
 			ushout.$commentsPanel.append(
-				ushout.$commentsList
+				ushout.$commentsList,
+				ushout.$commentsLastUpdated
 			),
 			ushout.$touchArea.append(
 				ushout.$comments,
@@ -512,6 +523,10 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		// get into ad mode
 		$body.addClass(_u('playing'));
 		$body.addClass(_u('ads'));
+
+		ushout.$post_text_comment_input.val('please wait for video to start...');
+		ushout.$dishPanel_textComment_input.val('please wait for video to start...');
+
 		ushout.data.adState = adState.playing;
 		ushout.data.playState = playState.unstarted;
 		if (ushout.localSettings.rtcActivated) {
@@ -520,6 +535,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		} else {
 			$body.removeClass(_u('rtc'));
 		}
+		
+		ushout.controller.beginPullingComments();
 	};
 	
 	/* global support for mouseup --
@@ -631,6 +648,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			log('User Action: seekBar stop');
 			// continue updating slider
 			ushout.data.seekBarDragging = false;
+			ushout.controller.wipeBullets();
 		}
 	}).removeClass('ui-corner-all');
 	
@@ -713,7 +731,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			// start slow updating time
 			ushout.controller.slowUpdate();
 			ushout.controller.haltBulletsUpdating();
-			ushout.controller.pauseAnimation();
+			ushout.controller.pauseAnimations();
 		},
 		'2' : function () {},
 		'3' : function () {},
@@ -735,7 +753,10 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			// start fast updating time
 			ushout.controller.fastUpdate();
 		//	ushout.controller.setBulletsUpdatingFrame(video.player.getCurrentTime());
-			ushout.controller.resumeAnimation();
+			ushout.controller.resumeAnimations();
+			
+			// update frame for updating
+			ushout.controller.setBulletsUpdatingFrame(video.player.getCurrentTime());
 			ushout.controller.beginBulletsUpdating();
 		},
 		'2' : function () {},
@@ -757,6 +778,11 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 				log('started playing.');
 				$body.removeClass(_u('ads'));
 				ushout.data.adState = adState.ended;
+
+				ushout.$post_text_comment_input.val('type here to post a comment');
+				ushout.$post_text_comment_input.attr(_u('seal'), 'fine');
+				ushout.$dishPanel_textComment_input.val('type here to post a comment');
+				ushout.$dishPanel_textComment_input.attr(_u('seal'), 'fine');
 			},
 			'2' : function () {},
 			'3' : function () {},
@@ -814,7 +840,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	window.playerOnStateChange = function (newState) {
 		var newStateString = String(newState);
 		var currentStateString = String(ushout.data.playState);
-		log('state change: ' + currentStateString + ' > ' + newStateString);
+		warn('state: ' + currentStateString + ' > ' + newStateString);
 		if (ushout.localSettings.rtcActivated) {
 			var toDo_leaving = ushout.controller.stateChangeJumpTable_leaving[currentStateString],
 				toDo_arriving = ushout.controller.stateChangeJumpTable_arriving[newStateString],
@@ -846,7 +872,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		// save to local storage
 		chrome.storage.local.set(ushout.localSettings);
 		
-		video.player.unMute();
+		if (video.player.unMute)
+			video.player.unMute();
+
 		ushout.$volume_slider.slider({
 			value: ushout.localSettings.restoreVolume
 		});
@@ -858,12 +886,14 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			warn('player not found');
 			return;
 		}
-		ushout.localSettings.restoreVolume = video.player.getVolume();
+		ushout.localSettings.restoreVolume = (video.player.getVolume) ? video.player.getVolume() : 100;
 		ushout.localSettings.muted = true;
 		// save to local storage
 		chrome.storage.local.set(ushout.localSettings);
 		
-		video.player.mute();
+		if (video.player.mute)
+			video.player.mute();
+
 		ushout.$volume_slider.slider({
 			value: 0
 		});
@@ -875,8 +905,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			warn('player not found');
 			return;
 		}
-		ushout.localSettings.volume = video.player.getVolume();
-		if (video.player.isMuted()) {
+		ushout.localSettings.volume = (video.player.getVolume) ? video.player.getVolume() : 100;
+		if (video.player.isMuted && video.player.isMuted()) {
 			$body.addClass(_u('muted'));
 			$body.removeClass(_u('loud'));
 			$body.removeClass(_u('quiet'));
@@ -899,8 +929,11 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			warn('player not found');
 			return;
 		}
-		video.player.setVolume(volumeValue);
-		ushout.localSettings.volume = video.player.getVolume();
+
+		if (video.player.setVolume)
+			video.player.setVolume(volumeValue);
+
+		ushout.localSettings.volume = (video.player.getVolume) ? video.player.getVolume() : 100;
 		// save to local storage
 		chrome.storage.local.set(ushout.localSettings);
 		
@@ -913,7 +946,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			return;
 		}
 		
-		if (video.player.isMuted()) {
+		if (video.player.isMuted && video.player.isMuted()) {
 			// call the macro function in ushout.controller
 			ushout.controller.unMute();
 		} else {
@@ -987,8 +1020,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			warn('player not found');
 			return;
 		}
-		video.mtime = video.player.getDuration();
-		video.ctime = video.player.getCurrentTime();
+		video.mtime = (video.player.getDuration) ? video.player.getDuration() : 100;
+		video.ctime = (video.player.getCurrentTime) ? video.player.getCurrentTime() : 0;
 		ushout.$playtime_label.update();
 	};
 	
@@ -1127,8 +1160,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
             if (!ushout.data.seekBarDragging)
             	ushout.$seekSlider.slider({
 	                // only update when user not dragging
-	                value: video.player.getCurrentTime(),
-	                max: video.player.getDuration()
+	                value: (video.player.getCurrentTime) ? video.player.getCurrentTime() : 0,
+	                max: (video.player.getDuration) ? video.player.getDuration() : 100
 	            });
             var buffProgressValue = video.player.getVideoLoadedFraction() * 100;
             if (buffProgressValue !== ushout.$buffProgress.progressbar('value'))
@@ -1154,10 +1187,26 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$volume_button.attr('disabled', false);
 	ushout.$fullwindow_button.attr('disabled', false);
 	ushout.$rtc_channels_expand_button.attr('disabled', false);
+	ushout.$dishPanel_textComment_cancel.attr('disabled', false);
 	
 	// fix flash player
 	youtube.$movieplayer.attr('wmode', 'opaque');
 	
+	/**
+	 * the following code clip uses MutationObserver to monitor changes on
+	 * className of document.body so we can know if Youtube resets body
+	 **/
+	var redirectObserver = new MutationObserver(function (mutations) {
+		mutations.forEach(function (mutation) {
+			var newVal = $(mutation.target).prop(mutation.attributeName);
+			if (mutation.attributeName === "class") {
+				if (ushout.localSettings.rtcActivated && !$body.hasClass(_u('rtc'))) {
+					ushout.configure();
+				}
+			}
+		});
+	});
+
 	// restore rtc state
 	chrome.storage.local.get([
 		'rtcActivated',
@@ -1176,6 +1225,12 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		} else {
 			ushout.controller.deactivateRTC();
 		}
+
+		redirectObserver.observe(document.body, {
+			attributes: true,
+			childList: false,
+			characterData: false
+		});
 	});
 	/* deprecated
 	if (localStorage.getItem(_u('active')) === true) {
@@ -1199,8 +1254,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		// seek bar
 		ushout.$seekSlider.slider({
 			disabled: false, // enable it
-			max: (video.player) ? video.player.getDuration() : 100, // set max
-			value: (video.player) ? video.player.getCurrentTime() : 0 // set value
+			max: (video.player.getDuration) ? video.player.getDuration() : 100, // set max
+			value: (video.player.getCurrentTime) ? video.player.getCurrentTime() : 0 // set value
 		});
 		
 		// mute state
@@ -1230,41 +1285,66 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	//	
 	};
 	
-	/**
-	 * the following code clip uses MutationObserver to monitor changes on
-	 * className of document.body so we can know if Youtube resets body
-	 **/
-	var redirectObserver = new MutationObserver(function (mutations) {
-		mutations.forEach(function (mutation) {
-			var newVal = $(mutation.target).prop(mutation.attributeName);
-			if (mutation.attributeName === "class") {
-				if (ushout.localSettings.rtcActivated && !$body.hasClass(_u('rtc'))) {
-					ushout.configure();
-				}
-			}
-		});
-	});
-	redirectObserver.observe(document.body, {
-		attributes: true,
-		childList: false,
-		characterData: false
-	});
-	
 	window.pushState = function () {
 		// this state change happens during video redirecting
 		ushout.data.redirecting = 1;
 	};
 	
 	// comments related functions
-	ushout.controller.pauseAnimation = function () {
-		
+	ushout.controller.pauseAnimationOf = function ($commentBullet) {
+		$commentBullet.stop(true);
 	};
-	ushout.controller.resumeAnimation = function () {
-		
+	ushout.controller.resumeAnimationOf = function ($commentBullet) {
+		var ptype = parseInt($commentBullet.attr(_u('ptype')));
+		switch (ptype) {
+			case 0: // normal, right-to-left floating comment
+				var position = $commentBullet.position();
+				var endingLeft = -$commentBullet.width();
+				var duration = ($commentBullet.width() + position.left) / ushout.data.bulletSpeed * 1000;
+				$commentBullet.animate({
+					left: endingLeft + 'px',
+				}, duration, 'linear', function () {
+					// remove bullet from track
+					$commentBullet.remove();
+				});
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			default:
+				break;
+		}
 	};
+	ushout.controller.pauseAnimations = function () {
+		var comments = ushout.$comments.children();
+		for (var i = 0, n = comments.length; i < n; ++i) {
+			ushout.controller.pauseAnimationOf($(comments[i]));
+		}
+	};
+	ushout.controller.resumeAnimations = function () {
+		var comments = ushout.$comments.children();
+		for (var i = 0, n = comments.length; i < n; ++i) {
+			ushout.controller.resumeAnimationOf($(comments[i]));
+		}
+	};
+	ushout.controller.wipeBullets = function () {
+		var comments = ushout.$comments.children();
+		for (var i = 0, n = comments.length; i < n; ++i) {
+			$(comments[i]).remove();
+		}
+	};
+	
 	ushout.controller.shoot = function (comment, typeAgent) {
 		var $newBullet = ushout.templates.$commentBullet.clone(true);
-		if (typeof typeAgent !== 'undefined') $newBullet.addClass(typeAgent);
+		if (typeof typeAgent !== 'undefined') $newBullet.addClass(_u(typeAgent));
+		$newBullet.attr(_u('id'), comment.id);
+		$newBullet.attr(_u('uid'), comment.uid);
+		$newBullet.attr(_u('dtype'), comment.dtype);
 		// prepare content based on data type
 		switch (comment.dtype) {
 			case 0: // text
@@ -1280,10 +1360,11 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			default:
 		}
 		
+		$newBullet.attr(_u('ptype'), comment.ptype);
 		switch (comment.ptype) {
 			case 0: // normal, right-to-left floating comment
 				// find available height
-				var bulletTop, bulletLeft, bulletLength;
+				var bulletTop;
 				
 				var $last = ushout.data.bullets[0].$last;
 				if ($last !== null) {
@@ -1304,29 +1385,25 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 				} else {
 					bulletTop = 0;
 				}
-				bulletLeft = ushout.$comments.width();
 				
 				log('comment (' + comment.id + ') shooting at ' + bulletTop);
 				// no need to save it
 			//	ushout.data.bullets[0].list.push($newBullet);
 				// use append because new bullets should always cover the old ones
 				ushout.$comments.append($newBullet);
+				if ((bulletTop + $newBullet.height()) > ushout.$comments.height()) {
+					bulletTop = 0;
+				}
 				// point the reference to this
 				ushout.data.bullets[0].$last = $newBullet;
-				// measure length after inserting into DOM
-				bulletLength = $newBullet.width();
-				
-				var trackDuration = (bulletLength + bulletLeft) / ushout.data.bulletSpeed * 1000;
-				var endingLeft = 0 - bulletLength;
+
 				$newBullet.css({
 					top: bulletTop + 'px',
-					left: bulletLeft + 'px'
-				}).animate({
-					left: endingLeft + 'px',
-				}, trackDuration, 'linear', function () {
-					// remove bullet from track
-					$newBullet.remove();
+					left: ushout.$comments.width() + 'px'
 				});
+
+				if (ushout.data.playState === playState.playing)
+					ushout.controller.resumeAnimationOf($newBullet);
 				break;
 			case 1:
 				break;
@@ -1349,7 +1426,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		// search the comments array to find the comments that should be shot out now
 		for (var i = 0, n = ushout.data.comments.length; i < n; ++i) {
 			var currentBullet = ushout.data.comments[i];
-			if (lastShot <= currentBullet.tiv && currentBullet.tiv < videoTimeInMilliseconds) {
+			if (lastShot < currentBullet.tiv && currentBullet.tiv < videoTimeInMilliseconds) {
 				magazine.push(currentBullet);
 			}
 		}
@@ -1377,7 +1454,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.controller.beginBulletsUpdating = function () {
 		if (ushout.data.bulletUpdateTimer)
 			window.clearInterval(ushout.data.bulletUpdateTimer);
-		ushout.data.bulletUpdateTimer = window.setInterval(ushout.controller.updateBullets, ushout.data.commentsUpdateTime);
+		ushout.data.bulletUpdateTimer = window.setInterval(ushout.controller.updateBullets, ushout.data.bulletReloadTime);
 	};
 	ushout.controller.haltBulletsUpdating = function () {
 		if (ushout.data.bulletUpdateTimer)
@@ -1451,7 +1528,74 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		ushout.controller.unlockTextComment();
 	};
 	
-	// connect to ushout server
-	video.updateID();
-	ushout.server.pullComments(0, ushout.controller.loadComments);
+	ushout.controller.donePullingComments = function (comments, lastcheck) {
+		ushout.$commentsLastUpdated.text('last pull: ' + lastcheck);
+		// load comments
+		ushout.controller.loadComments(comments);
+		// reset timer
+		window.clearTimeout(ushout.data.commentReloader);
+		// set timer for another pull if needed
+		if (ushout.data.pullingComments) {
+			ushout.data.commentReloader = window.setTimeout(ushout.controller.pullComments, ushout.data.commentReloadTime);
+		}
+	};
+	ushout.controller.pullComments = function () {
+		// pull from server with the time of last pull
+		ushout.server.pullComments(ushout.data.lastPull, ushout.controller.donePullingComments);
+	};
+	
+	ushout.controller.beginPullingComments = function () {
+		if (ushout.data.pullingComments) {
+			warn('already pulling');
+		} else {
+			ushout.data.pullingComments = true;
+			ushout.controller.pullComments();
+		}
+	};
+	ushout.controller.haltPullingComments = function () {
+		if (ushout.data.pullingComments) {
+			window.clearTimeout(ushout.data.commentReloader);
+			ushout.data.pullingComments = false;
+		} else {
+			warn('not pulling');
+		}
+	};
+
+	ushout.controller.postFloatingTextComment = function (commentText) {
+		// lock commenting
+		ushout.controller.lockAfterPostingComment();
+		ushout.server.pushTextComment(commentText, function (commentID) {
+			// shoot the comment manually
+			ushout.controller.shoot({
+				'id': commentID, // id of the comment in database
+				'uid': -1, // id of the user who posted this comment
+				'pid': 0, // post id. non-zero if this is a follow-up
+				'tiv': -1, // time in video, in milliseconds
+				'dop': -1, // date of posting
+				'ptype': 0, // position type
+				/**
+				 * ptype: 0 - normal, right-to-left floating comment
+				 * ptype: 1 - normal, left-to-right floating comment
+				 * ptype: 2 - normal, top fixed comment
+				 * ptype: 3 - normal, bottom fixed comment
+				 * ptype: 4 - POI (point of interest) comment
+				 **/
+				'poi': { // only used when ptype = 4
+					x: 0, // coordinate in percentages
+					y: 0
+				},
+				'dtype': 0, // data type
+				/**
+				 * dtype: 0 - text
+				 * dtype: 1 - audio
+				 * dtype: 2 - video
+				 * dtype: 3 - macro
+				 **/
+				'data': commentText, // comment data in strings (base64 string for binary data)
+				'repu': 0 // reputation, for votings
+			}, 'user');
+			// unlock commenting
+			ushout.controller.unlockAfterPostingComment();
+		});
+	};
 }

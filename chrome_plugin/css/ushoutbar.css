@@ -280,15 +280,8 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 	right: 70px;
 	bottom: 1px;
 	left: 3px;
-	
+
 	background-color: transparent;
-	
-	text-align: left;
-	font-size: 12px;
-	line-height: 20px;
-	font-weight: normal;
-	
-	outline: none;
 	
 	pointer-events: auto;
 }
