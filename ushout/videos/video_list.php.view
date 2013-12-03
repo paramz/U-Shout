@@ -1,6 +1,6 @@
 <?php include '../template-header.php';?>
 <script src="video_script.js"></script>
-<link rel="stylesheet" href="/ushout/css/manage_videos.css">
+<link rel="stylesheet" href="/css/manage_videos.css">
 <h2>My Videos</h2>
 
 <div class="new_video">
