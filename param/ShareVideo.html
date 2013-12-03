@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<HTML>
+<HEADER>
+<LINK REL=StyleSheet HREF="style.css" TYPE="text/css" MEDIA=screen />
+<script type="text/javascript">
+function setFilesList(){
+   document.getElementById('filesList').innerHTML=window.opener.getElementById('selectedFilesList').value;
+   document.getElementById('videoList').value=window.opener.getElementById('selectedFilesList').value;
+}
+
+function setPermissions(){
+  if(radioValue == ""){
+     alert('Please select one permission type');
+     return;  
+  }else if(radioValue == "private"){
+     if(document.getElementById('emailListTextArea').value == ""){
+        alert('Please enter email ids');
+        return;
+     }
+  }
+  
+  alert('make an ajax call to save permissions and refresh main page');
+  window.opener.location.href="ManageVideo.html";
+  window.close();
+}
+
+var radioValue = "";
+
+function selectPermission(){
+   radioValue = "";
+   var radioObj = document.getElementsByName('permissionRadio');
+   for(var i=0; i<radioObj.length;i++){
+      if(radioObj[i].checked){
+         radioValue=radioObj[i].value;
+         break;
+      }
+   }
+   if(radioValue=="public"){
+      document.getElementById('emailListTextArea').value="";
+      document.getElementById('emailListTextArea').style.display="none";      
+   }else{
+      document.getElementById('emailListTextArea').style.display="block";
+   }	
+}
+
+</script>
+
+</HEADER>
+
+<BODY>
+<input type="hidden" id="videoList" value="" />
+<Table>
+<tr>
+ <td>
+    <b>Selected Files : </b>
+ </td>
+ <td id = "filesList">
+ </td>
+</tr>
+<tr>
+ <td>
+    <input type="radio" name="permissionRadio" value="public" onChange="selectPermission()" />Public
+ </td>	
+ <td>
+    <input type="radio" name="permissionRadio" value="private" onChange="selectPermission()" />Private
+ </td>
+</tr>
+<tr>
+ <td>
+    &nbsp;
+ </td>	
+ <td>
+    <textarea id="emailListTextArea" name="emailListTextArea" placeholder="Comma separated Email List..." rows="5" cols="30" style="display:none"></textarea>
+ </td>
+</tr>
+<tr>
+ <td>
+    <input type="button" value="OK" onClick="setPermissions();">
+ </td>
+  <td>
+    <input type="button" value="Cancel" onClick="window.close();">
+ </td>	
+</tr>
+</BODY>
+</HTML>

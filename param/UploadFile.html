@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<HTML>
+<HEADER>
+<LINK REL=StyleSheet HREF="style.css" TYPE="text/css" MEDIA=screen />
+<script type="text/javascript">
+/*get the tags list and replace the existing select box with new html*/
+function getTagsList(){
+   /*make ajax call and get group tag list in the format
+   value~display^value~display*/
+   var tagsList = 'tag1~Group Tag 1^tag2~Group Tag 2^';
+   var splitTags = tagsList.split("^");
+   var newSelectBox = '<Select id="groupSelectBox"><option value="">Select Group..</option>' 
+   for(var i=0; i<splitTags.length;i++){
+      if(splitTags[i] != null && splitTags[i].length > 0){
+         var tempSelect = splitTags[i].split("~");
+         newSelectBox = newSelectBox+"<option value='"+tempSelect[0]+"'>"+tempSelect[1]+"</option>";
+      }
+   }
+   newSelectBox = newSelectBox+"</Select>";
+   document.getElementById('spanSelectGroupTag').innerHTML=newSelectBox;	
+}
+
+function save(){
+  var groupTag = document.getElementById('groupSelectBox').value;
+  if(document.getElementById('newGroupTag').value != ""){
+     groupTag = document.getElementById('newGroupTag').value;  
+  }
+  if(groupTag == ""){
+   alert('Please select or create a group tag');
+  }else{
+   alert('make an ajax call to save videos to group '+groupTag+' and reload the main page');
+   window.opener.location.href="ManageVideo.html";
+   window.close();
+  }
+}
+
+</script>
+
+</HEADER>
+
+<BODY onLoad="getTagsList();">
+<Table>
+<tr>
+ <td>
+    <b>Selected Files : </b>
+ </td>
+ <td id = "filesList">
+ </td>
+</tr>
+<tr>
+ <td>
+    <b>Add to Tag : </b>
+ </td>
+  <td>
+    <span id="spanSelectGroupTag"></span>
+ </td>	
+</tr>
+<tr><td>or</td></tr>
+<tr>
+ <td>
+    <b>Create new Tag : </b>
+ </td>
+  <td>
+    <input id="newGroupTag" value="" type="text" size="45">
+ </td>	
+</tr>
+<tr>
+ <td>
+    <input type="button" value="OK" onClick="save();">
+ </td>
+  <td>
+    <input type="button" value="Cancel" onClick="window.close();">
+ </td>	
+</tr>
+</BODY>
+</HTML>
