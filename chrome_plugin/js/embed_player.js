@@ -1261,6 +1261,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			//	ushout.data.bullets[0].list.push($newBullet);
 				// use append because new bullets should always cover the old ones
 				ushout.$comments.append($newBullet);
+				// point the reference to this
+				ushout.data.bullets[0].$last = $newBullet;
 				// measure length after inserting into DOM
 				bulletLength = $newBullet.width();
 				
