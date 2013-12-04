@@ -396,6 +396,8 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 
 	background-color: rgba(33, 33, 33, 0.9);
 }
+
+#ushout_overlay.ushout_showhelp #ushout_rtc_channels_expanded_frame,
 #ushout_rtc_channels_frame.ushout_expanded #ushout_rtc_channels_expanded_frame {
 	display: block;
 }
