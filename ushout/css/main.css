@@ -501,7 +501,7 @@ a#username:hover {
     transition: margin-top 200ms ease-out;
 }
 
-button.prompt {
+button.prompt, input.prompt[type='button'] {
     border: 1px solid red;
     box-sizing: border-box;
     height: 30px;

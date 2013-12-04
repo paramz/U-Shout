@@ -4,7 +4,7 @@
 	<div class="close_window">X</div>
 	<div id="upload_title">Upload Video</div>
 	<form action="videos.php">
-	  <input type="file" name="video">
+	  <input class="prompt" type="file" name="video" />
 	  <br/>
 	  <br/>
 	  <table>
@@ -38,7 +38,8 @@
 		  </tr>
 	  </table>
 	  <br/>
-	  <input type="submit">
+	  <button class="prompt" type="submit">Upload Video</button>
+	  
 	</form>
 </div>
 
