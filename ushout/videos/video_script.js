@@ -24,7 +24,7 @@ $(function(){ //jquery ready function
 	
 	$(".add_tag").click(function(){
 		var item = $("#tag_input").val();
-		if(item!=null)
+		if(item!=null && item != '')
 		{
 			$("#tag_list").prepend("<div class='selected_attr'>"+item+"</div>");
 		}
@@ -33,7 +33,7 @@ $(function(){ //jquery ready function
 	
 	$(".add_channel").click(function(){
 		var item = $("#channel_input").val();
-		if(item!=null)
+		if(item!=null && item != '')
 		{
 			$("#channel_list").prepend("<div class='selected_attr'>"+item+"</div>");
 		}
