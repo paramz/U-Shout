@@ -1,11 +1,27 @@
 <?php include '../template-header.php';?>
 <style>
-#body_container {
+
+/*#body_container {
     overflow-y: scroll;
 }
+
+#wtf {
+    overflow-y: scroll;
+}
+
 ::-webkit-scrollbar {
     display: none;
+}*/
+
+#channel_content {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height: 450px;
+    overflow-y: scroll;
+    margin: 0px;
+    margin-top: 10px;
 }
+
 textarea {
     margin-top: 1em;
     margin-bottom: 1em;
@@ -33,10 +49,13 @@ img {
 }
 </style>
 
+
+
 <h2>Manage Channel</h2>
+<div id="channel_content">
 <div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
 
-<div style="float: left;">
+<div style="width: 50%; float: left;">
 <form>
     <div class="label">Name</div>
     <input class="standard_input" type="text"></input>
@@ -48,38 +67,39 @@ img {
 </form>
 </div>
 
-<div class="invites" style="width: 400px; float: right;">
-<div class="label" style="">Access</div>
-<form action="">
-    <input type="radio" name="inv[]" value="public" style="margin-bottom: 1px;" /> Public<br />
-    <input type="radio" name="inv[]" value="invite" style="margin-bottom: 1px;" /> Invite Only<br />
-    <input type="radio" name="inv[]" value="private" style="margin-bottom: 1px;" /> Private<br />
-    <button class="prompt" type="submit">Save</button>
-</form>
+<div class="invites" style="float: left;">
+	<div class="label" style="">Access</div>
+		<form action="">
+		    <input type="radio" name="inv[]" value="public" style="margin-bottom: 1px;" /> Public<br />
+		    <input type="radio" name="inv[]" value="invite" style="margin-bottom: 1px;" /> Invite Only<br />
+		    <input type="radio" name="inv[]" value="private" style="margin-bottom: 1px;" /> Private<br />
+		    <button class="prompt" type="submit">Save</button>
+		</form>
 
-<div class="divider"></div>
+		<div class="divider"></div>
 
-<div class="label">Users</div>
-<div class="members">
+		<div class="label">Users</div>
+		<div class="members">
 
-<div class="user">
-<img src="/user_img.png">
-<button class="prompt">Remove</button>
-</div>
+		<div class="user">
+			<img src="/user_img.png">
+			<button class="prompt">Remove</button>
+		</div>
 
-<div class="user">
-<img src="/user_img.png">
-<button class="prompt">Remove</button>
-</div>
+		<div class="user">
+			<img src="/user_img.png">
+			<button class="prompt">Remove</button>
+		</div>
 
-<div class="user">
-<img src="/user_img.png">
-<button class="prompt">Remove</button>
-</div>
+		<div class="user">
+			<img src="/user_img.png">
+			<button class="prompt">Remove</button>
+		</div>
 
-</div> <!-- ends members class div-->
-<button class="prompt">Manage Invites</button>
-</div> <!-- end invites div -->
+		</div> 
+	
+		<button class="prompt">Manage Invites</button>
+	</div> <!-- end invites div -->
 
 <hr style="clear: both;"></hr>
 
@@ -144,5 +164,6 @@ img {
 
 
 </div> <!-- end page content -->
+</div> <!-- end content list -->
 
 <?php include '../template-footer.php';?>
