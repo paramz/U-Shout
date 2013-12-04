@@ -1,3 +1,4 @@
+<?php include '../template-header.php';?>
 <link rel="stylesheet" href="/css/manage_videos.css?version=1">
 <div id="add_video">
 	<div class="close_window">X</div>
@@ -40,7 +41,7 @@
 	  <input type="submit">
 	</form>
 </div>
-<?php include '../template-header.php';?>
+
 <script src="video_script.js"></script>
 <h2>My Videos</h2>
 

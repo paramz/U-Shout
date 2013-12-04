@@ -15,6 +15,7 @@
 
 	<link rel="stylesheet" href="/css/normalize.css">
 	<link rel="stylesheet" href="/css/main.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<!--<script src="js/vendor/modernizr-2.6.2.min.js"></script>-->
 </head>
 <body debug="no" signedin="yes">
