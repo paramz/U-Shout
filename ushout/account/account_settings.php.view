@@ -8,8 +8,8 @@
      <tr><td>Password:</td><td><input type="password" name="password"></td></tr>
      <tr><td>Confirm Password:</td><td><input type="password" name="password2"></td></tr>
      <tr><td>Email:</td><td><input type="text" name="email"></td></tr>
-     <tr><td><input type="submit" name="submitButton" value="Submit"></td>
-     <td><input type="reset" name="resetButton" value="Reset"></td></tr>
+     <tr><td><button class="prompt" type="submit">Save</button></td>
+     <td><button class="prompt" type="reset">Reset</button></td></tr>
      </table>
    
    </form>
