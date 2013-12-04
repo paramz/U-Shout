@@ -60,10 +60,17 @@ function fetchComments($videoID, $bcMath_timeStamp) {
 		} else {
 			foreach ($xmlDoc->children() as $commentObj) {
 				$commentItem = array();
-				$commentItem['time'] = bcadd($commentObj['time'], '0');
-				$commentItem['date'] = bcadd($commentObj['date'], '0');
-				$commentItem['content'] = (string)$commentObj;
-				if (bccomp($bcMath_timeStamp, $commentItem['date']) === -1)
+				$commentItem['id'] = bcadd($commentObj['id'], '0');
+				$commentItem['uid'] = bcadd($commentObj['uid'], '0');
+				$commentItem['pid'] = bcadd($commentObj['pid'], '0');
+				$commentItem['tiv'] = bcadd($commentObj['tiv'], '0');
+				$commentItem['dop'] = bcadd($commentObj['dop'], '0');
+				$commentItem['ptype'] = intval($commentObj['ptype']);
+				$commentItem['poi'] = json_decode($commentObj['poi']);
+				$commentItem['dtype'] = intval($commentObj['dtype']);
+				$commentItem['repu'] = bcadd($commentObj['repu'], '0');
+				$commentItem['data'] = (string)$commentObj;
+				if (bccomp($bcMath_timeStamp, $commentItem['dop']) === -1)
 					$retn[] = $commentItem;
 			}
 		}
@@ -87,11 +94,41 @@ function appendComment($videoID, $timeFrame, $postContent, $postDate) {
 		createCommentFileForVideoID($videoID);
 		$xmlDoc = simplexml_load_file($xmlFilename);
 	}
+	$uniqueID = intval($xmlDoc['cid_uid']);
+	$uniqueID++;
+	
 	$commentElement = $xmlDoc->addChild('comment', $postContent);
-	$commentElement->addAttribute('time', $timeFrame);
-	$commentElement->addAttribute('date', $postDate);
+	$commentElement->addAttribute('id', $uniqueID);
+	$commentElement->addAttribute('uid', 0); // set to guest
+	$commentElement->addAttribute('pid', 0); // set to none
+	$commentElement->addAttribute('tiv', $timeFrame);
+	$commentElement->addAttribute('dop', $postDate);
+	$commentElement->addAttribute('ptype', 0);
+	/**
+	 * ptype: 0 - normal, right-to-left floating comment
+	 * ptype: 1 - normal, left-to-right floating comment
+	 * ptype: 2 - normal, top fixed comment
+	 * ptype: 3 - normal, bottom fixed comment
+	 * ptype: 4 - POI (point of interest) comment
+	 **/
+	$commentElement->addAttribute('poi', json_encode(array(
+		'x' => 0,
+		'y' => 0
+	))); // position
+	$commentElement->addAttribute('dtype', 0);
+	/**
+	 * dtype: 0 - text
+	 * dtype: 1 - audio
+	 * dtype: 2 - video
+	 * dtype: 3 - macro
+	 **/
+	$commentElement->addAttribute('repu', 0);
+	
+	$xmlDoc['cid_uid'] = $uniqueID;
 	$xmlDoc->asXML($xmlFilename);
 	if ($o_dir !== getcwd()) chdir($o_dir);
+	
+	return $uniqueID;
 }
 function createCommentFileForVideoID($videoID) {
 	$o_dir = getcwd();
@@ -99,7 +136,7 @@ function createCommentFileForVideoID($videoID) {
 	$xmlFilename = "{$videoID}.xml";
 	$xmlStr = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<video id="{$videoID}">
+<video id="{$videoID}" cid_uid="0">
 </video>
 XML;
 	$xmlDoc = new SimpleXMLElement($xmlStr);
