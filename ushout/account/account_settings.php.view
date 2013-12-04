@@ -4,13 +4,10 @@
 <div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
 	<form id="accountsettingsForm" method="post" action="account_settings.php">
 		<div>
-			<div class="">
-				Username <br/><input class="standard_input" type="text" name="username" />
-			</div>
 
-			<div class="">
-				Email <br/><input class="standard_input" type="text" name="email" />
-			</div>
+			<div class="label">Username</div><input class="standard_input" type="text" name="username" />
+
+			<div class="label">Email</div><input class="standard_input" type="text" name="email" />
 			
 			<button class="prompt" type="submit">Update Account</input>
 		</div>
@@ -18,16 +15,12 @@
 	</form>
 	
 	<div class="divider"></div>
+	
 	<form>
 		<div style="padding-bottom: 10px">
-			<div class="">
-				New Password <br/><input class="standard_input" type="password" name="new_password" />
-			</div>
+			<div class="label">New Password</div><input class="standard_input" type="password" name="new_password" />
 
-			<div class="">
-				Password Confirmation<br/><input class="standard_input" type="password" name="confirm_password" />
-			</div>
-		
+			<div class="label">Password Confirmation</div><input class="standard_input" type="password" name="confirm_password" />
 		
 			<button class="prompt" type="submit">Change Password</input>
 		</div>
