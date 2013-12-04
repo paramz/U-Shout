@@ -139,7 +139,7 @@
 	height: 300px;
 	width: 500px;
 
-	background-color: blue;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/help_instructions_right.png');
 
 	content: "";
 }
