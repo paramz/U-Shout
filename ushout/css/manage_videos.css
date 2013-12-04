@@ -142,4 +142,34 @@
 	border-left:4px solid red;
 	cursor:pointer;
 }
+
+.video_standard_input {
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px 5px 5px 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    height: 28px;
+    width: 200px;
+    font-size: 14px;
+    line-height: 100%;
+    outline: none;
+}
+
+input.video_prompt[type='button'] {
+    height: 25px; 
+    margin-left: 5px;
+    border: 1px solid red;
+    box-sizing: border-box;    
+    border-radius: 3px;
+    padding: 0 15px;
+    background-color: red;
+    font-size: 14px;
+    line-height: 100%;
+    color: white;
+    outline: none;
+}
+
 /*video list end*/

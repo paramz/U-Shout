@@ -9,16 +9,16 @@
 	  <br/>
 	  <table>
 		  <tr>
-			<td>Title: </td>
-			<td><input type="text" name="title"></td>
+			<td>Title </td>
+			<td><input class="video_standard_input" type="text" name="title"></td>
 		  </tr>
 		  <tr>
 			<td style="visibility:hidden">.</td>
 		  </tr>
 		  <tr>
-			<td>Tags: </td>
-			<td><input id="tag_input" type="text" name="tags"></td>
-			<td><div class="add_info add_tag">Add ></div></td>
+			<td>Tags </td>
+			<td><input class="video_standard_input" id="tag_input" type="text" name="tags"></td>
+			<td><input class="video_prompt add_info add_tag" type="button" value="Add >" /></td>
 		  </tr>
 		  <tr>
 			<td></td>
@@ -28,9 +28,9 @@
 			<td style="visibility:hidden">.</td>
 		  </tr>
 		  <tr>
-			<td>Channels:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td><input id="channel_input" type="text" name="channels"></td>
-			<td><div class="add_info add_channel">Add ></div></td>
+			<td>Channels&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><input class="video_standard_input" id="channel_input" type="text" name="channels"></td>
+			<td><input class="video_prompt add_info add_channel" type="button" value="Add >" /></td>
 		  </tr>
 		  <tr>
 			<td></td>
