@@ -16,7 +16,7 @@
 #channel_content {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    height: 450px;
+    height: 800px;
     overflow-y: scroll;
     margin: 0px;
     margin-top: 10px;
