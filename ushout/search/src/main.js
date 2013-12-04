@@ -14,16 +14,16 @@ $(function () {
             var mouseY = event.pageY - trackPadOffset.top,
                 mouseX = event.pageX - trackPadOffset.left;
             $view.stop(true).clearQueue().animate({
-                marginTop: (0 - mouseY / trackPadHeight * YOffset - (viewHeight - YOffset) / 2) + 'px',
+                marginTop: (0 + mouseY / trackPadHeight * YOffset - (viewHeight + YOffset) / 2) + 'px',
                 marginLeft: (0 - mouseX / trackPadWidth * XOffset - (viewWidth - XOffset) / 2) + 'px'
             }, 20);
         })
-        .mouseleave(function() {
+        /*.mouseleave(function() {
             $view.stop(true).clearQueue().animate({
                 marginTop: (0 - viewHeight / 2) + 'px',
                 marginLeft: (0 - viewWidth / 2) + 'px'
             }, 200);
-        });
+        });*/
     
     var $navContainer = $("#nav_container");
     var $searchInput = $navContainer.find("#search_input");
