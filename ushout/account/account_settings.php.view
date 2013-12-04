@@ -2,7 +2,7 @@
 <h2>Account Settings</h2>
 
 <div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
-   <form id="accountsettingsForm" method="post" action="#">
+   <form id="accountsettingsForm" method="post" action="account_settings.php">
      <table>
      <tr><td>Username:</td><td><input type="text" name="username"></td></tr>
      <tr><td>Password:</td><td><input type="password" name="password"></td></tr>
