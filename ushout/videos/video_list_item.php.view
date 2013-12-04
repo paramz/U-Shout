@@ -1,7 +1,7 @@
-        <form action="videos.php">
+			<form action="videos.php">
             <div class="video_list_item">
-				<div class="video_options" onclick="javascript:event.stopPropagation();">Share | Delete</div> 
-				<div  onclick="javascript:this.parentNode.parentNode.submit();"> <!--replace with jquery in separate file-->
+				<div class="video_options">Share | Delete</div> 
+				<div class="video_item">
 					<div class="video_name tooltipbelow" tooltip="<?php echo $video->name; ?>"><span><?php echo $video->name; ?></span></div>                 
 					<div class="video_embed">VIDEO HERE</div>
 					<div class="video_stats">

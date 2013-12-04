@@ -61,7 +61,7 @@ class VideoModel
         ));
       
         $videos[] = new VideoModel(array(
-          'name' => 'Super Long Video Name to See How Overflow behaves', 
+          'name' => 'adfasf1234', 
           'description' => 'No one likes this Video',
           'views' => 2312,
           'likes' => 9,

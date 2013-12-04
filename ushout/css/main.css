@@ -216,7 +216,6 @@ body[signedin="yes"] .signed_in {
 
 #nav_container {
     position: absolute;
-    z-index: 2;
     top: 0;
     right: 0;
     bottom: auto;
