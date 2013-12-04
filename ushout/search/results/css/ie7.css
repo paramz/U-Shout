@@ -1,0 +1,65 @@
+/** Website template by freewebsitetemplates.com **/
+#background #page #header ul.navigation {
+	margin:-45px 0 0 0;
+}
+#background #page #body #content {
+	margin-top:-28px;
+}
+#background #page #body #content .header {
+	margin:30px 5px 0 5px;
+	padding-top:0px;
+}
+#background #page #body #content table {
+	width:950px;
+	padding:0;
+	margin:60px auto 0;
+}
+#background #page #body #content table td label input#subscribe {
+	margin:-17px 10px 0 120px;
+}
+#background #page #body #content table td label input#agree {
+	margin-top:-17px;
+}
+#background #page #body #content table td label {
+	margin-right:20px;
+}
+#background #page #body #content table td button {
+	margin-left:130px;
+	position:relative;
+	top:10px;
+}
+#background #page #body #section .content div.details {
+	margin-bottom:0px;
+}
+#background #page #body #section .content div.item {
+	margin-bottom:0px;
+}
+#background #page #body #content {
+	background:url("../images/bg-content.png") no-repeat scroll center top transparent;
+	margin-top:-38px;
+	padding-top:15px;
+	width:960px;
+}
+#background #page #body #content .header {
+	background:url("../images/bg-content-header5.png") no-repeat scroll center center transparent;
+	height:70px;
+	line-height:70px;
+	margin:50px 5px 20px;
+	padding-top:0;
+	width:950px;
+}
+#background #page #body #section .sidebar h1 {
+	color:#12030A;
+	font-family:'QuestrialRegular';
+	font-size:18px;
+	font-weight:normal;
+	text-align:center;
+	text-decoration:none;
+	text-shadow:1px 1px 1px #1E0713;
+	margin-top:10px;
+}
+#background #page #body #content table {
+	margin:90px auto 0;
+	padding:0;
+	width:950px;
+}

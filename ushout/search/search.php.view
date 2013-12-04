@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0030)http://uiuc.icradle.net/cs465/ -->
 <html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -9,17 +8,12 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="http://uiuc.icradle.net/cs465/css/normalize.css">
-        <link rel="stylesheet" href="http://uiuc.icradle.net/cs465/css/main.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
         <script src="./src/modernizr-2.6.2.min.js"></script>
     <style type="text/css"></style></head>
     <body debug="no" style=""><div id="StayFocusd-infobar" style="display:none;">
     <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
-    <span id="StayFocusd-infobar-msg"></span>
-    <span id="StayFocusd-infobar-links">
-        <a href="http://uiuc.icradle.net/cs465/#" id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://uiuc.icradle.net/cs465/#" id="StayFocusd-infobar-hide">hide once</a>
-    </span>
 </div>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -65,20 +59,20 @@
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Lumen-_-MUST-SEE!!.png" alt="Lumen-_-MUST-SEE!!" width="253" height="142">
-                                    <div class="video_info">Lumen | MUST SEE!!</div>
+                                    <img class="video_thumbnail" src="./src/9f92c7421af610cdec9fdfbc36317a80.gif" alt="Sorting Algorithms" width="253" height="142">
+                                    <div class="video_info">Visualization of Sorting Algorithms</div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Jungle-Volibear---League-of-Legends.png" alt="Jungle-Volibear---League-of-Legends" width="253" height="142">
-                                    <div class="video_info">Jungle Volibear - League of Legends</div>
+                                    <img class="video_thumbnail" src="./src/56b86cda148e58260b68814c61e90e57.gif" alt="Korean Dance Team" width="253" height="142">
+                                    <div class="video_info">Korean Dance Team</div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Person-Of-Interest---Keep-Your-Distance.png" alt="Person-Of-Interest---Keep-Your-Distance" width="253" height="142">
-                                    <div class="video_info">Person Of Interest - Keep Your Distance</div>
+                                    <img class="video_thumbnail" src="./src/06e502d8676a46af4d08f5310168c501.gif" alt="Justin Timberlake" width="253" height="142">
+                                    <div class="video_info">Justin Timberlake</div>
                                 </div>
                             </div>
                             <div class="video_clip_container">

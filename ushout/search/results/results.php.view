@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+<head>
+	<title>U Shout</title>
+	<meta charset="utf-8">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<!--[if IE 7]>
+		<link href="css/ie7.css" rel="stylesheet" type="text/css">
+	<![endif]-->
+</head>
+<body>
+	<div id="background">
+		<div id="page">
+			<div id="header">
+				<h2>U Shout</h2>
+				<ul class="navigation">
+					<li>
+						<a class="active">Home</a>
+					</li>
+					<li>
+						<a href="">Xingchen</a>
+					</li>
+					<li>
+						<a href="">Upload</a>
+					</li>
+					<li>
+						<a href="">Friends</a>
+					</li>
+					<li>
+						<a href="">Sign Out</a>
+					</li>
+				</ul>
+			</div>
+			<div id="body">
+				<div class="featured">
+					<div class="section"> <img src="./src/c2953746db2ed2a095c3094e4c5e18ec.gif" width="950" height="439" alt="">
+						<div>
+							<h2> <a href="">Preseason Rundown <span>League of Legends</span></a> </h2>
+							<p>
+								Learn more about the preseason changes coming to roles, positions, pregame and game flow.
+							</p>
+							<a href="" class="button">Watch now</a> <a href="index.html" class="button">Watch Later</a> </div>
+					</div>
+				</div>
+				<div id="content">
+					<div class="header">
+						<h2><a href="index.html">Search Results</a></h2>
+					</div>
+					<div class="section">
+						<div class="sidebar">
+							<ul>
+								<li>
+									<a href=""><img src="./src/1a884d16533a5c4121fa574661cd515e.gif" width="128" height="112" alt=""></a>
+								</li>
+								<li>
+									<a href="index.html"><img src="./src/avicii.gif" width="128" height="112" alt=""></a>
+								</li>
+								<li>
+									<a href="index.html"><img src="./src/9f92c7421af610cdec9fdfbc36317a80.gif" width="128" height="112" alt=""></a>
+								</li>
+							</ul>
+						</div>
+						<div class="content">
+							<ul>
+								<li>
+									<h2><a href="">Samsung Galaxy Round Review!</a></h2>
+									<p>
+										Galaxy Round or LG G Flex? Curved smartphones begin!
+									</p>
+									<a href="" class="more">Watch Now &gt;&gt;</a>
+
+								</li>
+								<li>
+									<h2><a href="">Avicii - Wake Me Up (Official Video)</a></h2>
+									<p>
+										Wake Me Up (Official Video) by Avicii.
+									</p>
+									<a href="" class="more">Watch Now &gt;&gt;</a>
+								</li>
+								<li>
+									<h2><a href="">Sorthing Algorithms</a></h2>
+									<p>
+										Visualization and "audibilization" of 15 Sorting Algorithms in 6 Minutes.
+									</p>
+									<a href="" class="more">Watch Now &gt;&gt;</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
