@@ -1,14 +1,47 @@
 <?php include '../template-header.php';?>
-<h2>Manage Channel</h2>
+<style>
+#body_container {
+    overflow-y: scroll;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+textarea {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: ;
+}
+button {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    vertical-align: middle;
+}
+.cv {
+    height: 200px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    border: 1px solid #efefef;
+    float: left;
+}
+button.cvlist {
+    margin: 1em;
+    //display: block;
+}
+img {
+    margin-right: 1em;
+}
+</style>
 
-<div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc; overflow: scroll;">
+<h2>Manage Channel</h2>
+<div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
 
 <div style="float: left;">
 <form>
     <h3>Name</h3>
     <input type="text"></input>
     <h3>Description</h3>
-    <textarea></textarea>
+    <textarea cols=50 rows=5></textarea>
     <br>
     <button class="prompt">update</button>
 </form>
@@ -16,10 +49,10 @@
 
 <div class="invites" style="width: 400px; float: right;">
 <h3>Access</h3>
-<form>
-    <input type="radio">Public</input><br>
-    <input type="radio">Private (with invite request)</input><br>
-    <input type="radio">Private</input><br>
+<form action="">
+    <input type="radio" name="inv" value="public" style="margin-bottom: 1em;">Public<br>
+    <input type="radio" name="inv" value="invite" style="margin-bottom: 1em;">Private (with invite request)<br>
+    <input type="radio" name="inv" value="private" style="margin-bottom: 1em;">Private<br>
 </form>
 <h3>Users</h3>
 <div class="members">
@@ -52,25 +85,57 @@
 
 
 <div class="chanvideos">
-<div class="videobox" style="float: left;">
-<iframe width="280" height="150" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
-<button class="prompt">Tag</button>
-<button class="prompt">Remove</button>
+<h3>Channel Videos</h3>
+<div class="cv">
+<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<span style="display: inline-block; line-height: 100px; vertical-align: top;">
+<button class="prompt cvlist">Tag</button><br>
+<button class="prompt cvlist">Remove</button>
+</span>
+</div>
+<div class="cv">
+<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<span style="display: inline-block; line-height: 100px; vertical-align: top;">
+<button class="prompt cvlist">Tag</button><br>
+<button class="prompt cvlist">Remove</button>
+</span>
 </div>
 
-<div class="videobox" style="float: left;">
-<iframe width="280" height="150" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
-<button class="prompt">Tag</button>
-<button class="prompt">Remove</button>
+<div class="cv">
+<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<span style="display: inline-block; line-height: 100px; vertical-align: top;">
+<button class="prompt cvlist">Tag</button><br>
+<button class="prompt cvlist">Remove</button>
+</span>
 </div>
 
-<div class="videobox" style="float: left;">
-<iframe width="280" height="150" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
-<button class="prompt">Tag</button>
-<button class="prompt">Remove</button>
+<div class="cv">
+<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<span style="display: inline-block; line-height: 100px; vertical-align: top;">
+<button class="prompt cvlist">Tag</button><br>
+<button class="prompt cvlist">Remove</button>
+</span>
 </div>
 
-</div> <!-- end chanvideos -->
+<div class="cv">
+<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<span style="display: inline-block; line-height: 100px; vertical-align: top;">
+<button class="prompt cvlist">Tag</button><br>
+<button class="prompt cvlist">Remove</button>
+</span>
+</div>
+
+<div class="cv">
+<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<span style="display: inline-block; line-height: 100px; vertical-align: top;">
+<button class="prompt cvlist">Tag</button><br>
+<button class="prompt cvlist">Remove</button>
+</span>
+</div>
+
+
+
+</div> <!-- end chan_videos -->
 
 
 </div> <!-- end page content -->
