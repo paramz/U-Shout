@@ -381,10 +381,133 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 	background-position-y: 0;
 }
 
+#ushout_rtc_channels_expanded_frame {
+	display: none;
+	position: absolute;
+	top: auto;
+	right: -10px;
+	bottom: 100%;
+	left: -10px;
+
+	border-radius: 2px;
+
+	height: 200px;
+	width: auto;
+
+	background-color: rgba(33, 33, 33, 0.9);
+}
+#ushout_rtc_channels_frame.ushout_expanded #ushout_rtc_channels_expanded_frame {
+	display: block;
+}
+#ushout_rtc_channels_expanded_frame:after {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	margin: 5px;
+
+	background-color: #FFF;
+
+	content: "";
+}
+#ushout_rtc_channels_list_frame {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	right: 0;
+	bottom: 20px;
+	left: 0;
+
+	margin: 10px;
+
+	border: 1px solid #ECECEC;
+
+	overflow: auto;
+
+	color: black;
+}
+
+.ushout_channellist {
+	position: relative;
+	margin-bottom: 5px;
+}
+.ushout_channellist .ushout_channellist_title {
+	display: block;
+
+	padding: 5px;
+
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 20px;
+}
+
+.ushout_channellist .ushout_channellist_switch {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+	height: 10px;
+	width: 10px;
+
+	border-top: 10px solid;
+	border-right: 5px solid transparent;
+	border-bottom: 0;
+	border-left: 5px solid transparent;
+
+	transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+}
+
+.ushout_channellist.ushout_expanded .ushout_channellist_switch {
+	transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+}
+
+.ushout_channellist .ushout_channellist_contentlist {
+	border-top: 1px solid;
+
+	height: 0;
+	overflow: hidden;
+
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 150%;
+}
+
+.ushout_channellist.ushout_expanded .ushout_channellist_contentlist {
+	height: auto;
+	overflow: visible;
+}
+
+.ushout_channellist .ushout_channellist_contentitem {
+	margin: 5px 5px 0 5px;
+}
+
+#ushout_rtc_channels_advanced_link {
+	position: absolute;
+	z-index: 2;
+	top: auto;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	margin: 10px;
+
+	text-align: center;
+}
+
 /*========================================================*/
 
 #ushout_help_frame {
 	
+}
+#ushout_overlay.ushout_showhelp #ushout_help_frame {
+	z-index: 10001;
 }
 #ushout_help_button {
 	height: 27px;

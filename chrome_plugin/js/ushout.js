@@ -245,7 +245,8 @@ function ushout($body, log, warn, _u) {
 				.attr({
 					'disabled': true
 				}),
-			$LABEL  : $('<label>').addClass(_u('simplebox'))
+			$LABEL  : $('<label>').addClass(_u('simplebox')),
+			$A      : $('<a>').addClass(_u('simplebox'))
 		}
 	} // ushout
 	

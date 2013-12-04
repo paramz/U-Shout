@@ -57,6 +57,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr('id', _u('overlay'))
 		.addClass('player-width player-height'); // youtube classes
 	
+	ushout.$help = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('help'));
+
 	// comments panel =================================================//
 	ushout.$commentsPanel = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('commentspanel'));
@@ -337,6 +340,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr({
 			'id': _u('help_button'),
 			'ushout_tooltip': 'Help'
+		})
+		.click(function () {
+			ushout.$overlay.toggleClass(_u('showhelp'));
 		});
 	
 	// settings button ====================================================//
@@ -367,7 +373,106 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$rtc_channels_expand_button = ushout.templates.$controlItem_button_withIcon.clone(true)
 		.attr({
 			'id': _u('rtc_channels_expand_button')
+		})
+		.click(function () {
+			ushout.$rtc_channels_frame.toggleClass(_u('expanded'));
 		});
+	ushout.$rtc_channels_expanded_frame = ushout.templates.$DIV.clone(true)
+		.attr({
+			'id': _u('rtc_channels_expanded_frame')
+		});
+	ushout.$rtc_channels_list_frame = ushout.templates.$DIV.clone(true)
+		.attr({
+			'id': _u('rtc_channels_list_frame')
+		});
+	ushout.templates.channelList = function (titleString) {
+		var $result = ushout.templates.$DIV.clone(true)
+			.addClass(_u('channellist'))
+			.appendTo(ushout.$rtc_channels_list_frame);
+
+		$result.$title = ushout.templates.$LABEL.clone(true)
+			.addClass(_u('channellist_title'))
+			.text(titleString)
+			.appendTo($result);
+
+		$result.expand = function () {
+			$result.addClass(_u('expanded'));
+			return $result;
+		};
+		$result.collapse = function () {
+			$result.removeClass(_u('expanded'));
+			return $result;
+		};
+
+		$result.$switch = ushout.templates.$A.clone(true)
+			.addClass(_u('channellist_switch'))
+			.click(function () {
+				if ($result.hasClass(_u('expanded'))) {
+					$result.collapse();
+				} else {
+					$result.expand();
+				}
+				return false;
+			})
+			.appendTo($result);
+		$result.$content_list = ushout.templates.$UL.clone(true)
+			.addClass(_u('channellist_contentlist'))
+			.appendTo($result);
+
+
+		$result.addChannel = function (label, id) {
+			var $channel_wrapper = ushout.templates.$LI.clone(true)
+					.addClass(_u('channellist_contentitem'))
+					.appendTo($result.$content_list);
+			var channelIDString = _u('channel_' + id);
+			var checkbox = ushout.templates.$INPUT.clone(true)
+					.addClass(_u('channellist_channelcheck'))
+					.attr({
+						'id': channelIDString,
+						'channel_id': id,
+						'type': 'checkbox',
+						'disabled': false
+					})
+					.appendTo($channel_wrapper),
+				label = ushout.templates.$LABEL.clone(true)
+					.addClass(_u('channellist_channellabel'))
+					.attr({
+						'for': channelIDString,
+					})
+					.text(label)
+					.appendTo($channel_wrapper);
+			return $channel_wrapper;
+		};
+
+		return $result;
+	};
+	ushout.$rtc_channels_list_global = ushout.templates.channelList('Language')
+		.attr({
+			'id': _u('rtc_channels_list_global')
+		});
+	ushout.$rtc_channels_list_global.addChannel('English', 1);
+	ushout.$rtc_channels_list_global.addChannel('简体中文', 2);
+	ushout.$rtc_channels_list_global.addChannel('繁体中文', 3);
+	ushout.$rtc_channels_list_global.addChannel('日本語', 4);
+	ushout.$rtc_channels_list_global.addChannel('Français', 5);
+	ushout.$rtc_channels_list_global.addChannel('русский', 6);
+
+	ushout.$rtc_channels_list_custom = ushout.templates.channelList('Custom')
+		.attr({
+			'id': _u('rtc_channels_list_custom')
+		})
+		.expand();
+	ushout.$rtc_channels_list_custom.addChannel('Best Friends', 100);
+	ushout.$rtc_channels_list_custom.addChannel('Family Members', 101);
+	ushout.$rtc_channels_list_custom.addChannel('Fan Club', 102);
+	
+	ushout.$rtc_channels_advanced_link = ushout.templates.$A.clone(true)
+		.attr({
+			'id': _u('rtc_channels_advanced_link'),
+			'target': '_blank',
+			'href': 'http://google.com'
+		})
+		.text('Manage Channels ...');
 	
 	// audio comment button ===========================================//
 	ushout.$post_audio_comment_frame = ushout.templates.$controlItem_leftAligned.clone(true)
@@ -426,6 +531,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$overlay_base.append(
 		ushout.$overlay.append(
+			ushout.$help,
 			ushout.$commentsPanel.append(
 				ushout.$commentsList,
 				ushout.$commentsLastUpdated
@@ -497,6 +603,13 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 							ushout.$rtc_channels_wrapper.append(
 								ushout.$rtc_channels_label,
 								ushout.$rtc_channels_expand_button
+							),
+							ushout.$rtc_channels_expanded_frame.append(
+								ushout.$rtc_channels_list_frame.append(
+									ushout.$rtc_channels_list_global,
+									ushout.$rtc_channels_list_custom
+								),
+								ushout.$rtc_channels_advanced_link
 							)
 						)
 					) // ushout.$rtc_expanded_controls_wrapper
@@ -1188,6 +1301,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.$fullwindow_button.attr('disabled', false);
 	ushout.$rtc_channels_expand_button.attr('disabled', false);
 	ushout.$dishPanel_textComment_cancel.attr('disabled', false);
+	ushout.$help_button.attr('disabled', false);
 	
 	// fix flash player
 	youtube.$movieplayer.attr('wmode', 'opaque');
