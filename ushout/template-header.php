@@ -48,8 +48,7 @@
 								<ul id="more_page_list">
 									<li class="more_page_item"><a href="/channels/channels.php">My Channels</a></li>
 									<li class="more_page_item"><a href="/videos/videos.php">My Videos</a></li>
-									<li class="more_page_item"><a href="#">My Friends</a></li>
-									<li class="more_page_item"><a href="#">Account Settings</a></li>
+									<li class="more_page_item"><a href="/account/account_settings.php">Account Settings</a></li>
 									<li class="more_page_item"><a href="#">Sign Out</a></li>
 								</ul>
 							</div>
