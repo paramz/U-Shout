@@ -586,7 +586,7 @@ li.list_item .channel_video_count,  li.list_item .channel_subscriber_count {
 .standard_input {
     display: block;
     margin-top: 1px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: 1px solid #c1c1c1;
     border-radius: 5px 5px 5px 5px;
     padding: 5px;
@@ -598,6 +598,32 @@ li.list_item .channel_video_count,  li.list_item .channel_subscriber_count {
     outline: none;
 }
 
+.textarea_input {
+    display: block;
+    margin-top: 1px;
+    margin-bottom: 5px;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px 5px 5px 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    height: 110px;
+    width: 350px;
+    font-size: 14px;
+    line-height: 100%;
+    outline: none;
+}
+
+.label {
+	font-family: sans-serif;
+	font-weight: bold;
+	margin: 0px;
+	padding: 0px;
+}
+
+.divider {
+	width: 100%; 
+	padding: 15px;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */

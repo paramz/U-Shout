@@ -38,23 +38,28 @@ img {
 
 <div style="float: left;">
 <form>
-    <h3>Name</h3>
-    <input type="text"></input>
-    <h3>Description</h3>
-    <textarea cols=50 rows=5></textarea>
-    <br>
-    <button class="prompt">update</button>
+    <div class="label">Name</div>
+    <input class="standard_input" type="text"></input>
+    
+    <div class="label">Description</div>
+    <textarea class="textarea_input" cols=50 rows=5></textarea>
+    
+    <button class="prompt">Save</button>
 </form>
 </div>
 
 <div class="invites" style="width: 400px; float: right;">
-<h3>Access</h3>
+<div class="label" style="">Access</div>
 <form action="">
-    <input type="radio" name="inv" value="public" style="margin-bottom: 1em;">Public<br>
-    <input type="radio" name="inv" value="invite" style="margin-bottom: 1em;">Private (with invite request)<br>
-    <input type="radio" name="inv" value="private" style="margin-bottom: 1em;">Private<br>
+    <input type="radio" name="inv[]" value="public" style="margin-bottom: 1px;" /> Public<br />
+    <input type="radio" name="inv[]" value="invite" style="margin-bottom: 1px;" /> Invite Only<br />
+    <input type="radio" name="inv[]" value="private" style="margin-bottom: 1px;" /> Private<br />
+    <button class="prompt" type="submit">Save</button>
 </form>
-<h3>Users</h3>
+
+<div class="divider"></div>
+
+<div class="label">Users</div>
 <div class="members">
 
 <div class="user">
