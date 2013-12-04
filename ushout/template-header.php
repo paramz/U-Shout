@@ -28,7 +28,7 @@
 		<div id="page" class="debug_frame">
 			<div id="nav_container" class="debug_frame">
 				<nav id="nav" class="clearfix">
-					<div id="logo">U Shout</div>
+					<div id="logo" onclick="window.location='/search/search.php'" tooltip="search for videos">U Shout</div>
 					<?if(!isset($_GET['hide_menu'])){?>
 					<div id="search_container">
 						<form>
