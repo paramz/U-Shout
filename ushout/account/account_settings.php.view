@@ -2,18 +2,37 @@
 <h2>Account Settings</h2>
 
 <div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
-   <form id="accountsettingsForm" method="post" action="account_settings.php">
-     <table>
-     <tr><td>Username:</td><td><input type="text" name="username"></td></tr>
-     <tr><td>Password:</td><td><input type="password" name="password"></td></tr>
-     <tr><td>Confirm Password:</td><td><input type="password" name="password2"></td></tr>
-     <tr><td>Email:</td><td><input type="text" name="email"></td></tr>
-     <tr><td><button class="prompt" type="submit">Save</button></td>
-     <td><button class="prompt" type="reset">Reset</button></td></tr>
-     </table>
-   
-   </form>
+	<form id="accountsettingsForm" method="post" action="account_settings.php">
+		<div>
+			<div class="">
+				Username <br/><input class="standard_input" type="text" name="username" />
+			</div>
 
+			<div class="">
+				Email <br/><input class="standard_input" type="text" name="email" />
+			</div>
+			
+			<button class="prompt" type="submit">Update Account</input>
+		</div>
+
+	</form>
+	
+	<div style="width: 100%; padding: 15px"></div>
+	<form>
+		<div style="padding-bottom: 10px">
+			<div class="">
+				New Password <br/><input class="standard_input" type="password" name="new_password" />
+			</div>
+
+			<div class="">
+				Password Confirmation<br/><input class="standard_input" type="password" name="confirm_password" />
+			</div>
+		
+		
+			<button class="prompt" type="submit">Change Password</input>
+		</div>
+		
+	</form>   
 
 </div>
 

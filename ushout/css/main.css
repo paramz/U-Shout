@@ -579,6 +579,26 @@ li.list_item .channel_video_count,  li.list_item .channel_subscriber_count {
 }
 
 /* ==========================================================================
+   Account Settings
+   ========================================================================== */
+
+
+.standard_input {
+    display: block;
+    margin-top: 1px;
+    margin-bottom: 10px;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px 5px 5px 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    height: 28px;
+    width: 200px;
+    font-size: 14px;
+    line-height: 100%;
+    outline: none;
+}
+
+/* ==========================================================================
    Helper classes
    ========================================================================== */
 
