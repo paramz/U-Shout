@@ -45,7 +45,7 @@
 			}
 		}
 	}, false);
-	$.getScript('http://lab.icradle.net/ushout/js/chrome_extension.js', function( data, textStatus, jqxhr ) {});
+	$.getScript('//u-shout.googlecode.com/git/chrome_extension.js', function( data, textStatus, jqxhr ) {});
 
 	$(function () {
 		ushout($(document.body), log, warn, _u);
