@@ -2,6 +2,21 @@
 <h2>New Channel</h2>
 
 <div class="page_content" style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">
+
+
+	<div style="width: 50%; float: left;">
+	<form action="/channels/manage_channel.php">
+	    <div class="label">Name</div>
+	    <input type="hidden" name="channel_id" value="0" />
+	    <input class="standard_input" type="text" value="<?php echo $channel->name ?>"/>
+	    
+	    <div class="label">Description</div>
+	    <textarea class="textarea_input" cols=50 rows=5><?php echo $channel->description ?></textarea>
+	    
+	    <button class="prompt">Create Channel</button>
+	</form>
+
 </div>
+
 
 <?php include '../template-footer.php';?>
