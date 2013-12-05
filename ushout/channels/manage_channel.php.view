@@ -112,22 +112,14 @@ img {
 <div class="chanvideos">
 <h3>Channel Videos</h3>
 <div class="cv">
-<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<a href="http://www.youtube.com/watch?v=JZQOs0L9q2k" target="_blank"><img src="http://i1.ytimg.com/vi/JZQOs0L9q2k/mqdefault.jpg"></a>
 <span style="display: inline-block; line-height: 100px; vertical-align: top;">
 <button class="prompt cvlist">Tag</button><br>
 <button class="prompt cvlist">Remove</button>
 </span>
 </div>
 <div class="cv">
-<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
-<span style="display: inline-block; line-height: 100px; vertical-align: top;">
-<button class="prompt cvlist">Tag</button><br>
-<button class="prompt cvlist">Remove</button>
-</span>
-</div>
-
-<div class="cv">
-<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<a href="http://www.youtube.com/watch?v=GJpfFK9FrfQ" target="_blank"><img src="http://i1.ytimg.com/vi/GJpfFK9FrfQ/mqdefault.jpg"></a>
 <span style="display: inline-block; line-height: 100px; vertical-align: top;">
 <button class="prompt cvlist">Tag</button><br>
 <button class="prompt cvlist">Remove</button>
@@ -135,7 +127,7 @@ img {
 </div>
 
 <div class="cv">
-<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<a href="http://www.youtube.com/watch?v=1UwsxqXc02s" target="_blank"><img src="http://i1.ytimg.com/vi/1UwsxqXc02s/mqdefault.jpg"></a>
 <span style="display: inline-block; line-height: 100px; vertical-align: top;">
 <button class="prompt cvlist">Tag</button><br>
 <button class="prompt cvlist">Remove</button>
@@ -143,7 +135,7 @@ img {
 </div>
 
 <div class="cv">
-<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<a href="http://www.youtube.com/watch?v=SJ8Ndkg8urw" target="_blank"><img src="http://i1.ytimg.com/vi/SJ8Ndkg8urw/mqdefault.jpg"></a>
 <span style="display: inline-block; line-height: 100px; vertical-align: top;">
 <button class="prompt cvlist">Tag</button><br>
 <button class="prompt cvlist">Remove</button>
@@ -151,7 +143,15 @@ img {
 </div>
 
 <div class="cv">
-<iframe type="text/html" width="300" height="200" src="//www.youtube.com/embed/Ldq1afiKQb8" frameborder="0" allowfullscreen></iframe>
+<a href="http://www.youtube.com/watch?v=Ysa35dd20kM" target="_blank"><img src="http://i1.ytimg.com/vi/Ysa35dd20kM/mqdefault.jpg"></a>
+<span style="display: inline-block; line-height: 100px; vertical-align: top;">
+<button class="prompt cvlist">Tag</button><br>
+<button class="prompt cvlist">Remove</button>
+</span>
+</div>
+
+<div class="cv">
+<a href="http://www.youtube.com/watch?v=1sfQmiNzH_s" target="_blank"><img src="http://i1.ytimg.com/vi/1sfQmiNzH_s/mqdefault.jpg"></a>
 <span style="display: inline-block; line-height: 100px; vertical-align: top;">
 <button class="prompt cvlist">Tag</button><br>
 <button class="prompt cvlist">Remove</button>

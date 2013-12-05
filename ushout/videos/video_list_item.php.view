@@ -2,8 +2,12 @@
             <div class="video_list_item">
 				<div class="video_options">Share | Delete</div> 
 				<div class="video_item">
-					<div class="video_name tooltipbelow" tooltip="<?php echo $video->name; ?>"><span><?php echo $video->name; ?></span></div>                 
-					<div class="video_embed">VIDEO HERE</div>
+					<div class="video_name tooltipbelow" tooltip="<?php echo $video->name; ?>"><a href="http://www.youtube.com/watch?v=<?php echo $video->id; ?>" target="_blank"><?php echo $video->name; ?></a></div>                 
+					<div class="video_embed">
+						<a href="http://www.youtube.com/watch?v=<?php echo $video->id; ?>" target="_blank">
+							<img width="100%" src="http://i1.ytimg.com/vi/<?php echo $video->id; ?>/mqdefault.jpg">
+						</a>
+					</div>
 					<div class="video_stats">
 						<div class="video_stat_item video_description" tooltip="<?php echo $video->description; ?>"><span><?php echo $video->description; ?></span></div>
 						<br/>

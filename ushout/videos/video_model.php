@@ -25,48 +25,49 @@ class VideoModel
     public function find_all()
     {
         $videos[] = new VideoModel(array(
-          'name' => 'Dave Matthews Band', 
+          'id' => 'JZQOs0L9q2k',
+          'name' => 'Dave Matthews Band',
           'description' => 'Dave Matthews Band1 this is a really long description stupid stupid stupid',
+          'thumbnailImageUrl' => 'http://i1.ytimg.com/vi/JZQOs0L9q2k/mqdefault.jpg',
           'views' => 6131,
           'likes' => 67,
-		  'dislikes' => 5,
-          'id' => 1
+          'dislikes' => 5
         ));
 
         $videos[] = new VideoModel(array(
-          'name' => 'Gav\'s CC', 
-          'description' => 'Highlights from Gavin\'s CC Meet',
-          'views' => 19234,
-          'likes' => 2317,
-		  'dislikes' =>503,
-          'id' => 2
+          'id' => 'GJpfFK9FrfQ',
+          'name' => 'STILL DON\'T TRUST MARKIPLIER | Murder #2', 
+          'description' => 'Seriously... ally, enemy... just don\'t trust me...',
+          'views' => 192347,
+          'likes' => 2957,
+		      'dislikes' => 17
         ));
       
         $videos[] = new VideoModel(array(
-          'name' => 'Lol Catz', 
-          'description' => 'Funny Cat Video',
-          'views' => 381,
-          'likes' => 5243,
-		  'dislikes' =>430,
-          'id' => 3
+          'id' => '1UwsxqXc02s',
+          'name' => 'Lol Cats #1', 
+          'description' => 'Special thanks to lolcats.com and icanhascheezburger.com',
+          'views' => 132153,
+          'likes' => 403,
+		      'dislikes' => 39
         ));
 
         $videos[] = new VideoModel(array(
-          'name' => 'ESPN', 
-          'description' => 'nobody likes soccer',
-          'views' => 38321,
-          'likes' => 5243,
-		  'dislikes' =>32,
-          'id' => 4
+          'id' => 'SJ8Ndkg8urw',
+          'name' => 'DRD Paratus-18 (Suit Case Gun)', 
+          'description' => 'Click-2-Tweet: http://clicktotweet.com/Perzv',
+          'views' => 5458568,
+          'likes' => 111329,
+		  'dislikes' => 1987
         ));
       
         $videos[] = new VideoModel(array(
-          'name' => 'adfasf1234', 
-          'description' => 'No one likes this Video',
-          'views' => 2312,
-          'likes' => 9,
-		  'dislikes' =>12,
-          'id' => 5
+          'id' => 'Ysa35dd20kM',
+          'name' => 'Drunk Prop Hunt',
+          'description' => 'After our Drunk Minecraft session we decided that it would be fun to play some Prop Hunt. AND IT WAS!! Let us know if you\'d like more!',
+          'views' => 270691,
+          'likes' => 16810,
+          'dislikes' => 102
         ));
               
         return $videos;    
