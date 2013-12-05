@@ -1,7 +1,10 @@
 <?php
 require ('channel_model.php');
 
-$search_text = "need to hide search bar";
+require ('../videos/video_model.php');
+
+$search_text = "filter channel videos...";
+$videos = VideoModel::find_all();
 
 include('manage_channel.php.view');
 

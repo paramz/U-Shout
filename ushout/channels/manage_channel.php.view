@@ -1,4 +1,5 @@
 <?php include '../template-header.php';?>
+<link rel="stylesheet" href="/css/manage_videos.css?version=1">
 <style>
 
 /*#body_container {
@@ -111,7 +112,8 @@ img {
 
 <div class="chanvideos">
 <h3>Channel Videos</h3>
-<div class="cv">
+
+<!--div class="cv">
 <a href="http://www.youtube.com/watch?v=JZQOs0L9q2k" target="_blank"><img src="http://i1.ytimg.com/vi/JZQOs0L9q2k/mqdefault.jpg"></a>
 <span style="display: inline-block; line-height: 100px; vertical-align: top;">
 <button class="prompt cvlist">Tag</button><br>
@@ -160,8 +162,12 @@ img {
 
 
 
-</div> <!-- end chan_videos -->
-
+</div --> <!-- end chan_videos -->
+<div class="video_list" style="overflow-y: hidden;">
+    <?php foreach ($videos as $video)
+        include '../videos/video_list_item.php.view';
+    ?>
+</div>
 
 </div> <!-- end page content -->
 </div> <!-- end content list -->
