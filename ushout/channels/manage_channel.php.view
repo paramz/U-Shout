@@ -104,8 +104,10 @@ img {
 
 <hr style="clear: both;"></hr>
 
+<?php include '../videos/new_video.php' ?>
+
 <h3>Upload a video</h3>
-<button class="prompt">Upload Video</button>
+<button id="upload_video" class="prompt">Upload Video</button>
 
 <hr style="clear: both;"></hr>
 

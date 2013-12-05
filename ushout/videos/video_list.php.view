@@ -1,49 +1,7 @@
 <?php include '../template-header.php';?>
 <link rel="stylesheet" href="/css/manage_videos.css?version=1">
-<div id="add_video">
-	<div class="close_window">X</div>
-	<div id="upload_title">Upload Video</div>
-	<form action="videos.php">
-	  <input class="prompt" type="file" name="video" />
-	  <br/>
-	  <br/>
-	  <table>
-		  <tr>
-			<td>Title </td>
-			<td><input class="video_standard_input" type="text" name="title"></td>
-		  </tr>
-		  <tr>
-			<td style="visibility:hidden">.</td>
-		  </tr>
-		  <tr>
-			<td>Tags </td>
-			<td><input class="video_standard_input" id="tag_input" type="text" name="tags"></td>
-			<td><input class="video_prompt add_info add_tag" type="button" value="Add >" /></td>
-		  </tr>
-		  <tr>
-			<td></td>
-			<td id="tag_list"></td>
-		  </tr>
-		  <tr>
-			<td style="visibility:hidden">.</td>
-		  </tr>
-		  <tr>
-			<td>Channels&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td><input class="video_standard_input" id="channel_input" type="text" name="channels"></td>
-			<td><input class="video_prompt add_info add_channel" type="button" value="Add >" /></td>
-		  </tr>
-		  <tr>
-			<td></td>
-			<td id="channel_list"></td>
-		  </tr>
-	  </table>
-	  <br/>
-	  <button class="prompt" type="submit">Upload Video</button>
-	  
-	</form>
-</div>
+<?php include 'new_video.php' ?>
 
-<script src="video_script.js"></script>
 <h2>My Videos</h2>
 
 <div class="new_video">

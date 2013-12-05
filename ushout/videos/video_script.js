@@ -22,6 +22,11 @@ $(function(){ //jquery ready function
 		overlay.hide();
 	});
 	
+	$("#save_button").click(function(){
+		add_video.hide();
+		overlay.hide();
+	});
+		
 	$(".add_tag").click(function(){
 		var item = $("#tag_input").val();
 		if(item!=null && item != '')
