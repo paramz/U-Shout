@@ -5,152 +5,252 @@
                         <div id="video_wall" style="margin-top: -386.52496516330626px; margin-left: -596.1415305033829px;">
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/c2953746db2ed2a095c3094e4c5e18ec.gif" alt="Preseason Rundown" width="253" height="142">
-                                    <div class="video_info">Preseason Rundown</div>
+                                    <a href="http://www.youtube.com/watch?v=fECWSSpEVVA" target="_blank">
+                                        <img class="video_thumbnail" src="http://i1.ytimg.com/vi/fECWSSpEVVA/mqdefault.jpg" alt="Preseason Rundown" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=fECWSSpEVVA" target="_blank">World of Warcraft Triple Monitor play. 3 Monitors!</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/1a884d16533a5c4121fa574661cd515e.gif" alt="Samsung Galaxy Round Review!" width="253" height="142">
-                                    <div class="video_info">Samsung Galaxy Round Review!</div>
+                                    <a href="http://www.youtube.com/watch?v=tTxhneVcmEo" target="_blank">
+                                        <img class="video_thumbnail" src="./src/tTxhneVcmEo.gif" alt="Samsung Galaxy Round Review!" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=tTxhneVcmEo" target="_blank">Samsung Galaxy Round Review!</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/avicii.gif" alt="Avicii - Wake Me Up (Official Video)" width="253" height="142">
-                                    <div class="video_info">Avicii - Wake Me Up (Official Video)</div>
+                                    <a href="http://www.youtube.com/watch?v=IcrbM1l_BoI" target="_blank">
+                                        <img class="video_thumbnail" src="./src/IcrbM1l_BoI.gif" alt="Avicii - Wake Me Up (Official Video)" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=IcrbM1l_BoI" target="_blank">Avicii - Wake Me Up (Official Video)</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/9f92c7421af610cdec9fdfbc36317a80.gif" alt="Sorting Algorithms" width="253" height="142">
-                                    <div class="video_info">Visualization of Sorting Algorithms</div>
+                                    <a href="http://www.youtube.com/watch?v=vJQxsrtiYhU" target="_blank">
+                                        <img class="video_thumbnail" src="./src/vJQxsrtiYhU.gif" alt="Sorting Algorithms" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=vJQxsrtiYhU" target="_blank">Visualization of Sorting Algorithms</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/56b86cda148e58260b68814c61e90e57.gif" alt="Korean Dance Team" width="253" height="142">
-                                    <div class="video_info">Korean Dance Team</div>
+                                    <a href="http://www.youtube.com/watch?v=kpZhZAr1cQU" target="_blank">
+                                        <img class="video_thumbnail" src="./src/kpZhZAr1cQU.gif" alt="Korean Dance Team" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=kpZhZAr1cQU" target="_blank">Korean Dance Team</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/06e502d8676a46af4d08f5310168c501.gif" alt="Justin Timberlake" width="253" height="142">
-                                    <div class="video_info">Justin Timberlake</div>
+                                    <a href="http://www.youtube.com/watch?v=IsUsVbTj2AY" target="_blank">
+                                        <img class="video_thumbnail" src="./src/IsUsVbTj2AY.gif" alt="Justin Timberlake" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=IsUsVbTj2AY" target="_blank">Justin Timberlake - Suit &amp; Tie (Official) ft. JAY Z</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Annchirisu-tries-JINX-for-the-First-Time!---League-of-Legends.png" alt="Annchirisu-tries-JINX-for-the-First-Time!---League-of-Legends" width="253" height="142">
-                                    <div class="video_info">Annchirisu tries JINX for the First Time! - League of Legends</div>
+                                    <a href="http://www.youtube.com/watch?v=QcuydmsyRis" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Annchirisu-tries-JINX-for-the-First-Time!---League-of-Legends.png" alt="Annchirisu-tries-JINX-for-the-First-Time!---League-of-Legends" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=QcuydmsyRis" target="_blank">Annchirisu tries JINX for the First Time! - League of Legends</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Slender--The-Nine-Pages-_-SCARIEST-SLENDER-GAME-EVER.png" alt="Slender--The-Nine-Pages-_-SCARIEST-SLENDER-GAME-EVER" width="253" height="142">
-                                    <div class="video_info">Slender: The Nine Pages | SCARIEST SLENDER GAME EVER</div>
+                                    <a href="http://www.youtube.com/watch?v=2M-dO7_UKhY" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Slender--The-Nine-Pages-_-SCARIEST-SLENDER-GAME-EVER.png" alt="Slender--The-Nine-Pages-_-SCARIEST-SLENDER-GAME-EVER" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=2M-dO7_UKhY" target="_blank">Slender: The Nine Pages | SCARIEST SLENDER GAME EVER</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/The-Last-of-Us-Theme-on-Acoustic-Guitar.png" alt="The-Last-of-Us-Theme-on-Acoustic-Guitar" width="253" height="142">
-                                    <div class="video_info">The Last of Us Theme on Acoustic Guitar</div>
+                                    <a href="http://www.youtube.com/watch?v=lvltYlFcBP8" target="_blank">
+                                        <img class="video_thumbnail" src="./src/The-Last-of-Us-Theme-on-Acoustic-Guitar.png" alt="The-Last-of-Us-Theme-on-Acoustic-Guitar" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=lvltYlFcBP8" target="_blank">The Last of Us Theme on Acoustic Guitar</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/50-Cal-Machine-Gun-vs.-250-Watermelons.png" alt="50-Cal-Machine-Gun-vs.-250-Watermelons" width="253" height="142">
-                                    <div class="video_info">50 Cal Machine Gun vs. 250 Watermelons</div>
+                                    <a href="http://www.youtube.com/watch?v=XyoAP10uKTk" target="_blank">
+                                        <img class="video_thumbnail" src="./src/50-Cal-Machine-Gun-vs.-250-Watermelons.png" alt="50-Cal-Machine-Gun-vs.-250-Watermelons" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=XyoAP10uKTk" target="_blank">50 Cal Machine Gun vs. 250 Watermelons</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/A-Very-Bad-Day!.png" alt="A-Very-Bad-Day!" width="253" height="142">
-                                    <div class="video_info">A Very Bad Day!</div>
+                                    <a href="http://www.youtube.com/watch?v=vjNV2e11Klg" target="_blank">
+                                        <img class="video_thumbnail" src="./src/A-Very-Bad-Day!.png" alt="A-Very-Bad-Day!" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=vjNV2e11Klg" target="_blank">A Very Bad Day!</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Person-of-Interest---The-Crossing-(Preview).png" alt="Person-of-Interest---The-Crossing-(Preview)" width="253" height="142">
-                                    <div class="video_info">Person of Interest - The Crossing (Preview)</div>
+                                    <a href="http://www.youtube.com/watch?v=kevbb1oezUk" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Person-of-Interest---The-Crossing-(Preview).png" alt="Person-of-Interest---The-Crossing-(Preview)" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=kevbb1oezUk" target="_blank">Person Of Interest - In For The Kill</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/EVE-Online--Rubicon-Trailer.png" alt="EVE-Online--Rubicon-Trailer" width="253" height="142">
-                                    <div class="video_info">EVE Online: Rubicon Trailer</div>
+                                    <a href="http://www.youtube.com/watch?v=FGSlzZzLvVw" target="_blank">
+                                        <img class="video_thumbnail" src="./src/MANNEQUIN-HEADS-_-Ib-Playthrough-%233.png" alt="MANNEQUIN-HEADS-_-Ib-Playthrough-%233" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=FGSlzZzLvVw" target="_blank">MANNEQUIN HEADS | Ib Playthrough #3</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/zd4-gcxzb--zybXM25-kbldfsq.png" alt="%E6%88%98%E5%9C%B04-%E5%85%AC%E6%B5%8B%E6%96%B0%E8%A3%85%E5%A4%87--%E6%94%AF%E6%8F%B4%E5%85%B5XM25-%E7%A9%BA%E7%88%86%E6%A6%B4%E5%BC%B9%E5%8F%91%E5%B0%84%E5%99%A8." width="253" height="142">
-                                    <div class="video_info">??4 ?????: ???XM25 ???????.</div>
+                                    <a href="http://www.youtube.com/watch?v=ku5yUVSGO-g" target="_blank">
+                                        <img class="video_thumbnail" src="./src/zd4-gcxzb--zybXM25-kbldfsq.png" alt="%E6%88%98%E5%9C%B04-%E5%85%AC%E6%B5%8B%E6%96%B0%E8%A3%85%E5%A4%87--%E6%94%AF%E6%8F%B4%E5%85%B5XM25-%E7%A9%BA%E7%88%86%E6%A6%B4%E5%BC%B9%E5%8F%91%E5%B0%84%E5%99%A8." width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=ku5yUVSGO-g" target="_blank">战地4 公测新装备: 支援兵XM25 空爆榴弹发射器.</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Megaman-X-'Storm-Eagle'-on-Acoustic-Guitar.png" alt="Megaman-X-&#39;Storm-Eagle&#39;-on-Acoustic-Guitar" width="253" height="142">
-                                    <div class="video_info">Megaman X "Storm Eagle" on Acoustic Guitar</div>
+                                    <a href="http://www.youtube.com/watch?v=0Vi5g5sPgH4" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Megaman-X-'Storm-Eagle'-on-Acoustic-Guitar.png" alt="Megaman-X-&#39;Storm-Eagle&#39;-on-Acoustic-Guitar" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=0Vi5g5sPgH4" target="_blank">Megaman X "Storm Eagle" on Acoustic Guitar</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Ask-Ann-for-ANNswers-2.png" alt="Ask-Ann-for-ANNswers-2" width="253" height="142">
-                                    <div class="video_info">Ask Ann for ANNswers 2</div>
+                                    <a href="http://www.youtube.com/watch?v=Lsfr-WMp-Mk" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Ask-Ann-for-ANNswers-2.png" alt="Ask-Ann-for-ANNswers-2" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=Lsfr-WMp-Mk" target="_blank">Ask Ann for ANNswers 2</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Draw-My-Life---Markiplier.png" alt="Draw-My-Life---Markiplier" width="253" height="142">
-                                    <div class="video_info">Draw My Life - Markiplier</div>
+                                    <a href="http://www.youtube.com/watch?v=6Sl-1X58ObY" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Draw-My-Life---Markiplier.png" alt="Draw-My-Life---Markiplier" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=6Sl-1X58ObY" target="_blank">Draw My Life - Markiplier</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/FPSRussia-Goes-to-Whitecastle---In-a-tank....png" alt="FPSRussia-Goes-to-Whitecastle---In-a-tank..." width="253" height="142">
-                                    <div class="video_info">FPSRussia Goes to Whitecastle - In a tank...</div>
+                                    <a href="http://www.youtube.com/watch?v=vvkLaa9bogU" target="_blank">
+                                        <img class="video_thumbnail" src="./src/FPSRussia-Goes-to-Whitecastle---In-a-tank....png" alt="FPSRussia-Goes-to-Whitecastle---In-a-tank..." width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=vvkLaa9bogU" target="_blank">FPSRussia Goes to Whitecastle - In a tank...</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Closed-exit-puts-me-into-downtown-San-Francisco.png" alt="Closed-exit-puts-me-into-downtown-San-Francisco" width="253" height="142">
-                                    <div class="video_info">Closed exit puts me into downtown San Francisco</div>
+                                    <a href="http://www.youtube.com/watch?v=JQi_9OHVc_Y" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Closed-exit-puts-me-into-downtown-San-Francisco.png" alt="Closed-exit-puts-me-into-downtown-San-Francisco" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=JQi_9OHVc_Y" target="_blank">Closed exit puts me into downtown San Francisco</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/Ask-Ann-for-ANNswers.png" alt="Ask-Ann-for-ANNswers" width="253" height="142">
-                                    <div class="video_info">Ask Ann for ANNswers</div>
+                                    <a href="http://www.youtube.com/watch?v=95De2nyBBpY" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Ask-Ann-for-ANNswers.png" alt="Ask-Ann-for-ANNswers" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=95De2nyBBpY" target="_blank">Ask Ann for ANNswers</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/DRD-Paratus-18-(Suit-Case-Gun).png" alt="DRD-Paratus-18-(Suit-Case-Gun)" width="253" height="142">
-                                    <div class="video_info">DRD Paratus-18 (Suit Case Gun)</div>
+                                    <a href="http://www.youtube.com/watch?v=SJ8Ndkg8urw" target="_blank">
+                                        <img class="video_thumbnail" src="./src/DRD-Paratus-18-(Suit-Case-Gun).png" alt="DRD-Paratus-18-(Suit-Case-Gun)" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=SJ8Ndkg8urw" target="_blank">DRD Paratus-18 (Suit Case Gun)</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/DUST-514--EVE-Online--Battle-for-Caldari-Prime-Trailer.png" alt="DUST-514--EVE-Online--Battle-for-Caldari-Prime-Trailer" width="253" height="142">
-                                    <div class="video_info">DUST 514 / EVE Online: Battle for Caldari Prime Trailer</div>
+                                    <a href="http://www.youtube.com/watch?v=UR5N6EWXB6I" target="_blank">
+                                        <img class="video_thumbnail" src="./src/Lumen-_-MUST-SEE!!.png" alt="Lumen-_-MUST-SEE!!" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=UR5N6EWXB6I" target="_blank">Lumen | MUST SEE!!</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/zd4gctksksg.png" alt="%E6%88%98%E5%9C%B04%E5%85%AC%E6%B5%8B%E5%9D%A6%E5%85%8B%E8%AF%95%E5%BC%80%E6%89%8B%E6%84%9F" width="253" height="142">
-                                    <div class="video_info">??4????????</div>
+                                    <a href="http://www.youtube.com/watch?v=btHWRf5C2z8" target="_blank">
+                                        <img class="video_thumbnail" src="./src/zd4gctksksg.png" alt="%E6%88%98%E5%9C%B04%E5%85%AC%E6%B5%8B%E5%9D%A6%E5%85%8B%E8%AF%95%E5%BC%80%E6%89%8B%E6%84%9F" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=btHWRf5C2z8" target="_blank">战地4公测坦克试开手感</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/VVVVVV.png" alt="VVVVVV" width="253" height="142">
-                                    <div class="video_info">VVVVVV</div>
+                                    <a href="http://www.youtube.com/watch?v=0ssQh-CdL1Q" target="_blank">
+                                        <img class="video_thumbnail" src="./src/VVVVVV.png" alt="VVVVVV" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=0ssQh-CdL1Q" target="_blank">VVVVVV</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="video_clip_container">
                                 <div class="video_clip">
-                                    <img class="video_thumbnail" src="./src/EVE-Online--Retribution-Trailer.png" alt="EVE-Online--Retribution-Trailer" width="253" height="142">
-                                    <div class="video_info">EVE Online: Retribution Trailer</div>
+                                    <a href="http://www.youtube.com/watch?v=3Cy3YbiYxsU" target="_blank">
+                                        <img class="video_thumbnail" src="./src/EVE-Online--Retribution-Trailer.png" alt="EVE-Online--Retribution-Trailer" width="253" height="142">
+                                    </a>
+                                    <div class="video_info">
+                                        <a href="http://www.youtube.com/watch?v=3Cy3YbiYxsU" target="_blank">EVE Online: Retribution Trailer</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>                        
