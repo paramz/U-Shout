@@ -200,6 +200,19 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 
 /*========================================================*/
 
+#ushout_densitychart {
+	position: absolute;
+	top: auto;
+	right: 0px;
+	bottom: 27px;
+	left: 0px;
+	/*overflow: hidden;*/
+	
+	/*opacity: 0;*/
+}
+
+/*========================================================*/
+
 #ushout_post_audio_comment_frame {
 	
 }

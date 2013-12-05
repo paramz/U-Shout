@@ -287,6 +287,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			'ushout_tooltip_rightaligned': 'true'
 		});
 	
+	ushout.$densityChart = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('densitychart'));		
+	
 	// ushout control bar =============================================//
 	ushout.$ushoutBar = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('ushoutbar'));
@@ -572,6 +575,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 					ushout.$fullscreen_button
 				)
 			), // ushout.$controlBar
+			ushout.$densityChart,
 			ushout.$ushoutBar.append(
 				ushout.$rtc_controls_wrapper.append(
 					ushout.$rtc_toggle_frame.append(
@@ -1607,7 +1611,11 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 				});
 			switch (newComment.dtype) {
 				case 0: // text comment
-					$newComment.text(newComment.data);
+					var commentTime;
+					
+					commentTime = ("0" + parseInt((newComment.tiv / 60000))).slice(-2) + ":" + ("0" + parseInt(parseInt((newComment.tiv % 60000)) / 1000)).slice(-2);
+					
+					$newComment.text(commentTime + " " + newComment.data);
 					break;
 				default:
 			}
@@ -1652,6 +1660,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		if (ushout.data.pullingComments) {
 			ushout.data.commentReloader = window.setTimeout(ushout.controller.pullComments, ushout.data.commentReloadTime);
 		}
+		
+		// TODO: load the density chart from the comment list
+		// ushout.$densityChart.text('chart');
 	};
 	ushout.controller.pullComments = function () {
 		// pull from server with the time of last pull
