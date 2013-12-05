@@ -473,7 +473,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		.attr({
 			'id': _u('rtc_channels_advanced_link'),
 			'target': '_blank',
-			'href': 'http://google.com'
+			'href': 'http://web-revival.web.engr.illinois.edu/channels/channels.php'
 		})
 		.text('Manage Channels ...');
 	
