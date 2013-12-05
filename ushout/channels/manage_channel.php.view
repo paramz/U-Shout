@@ -163,7 +163,7 @@ img {
 
 
 </div --> <!-- end chan_videos -->
-<div class="video_list" style="overflow-y: hidden;">
+<div class="video_list" style="overflow-y: hidden; height: auto;">
     <?php foreach ($videos as $video)
         include '../videos/video_list_item.php.view';
     ?>

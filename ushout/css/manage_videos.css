@@ -78,9 +78,18 @@
 	background-color:white;
 }
 
+.video_description span {
+	height: 40px;
+	
+	display: block;
+	overflow: hidden;
+	/*white-space: nowrap;*/
+	text-overflow: ellipsis;	
+}
+
 #submit_video{
 	width:200px;
-	height:200px;
+	height:200px;	
 }
 
 #add_video{
