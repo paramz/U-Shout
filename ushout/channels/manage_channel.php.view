@@ -59,10 +59,10 @@ img {
 <div style="width: 50%; float: left;">
 <form>
     <div class="label">Name</div>
-    <input class="standard_input" type="text"></input>
+    <input class="standard_input" type="text" value="<?php echo $channel->name ?>"/>
     
     <div class="label">Description</div>
-    <textarea class="textarea_input" cols=50 rows=5></textarea>
+    <textarea class="textarea_input" cols=50 rows=5><?php echo $channel->description ?></textarea>
     
     <button class="prompt">Save</button>
 </form>
@@ -71,9 +71,9 @@ img {
 <div class="invites" style="float: left;">
 	<div class="label" style="">Access</div>
 		<form action="">
-		    <input type="radio" name="inv[]" value="public" style="margin-bottom: 1px;" /> Public<br />
-		    <input type="radio" name="inv[]" value="invite" style="margin-bottom: 1px;" /> Invite Only<br />
-		    <input type="radio" name="inv[]" value="private" style="margin-bottom: 1px;" /> Private<br />
+		    <input type="radio" name="inv[]" value="public" style="margin-bottom: 1px;" <?php if ($channel->access == 'public') echo 'checked=""'; ?>/> Public<br />
+		    <input type="radio" name="inv[]" value="invite" style="margin-bottom: 1px;" <?php if ($channel->access == 'invite') echo 'checked=""'; ?> /> Invite Only<br />
+		    <input type="radio" name="inv[]" value="private" style="margin-bottom: 1px;" <?php if ($channel->access == 'private') echo 'checked=""'; ?> /> Private<br />
 		    <button class="prompt" type="submit">Save</button>
 		</form>
 

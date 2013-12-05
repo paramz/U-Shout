@@ -8,7 +8,8 @@ class ChannelModel
     var $description;
     var $subscriber_count;
     var $video_count;
-    var $id;    
+    var $id;
+    var $access;
     
     function ChannelModel($values)
     {
@@ -18,6 +19,7 @@ class ChannelModel
         $this->subscriber_count = $values['subscriber_count'];
         $this->video_count = $values['video_count'];
         $this->id = $values['id'];
+        $this->access = $values['access'];
     }
     
     public function find_all()
@@ -27,7 +29,8 @@ class ChannelModel
           'description' => 'Dave Matthews Band1 this is a really long description stupid stupid stupid',
           'subscriber_count' => 6131,
           'video_count' => 67,
-          'id' => 1
+          'id' => 0,
+          'access' => 'public'
         ));
 
         $channels[] = new ChannelModel(array(
@@ -35,7 +38,8 @@ class ChannelModel
           'description' => 'Highlights from Gavin\'s CC Meets',
           'subscriber_count' => 19,
           'video_count' => 2317,
-          'id' => 2
+          'id' => 1,
+          'access' => 'private'
         ));
       
         $channels[] = new ChannelModel(array(
@@ -43,7 +47,8 @@ class ChannelModel
           'description' => 'Funny Cat Videos',
           'subscriber_count' => 381,
           'video_count' => 5243,
-          'id' => 3
+          'id' => 2,
+          'access' => 'invite'
         ));
 
         $channels[] = new ChannelModel(array(
@@ -51,7 +56,8 @@ class ChannelModel
           'description' => 'Sports Center',
           'subscriber_count' => 381,
           'video_count' => 5243,
-          'id' => 4
+          'id' => 3,
+          'access' => 'public'
         ));
       
         $channels[] = new ChannelModel(array(
@@ -59,7 +65,8 @@ class ChannelModel
           'description' => 'No one likes this channel',
           'subscriber_count' => 2,
           'video_count' => 9,
-          'id' => 5
+          'id' => 4,
+          'access' => 'public'
         ));
               
         return $channels;    
