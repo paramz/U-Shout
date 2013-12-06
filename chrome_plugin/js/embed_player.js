@@ -1200,7 +1200,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		return result;
 	};
 	youtube.$movieplayer.reload = function () {
-		youtube.$movieplayer.detach();
+	//	video.player.loadVideoById(video.id); // didn't work
+	//	youtube.$movieplayer.detach();
 		youtube.$movieplayer.prependTo(youtube.$playerapi);
 		return youtube.$movieplayer;
 	};
