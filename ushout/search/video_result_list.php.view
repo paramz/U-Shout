@@ -1,6 +1,5 @@
 <?php include '../template-header.php';?>
 <link rel="stylesheet" href="/css/manage_videos.css?version=1">
-<?php include 'new_video.php' ?>
 
 <h2>Search Results returned in 0.002 seconds</h2>
 
