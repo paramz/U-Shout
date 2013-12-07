@@ -14,11 +14,21 @@
 		}
 		else
 		{
-			$search_text = $_GET["search"];			
-			$videos = VideoModel::search( $search_text );
-			// $videos = VideoModel::find_all();
-							    
-			include('video_result_list.php.view');
+			$search_text = $_GET["search"];
+			
+			if ($search_text == "")
+			{
+				$search_text="type here to search...";
+			
+				include('search.php.view');
+			}
+			else
+			{
+				$videos = VideoModel::search( $search_text );
+				$videos = VideoModel::find_all();
+								    
+				include('video_result_list.php.view');
+			}
 		}
 		  
 	}
