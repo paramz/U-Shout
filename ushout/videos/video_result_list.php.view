@@ -1,0 +1,26 @@
+<?php include '../template-header.php';?>
+<link rel="stylesheet" href="/css/manage_videos.css?version=1">
+<?php include 'new_video.php' ?>
+
+<h2>My Videos</h2>
+
+<div class="new_video">
+    <div>
+        <button id="upload_video" class="prompt" type="submit">Upload Video</button>
+    </div>
+</div>
+
+<div class="video_list">
+    <?php 
+    if( !empty($videos) ){
+        foreach ($videos as $video){
+            include 'video_result_list_item.php.view';
+        }
+    }
+    else{
+        echo "<p>No match found! Try 'cat'!!</p>";
+    }
+    ?>
+</div>
+                 
+<?php include '../template-footer.php';?>
