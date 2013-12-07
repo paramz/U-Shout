@@ -32,7 +32,7 @@
 					<div id="logo" onclick="window.location='/search/search.php'" tooltip="search for videos">U Shout</div>
 					<?if(!isset($_GET['hide_menu'])){?>
 					<div id="search_container">
-						<form>
+						<form id="search_form">
 							<input id="search_input" type="text" value="<?php echo $search_text ?>" name="search">
 							<button id="search_submit" type="submit" tooltip="click to search" demo="no">Search</button>
 						</form>

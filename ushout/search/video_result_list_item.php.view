@@ -1,0 +1,26 @@
+			<form action="videos.php"> 
+            <div class="video_list_item">
+				<div class="video_options">Share | Delete</div> 
+				<div class="video_item">
+					<div class="video_name tooltipbelow" tooltip="<?php echo $video->name; ?>"><a href="http://www.youtube.com/watch?v=<?php echo $video->id; ?>" target="_blank"><?php echo $video->name; ?></a></div>                 
+					<div class="video_embed">
+						<a href="http://www.youtube.com/watch?v=<?php echo $video->id; ?>" target="_blank">
+							<img width="100%" src="http://i1.ytimg.com/vi/<?php echo $video->id; ?>/mqdefault.jpg">
+						</a>
+					</div>
+					<div class="video_stats">
+						<div class="video_stat_item video_description" tooltip="<?php echo $video->description; ?>"><span><?php echo $video->description; ?></span></div>
+						<br/>
+						<div class="video_stat_item">Views: <?php echo $video->views; ?></div>
+						<div class="video_stat_item">Likes: <?php echo $video->likes; ?></div>
+						<div class="video_stat_item">Dislikes: <?php echo $video->dislikes; ?></div>
+						<br/>
+						<div class="video_stat_item">Tags:</div>
+						<div class="video_stat_item">Channels:</div>
+					</div>
+				</div>
+            </div>
+            
+            <input type="hidden" name="channel_id" value="<?php echo $video->id ?>"/>
+        
+        </form>
