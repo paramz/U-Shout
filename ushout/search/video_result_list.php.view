@@ -12,7 +12,7 @@
         }
     }
     else{
-        echo "<p>No match found! Try 'cat'!!</p>";
+        echo "<p>sorry, no results found ...</p>";
     }
     ?>
 </div>
