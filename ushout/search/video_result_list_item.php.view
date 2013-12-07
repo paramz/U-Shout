@@ -1,6 +1,6 @@
 			<form action="videos.php"> 
             <div class="video_list_item">
-				<div class="video_options">Share | Delete</div> 
+				<div class="video_options">Share</div> 
 				<div class="video_item">
 					<div class="video_name tooltipbelow" tooltip="<?php echo $video->name; ?>"><a href="http://www.youtube.com/watch?v=<?php echo $video->id; ?>" target="_blank"><?php echo $video->name; ?></a></div>                 
 					<div class="video_embed">

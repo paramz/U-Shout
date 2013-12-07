@@ -15,8 +15,8 @@
 		else
 		{
 			$search_text = $_GET["search"];			
-			// $videos = VideoModel::search( $search_text );
-			$videos = VideoModel::find_all();
+			$videos = VideoModel::search( $search_text );
+			// $videos = VideoModel::find_all();
 							    
 			include('video_result_list.php.view');
 		}
