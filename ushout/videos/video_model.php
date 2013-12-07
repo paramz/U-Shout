@@ -9,7 +9,7 @@ class VideoModel
     var $views;
     var $likes;
     var $dislikes;
-	var $id;
+    var $id;
     
     function VideoModel($values)
     {
@@ -22,7 +22,7 @@ class VideoModel
         $this->id = $values['id'];
     }
     
-    public function find_all()
+    public static function find_all()
     {
         $videos[] = new VideoModel(array(
           'id' => 'JZQOs0L9q2k',
@@ -72,6 +72,18 @@ class VideoModel
               
         return $videos;    
     }
+    
+    public static function search( $search_text )
+    {
+    	$videos = VideoModel::find_all();
+    	foreach ($videos as $video){
+    		if( stripos($video->name, $search_text) !== FALSE || ( strpos($video->description, $search_text) !== FALSE ) ){
+    			$result_videos[] = $video;
+    		}
+    	}
+    	return $result_videos;
+    }
+    
 }
 
 ?>
