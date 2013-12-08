@@ -530,6 +530,9 @@ body.ushout_rtc #ushout_rtc_controls_wrapper:before {
 	
 	background-color: transparent;
 	background-image: url('chrome-extension://__MSG_@@extension_id__/images/help.png');
+	background-repeat: no-repeat;
+	background-position-y: -27px;
+	background-position-x: 0;
 	
 	outline: none;
 }
