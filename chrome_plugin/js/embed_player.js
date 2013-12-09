@@ -173,7 +173,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton0 = ushout.templates.dishButton()
 		.addClass(_u('pos0'))
-		.attr(_u('tooltip'), "__MSG_tooltip_dishpanel_videocomment__")
+		.attr(_u('tooltip'), chrome.i18n.getMessage("tooltip_dishpanel_videocomment"))
 		.mouseup(function () {
 			log('video comment from dish panel');
 		});
@@ -181,7 +181,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton1 = ushout.templates.dishButton()
 		.addClass(_u('pos1'))
-		.attr(_u('tooltip'), "__MSG_tooltip_dishpanel_voteup__")
+		.attr(_u('tooltip'), chrome.i18n.getMessage("tooltip_dishpanel_voteup"))
 		.mouseup(function () {
 			log('comment vote up from dish panel');
 		});
@@ -189,7 +189,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton2 = ushout.templates.dishButton()
 		.addClass(_u('pos2'))
-		.attr(_u('tooltip'), "__MSG_tooltip_dishpanel_textcomment__")
+		.attr(_u('tooltip'), chrome.i18n.getMessage("tooltip_dishpanel_textcomment"))
 		.mouseup(function () {
 			log('text comment from dish panel');
 			ushout.$dishPanel_operationMask.addClass('active');
@@ -200,7 +200,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton3 = ushout.templates.dishButton()
 		.addClass(_u('pos3'))
-		.attr(_u('tooltip'), "__MSG_tooltip_dishpanel_audiocomment__")
+		.attr(_u('tooltip'), chrome.i18n.getMessage("tooltip_dishpanel_audiocomment"))
 		.mouseup(function () {
 			log('audio comment from dish panel');
 		});
@@ -208,7 +208,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton4 = ushout.templates.dishButton()
 		.addClass(_u('pos4'))
-		.attr(_u('tooltip'), "__MSG_tooltip_dishpanel_votedown__")
+		.attr(_u('tooltip'), chrome.i18n.getMessage("tooltip_dishpanel_votedown"))
 		.mouseup(function () {
 			log('comment vote down from dish panel');
 		});
@@ -216,7 +216,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton5 = ushout.templates.dishButton()
 		.addClass(_u('pos5'))
-		.attr(_u('tooltip'), "__MSG_tooltip_dishpanel_showinfo__")
+		.attr(_u('tooltip'), chrome.i18n.getMessage("tooltip_dishpanel_showinfo"))
 		.mouseup(function () {
 			log('comment info from dish panel');
 		});
