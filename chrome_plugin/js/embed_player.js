@@ -70,14 +70,17 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		
 	ushout.templates.$commentItem = ushout.templates.$LI.clone(true)
 		.addClass(_u('commentitem'));
-	ushout.templates.$commentBullet = ushout.templates.$DIV.clone(true)
-		.addClass(_u('commentbullet'));
 	
 	// video area =====================================================//
 	ushout.$touchArea = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('toucharea'));
 	ushout.$comments = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('comments'));
+	ushout.templates.$commentBullet = ushout.templates.$DIV.clone(true)
+		.addClass(_u('commentbullet'));
+	ushout.templates.$commentDart = ushout.templates.$DIV.clone(true)
+		.addClass(_u('commentdart'));
+
 	// dish panel =====================================================//
 	ushout.$dishPanel = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('dishpanel'));
@@ -104,7 +107,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 					ushout.data.shouldResume = false;
 				}
 
-				ushout.controller.postFloatingTextComment(commentText);
+				ushout.controller.postPositionalTextComment(commentText, ushout.data.poi.x, ushout.data.poi.y);
 			}
 			
 			return false;
@@ -671,6 +674,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		} else {
 			ushout.$dishPanel_textComment_frame.removeClass('lower');
 		}
+		// record position in data object
+		ushout.data.poi.x = x;
+		ushout.data.poi.y = y;
 		var position = {
 			top: y * 100 + '%',
 			left: x * 100 + '%'
@@ -706,6 +712,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	});
 	ushout.$comments.mousedown(function (event) {
 		if (event.which === 1) { // LMB
+			warn('comments mousedown');
 			var mouseX = (event.pageX - ushout.$touchArea.offset().left) / ushout.$touchArea.width(),
 				mouseY = (event.pageY - ushout.$touchArea.offset().top) / ushout.$touchArea.height();
 			
@@ -714,7 +721,17 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 					'disabled': false
 				});
 			
+			// update target x y if not this
+			$target = $(event.target);
+			if ($target.hasClass(_u('commentdart'))) {
+				var dartFocusJSON = $target.attr(_u('focus'));
+				var dartFocus = JSON.parse(dartFocusJSON); // in percentage
+				mouseX = dartFocus.x;
+				mouseY = dartFocus.y;
+			}
+
 			ushout.$dishPanel.moveTo(mouseX, mouseY);
+
 			window.clearTimeout(ushout.data.dishPanelTimer);
 			ushout.data.dishPanelTimer = window.setTimeout(ushout.$dishPanel.popUp, ushout.data.dishPanelDelay);
 			return false;
@@ -1416,7 +1433,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.controller.resumeAnimationOf = function ($commentBullet) {
 		var ptype = parseInt($commentBullet.attr(_u('ptype')));
 		switch (ptype) {
-			case 0: // normal, right-to-left floating comment
+			case ushout.constants.ptype.right2left:
 				var position = $commentBullet.position();
 				var endingLeft = -$commentBullet.width();
 				var duration = ($commentBullet.width() + position.left) / ushout.data.bulletSpeed * 1000;
@@ -1427,13 +1444,38 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 					$commentBullet.remove();
 				});
 				break;
-			case 1:
+			case ushout.constants.ptype.left2right:
 				break;
-			case 2:
+			case ushout.constants.ptype.top:
 				break;
-			case 3:
+			case ushout.constants.ptype.bottom:
 				break;
-			case 4:
+			case ushout.constants.ptype.poi:
+				var position = $commentBullet.position();
+				var bulletFocusJSON = $commentBullet.attr(_u('focus'));
+				var bulletFocus = JSON.parse(bulletFocusJSON); // in percentage
+				var bulletAngle = parseInt($commentBullet.attr(_u('angle'))); // in degree
+				var bulletOpacity = parseFloat($commentBullet.css('opacity'));
+				var duration = bulletOpacity / ushout.constants.POI_fadeRate * 1000;
+
+				var bulletAngleInRadian = bulletAngle / 180 * Math.PI;
+				var endingTop = bulletFocus.y - (ushout.constants.POI_maxRadius / ushout.$comments.height()) * Math.cos(bulletAngleInRadian),
+					endingLeft = bulletFocus.x + (ushout.constants.POI_maxRadius / ushout.$comments.width()) * Math.sin(bulletAngleInRadian);
+
+				$commentBullet.animate({
+					top: endingTop * 100 + '%',
+					left: endingLeft * 100 + '%',
+					opacity: 0
+				}, duration, 'linear', function () {
+					// remove bullet from track
+					$commentBullet.remove();
+					// remove dart if no other comments at this point is present
+					var $dart = ushout.$comments.find('.' + _u('commentdart') + '[' + _u('focus') + '="' + bulletFocusJSON + '"]');
+					var bulletsHere = ushout.$comments.find('.' + _u('textcomment') + '[' + _u('ptype') + '="4"][' + _u('focus') + '="' + bulletFocusJSON + '"]');
+					if (bulletsHere.length === 0) {
+						$dart.remove();
+					}
+				});
 				break;
 			default:
 				break;
@@ -1466,26 +1508,26 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 		$newBullet.attr(_u('dtype'), comment.dtype);
 		// prepare content based on data type
 		switch (comment.dtype) {
-			case 0: // text
+			case ushout.constants.dtype.text:
 				$newBullet.addClass(_u('textcomment'));
 				$newBullet.text(comment.data);
 				break;
-			case 1: // audio
+			case ushout.constants.dtype.audio:
 				break;
-			case 2: // video
+			case ushout.constants.dtype.video:
 				break;
-			case 3: // macro
+			case ushout.constants.dtype.macro:
 				break;
 			default:
 		}
 		
 		$newBullet.attr(_u('ptype'), comment.ptype);
 		switch (comment.ptype) {
-			case 0: // normal, right-to-left floating comment
+			case ushout.constants.ptype.right2left: // normal, right-to-left floating comment
 				// find available height
 				var bulletTop;
 				
-				var $last = ushout.data.bullets[0].$last;
+				var $last = ushout.data.bullets[comment.ptype].$last;
 				if ($last !== null) {
 					var lastBullet_position = $last.position();
 					var lastBullet_left   = lastBullet_position.left,
@@ -1505,16 +1547,16 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 					bulletTop = 0;
 				}
 				
-				log('comment (' + comment.id + ') shooting at ' + bulletTop);
+				log('R2L comment (' + comment.id + ') shooting at ' + bulletTop);
 				// no need to save it
-			//	ushout.data.bullets[0].list.push($newBullet);
+			//	ushout.data.bullets[comment.ptype].list.push($newBullet);
 				// use append because new bullets should always cover the old ones
 				ushout.$comments.append($newBullet);
 				if ((bulletTop + $newBullet.height()) > ushout.$comments.height()) {
 					bulletTop = 0;
 				}
 				// point the reference to this
-				ushout.data.bullets[0].$last = $newBullet;
+				ushout.data.bullets[comment.ptype].$last = $newBullet;
 
 				$newBullet.css({
 					top: bulletTop + 'px',
@@ -1524,13 +1566,59 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 				if (ushout.data.playState === playState.playing)
 					ushout.controller.resumeAnimationOf($newBullet);
 				break;
-			case 1:
+			case ushout.constants.ptype.left2right:
 				break;
-			case 2:
+			case ushout.constants.ptype.top:
 				break;
-			case 3:
+			case ushout.constants.ptype.bottom:
 				break;
-			case 4:
+			case ushout.constants.ptype.poi:
+				// find available angle
+				var bulletFocus = comment.poi; // in percentage
+				var bulletFocusJSON = JSON.stringify(bulletFocus);
+				var bulletAngle;
+				
+				var bulletsHere = ushout.$comments.find('.' + _u('textcomment') + '[' + _u('ptype') + '="4"][' + _u('focus') + '="' + bulletFocusJSON + '"]');
+				if (bulletsHere.length > 0) {
+					var $last = $(bulletsHere[bulletsHere.length - 1]);
+					var lastBullet_fucos = JSON.parse($last.attr(_u('focus'))); // in percentage
+					var lastBullet_angle = parseInt($last.attr(_u('angle'))); // in degree
+					bulletAngle = lastBullet_angle + 30; // single step + 30
+					if (bulletAngle >= 360)
+						bulletAngle = bulletAngle % 360;
+				} else {
+					bulletAngle = 30;
+					// create a dart for following comments
+					var $dart = ushout.templates.$commentDart.clone(true)
+						.attr(_u('focus'), bulletFocusJSON)
+						.css({
+							top: bulletFocus.y * 100 + '%',
+							left: bulletFocus.x * 100 + '%'
+						});
+					ushout.$comments.append($dart);
+				}
+				
+				log('POI comment (' + comment.id + ') shooting at (' + bulletFocus.x + ', ' + bulletFocus.y + ') at ' + bulletAngle + ' degree');
+				// no need to save it
+			//	ushout.data.bullets[comment.ptype].list.push($newBullet);
+				// store focus and angle data
+				$newBullet.attr(_u('focus'), bulletFocusJSON);
+				$newBullet.attr(_u('angle'), bulletAngle);
+				// use append because new bullets should always cover the old ones
+				ushout.$comments.append($newBullet);
+
+				var bulletAngleInRadian = bulletAngle / 180 * Math.PI;
+				var bulletTop = bulletFocus.y - (ushout.constants.POI_minRadius / ushout.$comments.height()) * Math.cos(bulletAngleInRadian),
+					bulletLeft = bulletFocus.x + (ushout.constants.POI_minRadius / ushout.$comments.width()) * Math.sin(bulletAngleInRadian);
+
+				$newBullet.css({
+					top: bulletTop * 100 + '%',
+					left: bulletLeft * 100 + '%',
+					opacity: 1
+				});
+
+				if (ushout.data.playState === playState.playing)
+					ushout.controller.resumeAnimationOf($newBullet);
 				break;
 			default:
 				break;
@@ -1611,7 +1699,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 					'data': newComment.data // comment data in strings (base64 string for binary data)
 				});
 			switch (newComment.dtype) {
-				case 0: // text comment
+				case ushout.constants.dtype.text: // text comment
 					var commentTime;
 					
 					commentTime = ("0" + parseInt((newComment.tiv / 60000))).slice(-2) + ":" + ("0" + parseInt(parseInt((newComment.tiv % 60000)) / 1000)).slice(-2);
@@ -1690,36 +1778,43 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	ushout.controller.postFloatingTextComment = function (commentText) {
 		// lock commenting
 		ushout.controller.lockAfterPostingComment();
-		ushout.server.pushTextComment(commentText, function (commentID) {
+		var comment = {
+			'id': -1, // id of the comment in database
+			'pid': 0, // post id. non-zero if this is a follow-up
+			'tiv': -1, // time in video, in milliseconds
+			'ptype': ushout.constants.ptype.right2left, // position type
+			'poi': { // only used when ptype = 4
+				x: 0, // coordinate in percentages
+				y: 0
+			},
+			'dtype': ushout.constants.dtype.text, // data type
+			'data': commentText // comment data in strings (base64 string for binary data)
+		};
+		ushout.server.pushTextComment(comment, function (comment) {
 			// shoot the comment manually
-			ushout.controller.shoot({
-				'id': commentID, // id of the comment in database
-				'uid': -1, // id of the user who posted this comment
-				'pid': 0, // post id. non-zero if this is a follow-up
-				'tiv': -1, // time in video, in milliseconds
-				'dop': -1, // date of posting
-				'ptype': 0, // position type
-				/**
-				 * ptype: 0 - normal, right-to-left floating comment
-				 * ptype: 1 - normal, left-to-right floating comment
-				 * ptype: 2 - normal, top fixed comment
-				 * ptype: 3 - normal, bottom fixed comment
-				 * ptype: 4 - POI (point of interest) comment
-				 **/
-				'poi': { // only used when ptype = 4
-					x: 0, // coordinate in percentages
-					y: 0
-				},
-				'dtype': 0, // data type
-				/**
-				 * dtype: 0 - text
-				 * dtype: 1 - audio
-				 * dtype: 2 - video
-				 * dtype: 3 - macro
-				 **/
-				'data': commentText, // comment data in strings (base64 string for binary data)
-				'repu': 0 // reputation, for votings
-			}, 'user');
+			ushout.controller.shoot(comment, 'user');
+			// unlock commenting
+			ushout.controller.unlockAfterPostingComment();
+		});
+	};
+	ushout.controller.postPositionalTextComment = function (commentText, poiX, poiY) {
+		// lock commenting
+		ushout.controller.lockAfterPostingComment();
+		var comment = {
+			'id': -1, // id of the comment in database
+			'pid': 0, // post id. non-zero if this is a follow-up
+			'tiv': -1, // time in video, in milliseconds
+			'ptype': ushout.constants.ptype.poi, // position type
+			'poi': { // only used when ptype = 4
+				x: poiX, // coordinate in percentages
+				y: poiY
+			},
+			'dtype': ushout.constants.dtype.text, // data type
+			'data': commentText // comment data in strings (base64 string for binary data)
+		};
+		ushout.server.pushTextComment(comment, function (comment) {
+			// shoot the comment manually
+			ushout.controller.shoot(comment, 'user');
 			// unlock commenting
 			ushout.controller.unlockAfterPostingComment();
 		});

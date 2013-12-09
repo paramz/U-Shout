@@ -127,69 +127,67 @@ function ushout($body, log, warn, _u) {
 					ushout.data.lastPull = data.lastcheck;
 					callback(data.list, data.lastcheck);
 				});
-				return;
-				// fake data
-				callback( (timeStamp) ? [] : [
-					{
-						'id': 1, // id of the comment in database
-						'uid': 1, // id of the user who posted this comment
-						'pid': 0, // post id. non-zero if this is a follow-up
-						'tiv': 2000, // time in video, in milliseconds
-						'dop': 0, // date of posting
-						'ptype': 0, // position type
-						/**
-						 * ptype: 0 - normal, right-to-left floating comment
-						 * ptype: 1 - normal, left-to-right floating comment
-						 * ptype: 2 - normal, top fixed comment
-						 * ptype: 3 - normal, bottom fixed comment
-						 * ptype: 4 - POI (point of interest) comment
-						 **/
-						'poi': { // only used when ptype = 4
-							x: 0.3, // coordinate in percentages
-							y: 0.3
-						},
-						'dtype': 0, // data type
-						/**
-						 * dtype: 0 - text
-						 * dtype: 1 - audio
-						 * dtype: 2 - video
-						 * dtype: 3 - macro
-						 **/
-						'data': 'hello world!', // comment data in strings (base64 string for binary data)
-						'repu': 0 // reputation, for votings
-					}
-				]);
 			},
-			pushTextComment: function (textContent, callback) {
+			pushTextComment: function (comment, callback) {
 				var url = 'http://uiuc.icradle.net/cs465/receipt.php';
 				var secretTimeStamp = (new Date()).getMilliseconds();
+				ushout.data.commentLockSecret = secretTimeStamp;
+
 				var videoTimeInMilliseconds = Math.floor(video.player.getCurrentTime() * 1000);
-				ushout.data.textCommentSecret = secretTimeStamp;
-				$.post(url, {
+				comment.tiv = videoTimeInMilliseconds;
+				var commentJSON = JSON.stringify(comment);
+				var POSTData = {
 					'v': video.id,
 					'secret': secretTimeStamp,
-					'content': String(textContent),
-					'time': videoTimeInMilliseconds
-				}, function (data, textStatus, jqXHR) {
-					if (ushout.data.textCommentSecret === data.secret) {
-						callback(data.cid);
+					'content': commentJSON
+				};
+				warn('sending...');
+				console.warn(POSTData);
+				$.post(url, POSTData, function (data, textStatus, jqXHR) {
+					warn('receiving...');
+					console.warn(data);
+					if (ushout.data.commentLockSecret === data.secret) {
+						callback(data.comment);
 					} else {
-						warn('secret mis-match: ' + ushout.data.textCommentSecret + ' - ' + data.secret);
+						warn('secret mis-match: ' + ushout.data.commentLockSecret + ' - ' + data.secret);
 					}
 				}, 'json');
 				// add code here to send request to server
 			}
-		},
+		}, // ushout.server
 		localSettings: {
 			rtcActivated: false,
 			volume: 100,
 			muted: false,
 			restoreVolume: -1
-		},
+		}, // ushout.localSettings
+		constants: {
+			ptype: {
+				right2left: 0,
+				left2right: 1,
+				top: 2,
+				bottom: 3,
+				poi: 4
+			},
+			dtype: {
+				text: 0,
+				audio: 1,
+				video: 2,
+				macro: 3
+			},
+			POI_fadeRate: 0.3,
+			POI_minRadius: 15,
+			POI_maxRadius: 100
+		}, // ushout.constants
 		data: {
 			playState: -1,
 			adState: -1,
 			updater: -1,
+			commentLockSecret: 0,
+			poi: {
+				x: 0,
+				y: 0
+			},
 			comments: [],
 			commentReloadTime: 1000,
 			commentReloader: -1,
@@ -224,10 +222,10 @@ function ushout($body, log, warn, _u) {
 				y: 3
 			},
 			bulletSpeed: 100
-		},
+		}, // ushout.data
 		controller : {
 			stateChangeJumpTable: {}
-		}, // controller
+		}, // ushout.controller
 		templates: {
 			$DIV    : $('<div>').addClass(_u('simplebox')),
 			$UL     : $('<ul>').addClass(_u('simplebox')),
@@ -247,7 +245,7 @@ function ushout($body, log, warn, _u) {
 				}),
 			$LABEL  : $('<label>').addClass(_u('simplebox')),
 			$A      : $('<a>').addClass(_u('simplebox'))
-		}
+		} // ushout.templates
 	} // ushout
 	
 	if (youtube.$movieplayer.prop("tagName").toLowerCase() === 'embed') {

@@ -240,12 +240,27 @@ body.ushout_rtc #ushout_comments {
 	white-space: nowrap;	
 	color: white;
 }
-#ushout_comments .ushout_textcomment {
-	padding: 5px;
-	font-size: 14px;
-}
 #ushout_comments .ushout_commentbullet.ushout_user {
 	border: 1px solid blue;
+}
+#ushout_comments .ushout_textcomment {
+	margin: -7px 0;
+	padding: 5px;
+	font-size: 14px;
+	line-height: 14px;
+}
+#ushout_comments .ushout_commentdart {
+	display: block;
+	position: absolute;
+
+	margin: -10px;
+
+	border-radius: 10px;
+
+	height: 20px;
+	width: 20px;
+
+	background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* dish panel ================================================================*/
