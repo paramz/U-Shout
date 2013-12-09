@@ -153,5 +153,31 @@
 	"tooltipMarginLeftOffset_settings": {
 		"message": "-27px",
 		"description": "Margin-Left of the Tooltip"
+	},
+
+	// tooltips for dish panels
+	"tooltip_dishpanel_videocomment": {
+		"message": "Video\nComment",
+		"description": "Tooltip for dish-panel buttons"
+	},
+	"tooltip_dishpanel_voteup": {
+		"message": "Vote Up",
+		"description": "Tooltip for dish-panel buttons"
+	},
+	"tooltip_dishpanel_textcomment": {
+		"message": "Text\nComment",
+		"description": "Tooltip for dish-panel buttons"
+	},
+	"tooltip_dishpanel_audiocomment": {
+		"message": "Audio\nComment",
+		"description": "Tooltip for dish-panel buttons"
+	},
+	"tooltip_dishpanel_votedown": {
+		"message": "Vote Down",
+		"description": "Tooltip for dish-panel buttons"
+	},
+	"tooltip_dishpanel_showinfo": {
+		"message": "Show Info",
+		"description": "Tooltip for dish-panel buttons"
 	}
 }
