@@ -84,6 +84,8 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	// dish panel =====================================================//
 	ushout.$dishPanel = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('dishpanel'));
+	ushout.$dishPanel_title = ushout.templates.$DIV.clone(true)
+		.attr('id', _u('dishpanel_title'));
 	ushout.$dishPanel_operationMask = ushout.templates.$DIV.clone(true)
 		.attr('id', _u('dishpanel_operationmask'));
 	ushout.$dishPanel_textComment_frame = ushout.templates.$FORM.clone(true)
@@ -158,8 +160,12 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 			.appendTo($result.$clipper);
 		
 		$result.$clipper.mouseover(function () {
+			ushout.$dishPanel_title.text($result.attr(_u('tooltip')));
+			ushout.$dishPanel_title.addClass(_u('active'));
 			$result.$clipper.addClass(_u('mouseover'));
 		}).mouseout(function () {
+			ushout.$dishPanel_title.text('');
+			ushout.$dishPanel_title.removeClass(_u('active'));
 			$result.$clipper.removeClass(_u('mouseover'));
 		});
 		return $result;
@@ -167,6 +173,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton0 = ushout.templates.dishButton()
 		.addClass(_u('pos0'))
+		.attr(_u('tooltip'), "Video\nComment")
 		.mouseup(function () {
 			log('video comment from dish panel');
 		});
@@ -174,6 +181,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton1 = ushout.templates.dishButton()
 		.addClass(_u('pos1'))
+		.attr(_u('tooltip'), 'Vote Up')
 		.mouseup(function () {
 			log('comment vote up from dish panel');
 		});
@@ -181,6 +189,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton2 = ushout.templates.dishButton()
 		.addClass(_u('pos2'))
+		.attr(_u('tooltip'), "Comment\nHere")
 		.mouseup(function () {
 			log('text comment from dish panel');
 			ushout.$dishPanel_operationMask.addClass('active');
@@ -191,6 +200,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton3 = ushout.templates.dishButton()
 		.addClass(_u('pos3'))
+		.attr(_u('tooltip'), "Audio\nComment")
 		.mouseup(function () {
 			log('audio comment from dish panel');
 		});
@@ -198,6 +208,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton4 = ushout.templates.dishButton()
 		.addClass(_u('pos4'))
+		.attr(_u('tooltip'), 'Vote Down')
 		.mouseup(function () {
 			log('comment vote down from dish panel');
 		});
@@ -205,6 +216,7 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 	
 	ushout.$dishButton5 = ushout.templates.dishButton()
 		.addClass(_u('pos5'))
+		.attr(_u('tooltip'), 'Show Info')
 		.mouseup(function () {
 			log('comment info from dish panel');
 		});
@@ -550,7 +562,9 @@ function embed_player($body, youtube, video, ushout, log, warn, _u) {
 					ushout.$dishPanel_textComment_submit,
 					ushout.$dishPanel_textComment_cancel
 				),
-				ushout.$dishPanel
+				ushout.$dishPanel.append(
+					ushout.$dishPanel_title
+				)
 			),
 			ushout.$progressBar.append(
 				ushout.$buffProgress,

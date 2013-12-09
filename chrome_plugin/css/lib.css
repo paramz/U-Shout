@@ -434,6 +434,22 @@ body.ushout_rtc #ushout_comments {
 	-o-transition: opacity 300ms;
 	transition: opacity 300ms;
 }
+#ushout_dishpanel_title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	margin: -12px -100px;
+
+	height: 30px;
+	width: 200px;
+
+	white-space: pre-wrap;
+	font-size: 14px;
+	line-height: 15px;
+	color: white;
+	text-align: center;
+}
 .ushout_dishbutton {
 	display: block;
 	position: absolute;
